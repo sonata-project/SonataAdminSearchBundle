@@ -23,7 +23,7 @@
     "suggest": {
     },
     "autoload": {
-        "psr-4": { "Sonata\\SearchAdminBundle\\": "" }
+        "psr-4": { "Sonata\\AdminSearchBundle\\": "" }
     },
     "extra": {
         "branch-alias": {
