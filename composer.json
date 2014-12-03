@@ -1,0 +1,33 @@
+{
+    "name": "sonata-project/admin-search-bundle",
+    "type": "symfony-bundle",
+    "description": "Symfony SonataAdminSearchBundle",
+    "keywords": ["Admin", "search", "sonata" ],
+    "homepage": "http://sonata-project.org/bundles/admin-search",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Thomas Rabaix",
+            "email": "thomas.rabaix@sonata-project.org",
+            "homepage": "http://sonata-project.org"
+        },
+        {
+            "name": "Sonata Community",
+            "homepage": "https://github.com/sonata-project/SonataAdminBundle/contributors"
+        }
+    ],
+    "require": {
+    },
+    "require-dev": {
+    },
+    "suggest": {
+    },
+    "autoload": {
+        "psr-4": { "Sonata\\SearchAdminBundle\\": "" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.x-dev"
+        }
+    }
+}
