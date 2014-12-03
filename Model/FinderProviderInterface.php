@@ -16,7 +16,14 @@ use Sonata\AdminBundle\Admin\AdminInterface;
 interface FinderProviderInterface
 {
     /**
-     * @return PaginatedFinderInterface
+     * @param Sonata\AdminBundle\Admin\AdminInterface $admin Sonata Admin interface
+     * @return FOS\ElasticaBundle\Finder\PaginatedFinderInterface
      */
-    public function getFinder(AdminInterface $admin);
+    public function getFinderByAdmin(AdminInterface $admin);
+
+    /**
+     * @param string $adminId Sonata Admin service id
+     * @return FOS\ElasticaBundle\Finder\PaginatedFinderInterface
+     */
+    public function getFinderByAdminId($adminId);
 }
