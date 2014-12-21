@@ -11,6 +11,14 @@
                 <argument>%sonata.admin.search.admin_finder_services%</argument>
             </service>
             <service
+                id="elastic_search_datagrid_builder"
+                class="Sonata\AdminSearchBundle\Builder\ElasticSearchDatagridBuilder">
+                <!-- TODO : do not hardcode first argument -->
+                <argument type="service" id="sonata.admin.builder.orm_datagrid" />
+                <argument type="service" id="form.factory" />
+                <argument type="service" id="sonata.admin.search.finder_provider" />
+            </service>
+            <service
                 id="sonata.admin.search.filter.type.number"
                 class="Sonata\AdminSearchBundle\Filter\NumberFilter">
                 <tag name="sonata.admin.filter.type" alias="elastica_number" />
