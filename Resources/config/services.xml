@@ -3,10 +3,12 @@
 <container xmlns="http://symfony.com/schema/dic/services"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
-<services>
-        <service id="sonata.admin.search.finder_provider" class="Sonata\AdminSearchBundle\Model\FinderProvider">
-            <argument type="service" id="service_container" />
-            <argument>%sonata.admin.search.admin_finder_services%</argument>
-        </service>
-</services>
+    <services>
+        <service
+            id="sonata.admin.search.finder_provider"
+            class="Sonata\AdminSearchBundle\Model\FinderProvider">
+                <argument type="service" id="service_container" />
+                <argument>%sonata.admin.search.admin_finder_services%</argument>
+            </service>
+    </services>
 </container>

@@ -22,6 +22,8 @@
         "pagerfanta/pagerfanta": "1.0.*@dev"
     },
     "require-dev": {
+        "matthiasnoback/symfony-dependency-injection-test": "~0.7.1",
+        "matthiasnoback/symfony-config-test": "~0.4.0",
         "phpunit/phpunit": "~4.4"
     },
     "suggest": {

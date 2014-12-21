@@ -26,10 +26,16 @@ class SonataAdminSearchExtension extends Extension
         // Load sonata admin search configuration
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
-        $container->setParameter('sonata.admin.search.admin_finder_services', $config['admin_finder_services']);
+        $container->setParameter(
+            'sonata.admin.search.admin_finder_services',
+            $config['admin_finder_services']
+        );
 
         // Load sonata admin search services
-        $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader = new Loader\XmlFileLoader(
+            $container,
+            new FileLocator(__DIR__.'/../Resources/config')
+        );
         $loader->load('services.xml');
     }
 }
