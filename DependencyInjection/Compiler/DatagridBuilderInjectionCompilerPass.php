@@ -17,6 +17,10 @@ use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+/**
+ * Finds all admin finder services definition and add a datagrid builder
+ * injection
+ */
 class DatagridBuilderInjectionCompilerPass implements CompilerPassInterface
 {
     /**
@@ -24,11 +28,19 @@ class DatagridBuilderInjectionCompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        $adminFinderServices = $container->getParameter('sonata.admin.search.admin_finder_services');
+        if (!$container->hasParameter('sonata.admin.search.admin_finder_services')) {
+            return;
+        }
+        $adminFinderServices = $container->getParameter(
+            'sonata.admin.search.admin_finder_services'
+        );
 
-        foreach ($adminFinderServices as $adminId=>$finderServiceId) {
+        foreach ($adminFinderServices as $adminId => $finderServiceId) {
             $definition = $container->getDefinition($adminId);
-            $definition->addMethodCall('setDatagridBuilder', array(new Reference('sonata.admin.builder.orm_datagrid')));
+            $definition->addMethodCall(
+                'setDatagridBuilder',
+                array(new Reference('elastic_search_datagrid_builder'))
+            );
         }
     }
 }
