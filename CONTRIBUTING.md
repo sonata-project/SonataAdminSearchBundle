@@ -23,6 +23,12 @@ When you send a PR, just make sure that:
 * The related documentation is up-to-date.
 * Also don't forget to add a comment when you update a PR with a ping to the maintainer (``@username``), so he/she will get a notification.
 
+### Running the test suite
+
+We are using phpunit, the test suite can be run by issuing the following command:
+
+    vendor/bin/phpunit
+
 ## Contributing to the documentation
 
 You need to install the python tool to check and validate the sphinx syntax:
