@@ -10,5 +10,15 @@
                 <argument type="service" id="service_container" />
                 <argument>%sonata.admin.search.admin_finder_services%</argument>
             </service>
+            <service
+                id="sonata.admin.search.filter.type.number"
+                class="Sonata\AdminSearchBundle\Filter\NumberFilter">
+                <tag name="sonata.admin.filter.type" alias="elastica_number" />
+            </service>
+            <service
+                id="sonata.admin.search.filter.type.string"
+                class="Sonata\AdminSearchBundle\Filter\StringFilter">
+                <tag name="sonata.admin.filter.type" alias="elastica_string" />
+            </service>
     </services>
 </container>
