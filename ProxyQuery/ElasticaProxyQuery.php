@@ -51,15 +51,12 @@ class ElasticaProxyQuery extends Query implements ProxyQueryInterface
 
         /* // Limit & offset */
         $this->queryBuilder
-            ->from($this->getFirstResult())
-            ->size($this->getMaxResults());
-        /* $this->results = $this->queryBuilder->getRepository()->createPaginatorAdapter($query, array( */
-        /*     Search::OPTION_SIZE => $this->getMaxResults(), */
-        /*     Search::OPTION_FROM => $this->getFirstResult(), */
-        /* )); */
+            ->from($this->getFirstResult());
 
-        return $this->finder->findPaginated($this->getQuery());
-        /* return $this->results->getResults($this->getFirstResult(), $this->getMaxResults())->toArray(); */
+        return $this->finder->createPaginatorAdapter($this->getQuery(), array(
+            Search::OPTION_SIZE => $this->getMaxResults(),
+            Search::OPTION_FROM => $this->getFirstResult(),
+        ));
     }
 
     /**

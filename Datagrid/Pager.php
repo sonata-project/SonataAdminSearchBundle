@@ -6,15 +6,15 @@ use Sonata\AdminBundle\Datagrid\Pager as BasePager;
 
 class Pager extends BasePager
 {
-    private $paginatedResults;
+    private $paginator;
 
-    protected function findPaginated()
+    protected function getPaginator()
     {
-        if (is_null($this->paginatedResults)) {
-            $this->paginatedResults = $this->getQuery()->execute();
+        if (is_null($this->paginator)) {
+            $this->paginator = $this->getQuery()->execute();
         }
 
-        return $this->paginatedResults;
+        return $this->paginator;
     }
 
 
@@ -23,7 +23,7 @@ class Pager extends BasePager
      */
     public function computeNbResult()
     {
-        return $this->findPaginated()->getNbResults();
+        return $this->getPaginator()->getTotalHits();
     }
 
     /**
@@ -31,7 +31,10 @@ class Pager extends BasePager
      */
     public function getResults()
     {
-        return $this->findPaginated();
+        return $this->getPaginator()->getResults(
+            $this->getQuery()->getFirstResult(),
+            $this->getQuery()->getMaxResults()
+        )->toArray();
     }
 
     /**
