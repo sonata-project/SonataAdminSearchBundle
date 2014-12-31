@@ -20,6 +20,12 @@
             <argument type="service" id="fos_elastica.config_manager" />
         </service>
         <service
+            id="sonata.admin.search.datagrid_builder"
+            class="Sonata\AdminSearchBundle\Builder\DatagridBuilder">
+            <argument type="service" id="sonata.admin.search.elastica_datagrid_builder" />
+            <argument />
+        </service>
+        <service
             id="sonata.admin.search.guesser.filter_type"
             class="Sonata\AdminSearchBundle\Guesser\FilterTypeGuesser">
         </service>

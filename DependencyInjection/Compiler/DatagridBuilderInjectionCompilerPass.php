@@ -35,13 +35,28 @@ class DatagridBuilderInjectionCompilerPass implements CompilerPassInterface
             'sonata.admin.search.admin_finder_services'
         );
 
+        // Keep a trace of datagrid builder for each admin
+        $originalAdminDatagridBuilders = array();
+
         foreach ($adminFinderServices as $adminId => $finderServiceId) {
             $definition = $container->getDefinition($adminId);
 
+            foreach ($definition->getMethodCalls() as $call) {
+                if ($call[0] != 'setDatagridBuilder') {
+                    continue;
+                }
+
+                $originalAdminDatagridBuilders[$adminId] = $call[1][0];
+            }
+
             $definition->addMethodCall(
                 'setDatagridBuilder',
-                array(new Reference('sonata.admin.search.elastica_datagrid_builder'))
+                array(new Reference('sonata.admin.search.datagrid_builder'))
             );
         }
+
+        // Update definition of AdminSearchBundle Datagrid Builder
+        $definition = $container->getDefinition('sonata.admin.search.datagrid_builder');
+        $definition->replaceArgument(1, $originalAdminDatagridBuilders);
     }
 }
