@@ -17,6 +17,7 @@
             <argument type="service" id="sonata.admin.builder.filter.factory" />
             <argument type="service" id="sonata.admin.search.guesser.filter_type" />
             <argument type="service" id="sonata.admin.search.finder_provider" />
+            <argument type="service" id="fos_elastica.config_manager" />
         </service>
         <service
             id="sonata.admin.search.guesser.filter_type"

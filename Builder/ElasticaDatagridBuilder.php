@@ -22,28 +22,28 @@ use Sonata\AdminSearchBundle\Model\FinderProviderInterface;
 use Sonata\AdminSearchBundle\ProxyQuery\ElasticaProxyQuery;
 use Sonata\AdminSearchBundle\Datagrid\Pager;
 use Sonata\AdminSearchBundle\Datagrid\Datagrid;
+use FOS\ElasticaBundle\Configuration\ManagerInterface;
 
 class ElasticaDatagridBuilder implements DatagridBuilderInterface
 {
-    /**
-     * For the moment, we assume elasticsearch is used on top of another system.
-     * We let part of the job be done by the underlying implementation
-     */
     private $finderProvider;
     private $formFactory;
     private $filterFactory;
     private $guesser;
+    private $configManager;
 
     public function __construct(
         FormFactoryInterface $formFactory,
         FilterFactoryInterface $filterFactory,
         TypeGuesserInterface $guesser,
-        FinderProviderInterface $finderProvider
+        FinderProviderInterface $finderProvider,
+        ManagerInterface $configManager
     ) {
         $this->formFactory             = $formFactory;
         $this->filterFactory           = $filterFactory;
         $this->guesser                 = $guesser;
         $this->finderProvider          = $finderProvider;
+        $this->configManager           = $configManager;
     }
 
     /**
@@ -113,5 +113,44 @@ class ElasticaDatagridBuilder implements DatagridBuilderInterface
             $formBuilder,
             $values
         );
+    }
+
+    /**
+     * Returns true if this datagrid builder can process these values
+     */
+    public function isSmart(AdminInterface $admin, array $values = array())
+    {
+        // Get mapped field names
+        $finderId = $this->finderProvider->getFinderIdByAdmin($admin);
+
+        // Assume that finder id is composed like this 'fos_elastica.finder.<index name>.<type name>
+        list($indexName, $typeName) = array_slice(explode('.', $finderId), 2);
+        $typeConfiguration = $this->configManager->getTypeConfiguration($indexName, $typeName);
+        $mapping = $typeConfiguration->getMapping();
+        $mappedFieldNames = array_keys($mapping['properties']);
+
+        // Compare to the fields on wich the search apply
+        $smart = true;
+
+        foreach ($values as $key=>$value) {
+            if (!is_array($value) || !isset($value['value'])) {
+                // This is not a filter field
+                continue;
+            }
+
+            if (!$value['value']) {
+                // No value set on the filter field
+                continue;
+            }
+
+            if (!in_array($key, $mappedFieldNames)) {
+                // This filter field is not mapped in elasticsearch
+                // so we cannot use elasticsearch
+                $smart = false;
+                break;
+            }
+        }
+
+        return $smart;
     }
 }
