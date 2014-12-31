@@ -11,8 +11,8 @@
             <argument>%sonata.admin.search.admin_finder_services%</argument>
         </service>
         <service
-            id="elastic_search_datagrid_builder"
-            class="Sonata\AdminSearchBundle\Builder\ElasticSearchDatagridBuilder">
+            id="sonata.admin.search.elastica_datagrid_builder"
+            class="Sonata\AdminSearchBundle\Builder\ElasticaDatagridBuilder">
             <argument type="service" id="form.factory" />
             <argument type="service" id="sonata.admin.builder.filter.factory" />
             <argument type="service" id="sonata.admin.search.guesser.filter_type" />

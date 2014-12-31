@@ -25,7 +25,7 @@ use Elastica\Query;
 use Sonata\AdminSearchBundle\Datagrid\Pager;
 use Elastica\Query\Builder;
 
-class ElasticSearchDatagridBuilder implements DatagridBuilderInterface
+class ElasticaDatagridBuilder implements DatagridBuilderInterface
 {
     /**
      * For the moment, we assume elasticsearch is used on top of another system.

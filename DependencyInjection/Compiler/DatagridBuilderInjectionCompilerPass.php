@@ -37,9 +37,10 @@ class DatagridBuilderInjectionCompilerPass implements CompilerPassInterface
 
         foreach ($adminFinderServices as $adminId => $finderServiceId) {
             $definition = $container->getDefinition($adminId);
+
             $definition->addMethodCall(
                 'setDatagridBuilder',
-                array(new Reference('elastic_search_datagrid_builder'))
+                array(new Reference('sonata.admin.search.elastica_datagrid_builder'))
             );
         }
     }
