@@ -16,6 +16,7 @@ use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Builder\DatagridBuilderInterface;
 use Sonata\AdminBundle\Datagrid\DatagridInterface;
 use Symfony\Component\Form\FormFactoryInterface;
+use Sonata\AdminBundle\Filter\FilterFactoryInterface;
 use Sonata\AdminBundle\Datagrid\Datagrid;
 use Sonata\AdminBundle\Guesser\TypeGuesserInterface;
 use Sonata\AdminSearchBundle\Model\FinderProviderInterface;
@@ -30,39 +31,29 @@ class ElasticSearchDatagridBuilder implements DatagridBuilderInterface
      * For the moment, we assume elasticsearch is used on top of another system.
      * We let part of the job be done by the underlying implementation
      */
-    private $databaseDatagridBuilder;
     private $finderProvider;
     private $formFactory;
+    private $filterFactory;
     private $guesser;
 
     public function __construct(
-        DatagridBuilderInterface $databaseDatagridBuilder,
         FormFactoryInterface $formFactory,
+        FilterFactoryInterface $filterFactory,
         TypeGuesserInterface $guesser,
         FinderProviderInterface $finderProvider
     ) {
-        $this->databaseDatagridBuilder = $databaseDatagridBuilder;
         $this->formFactory             = $formFactory;
+        $this->filterFactory           = $filterFactory;
         $this->guesser                 = $guesser;
         $this->finderProvider          = $finderProvider;
     }
 
     /**
-     * proxy for the underlying datagrid builder
-     *
-     * @param \Sonata\AdminBundle\Admin\AdminInterface            $admin
-     * @param \Sonata\AdminBundle\Admin\FieldDescriptionInterface $fieldDescription
-     *
-     * @return void
+     * {@inheritdoc}
      */
-    public function fixFieldDescription(
-        AdminInterface $admin,
-        FieldDescriptionInterface $fieldDescription
-    ) {
-        $this->databaseDatagridBuilder->fixFieldDescription(
-            $admin,
-            $fieldDescription
-        );
+    public function fixFieldDescription(AdminInterface $admin, FieldDescriptionInterface $fieldDescription)
+    {
+        // Nothing todo
     }
 
     /**
@@ -97,15 +88,10 @@ class ElasticSearchDatagridBuilder implements DatagridBuilderInterface
     }
 
     /**
-     * @param \Sonata\AdminBundle\Admin\AdminInterface $admin
-     * @param array                                    $values
-     *
-     * @return \Sonata\AdminBundle\Datagrid\DatagridInterface
+     * {@inheritdoc}
      */
-    public function getBaseDatagrid(
-        AdminInterface $admin,
-        array $values = array()
-    ) {
+    public function getBaseDatagrid(AdminInterface $admin, array $values = array())
+    {
         $pager = new Pager();
 
         $defaultOptions = array();
