@@ -21,9 +21,7 @@ use Sonata\AdminBundle\Datagrid\Datagrid;
 use Sonata\AdminBundle\Guesser\TypeGuesserInterface;
 use Sonata\AdminSearchBundle\Model\FinderProviderInterface;
 use Sonata\AdminSearchBundle\ProxyQuery\ElasticaProxyQuery;
-use Elastica\Query;
 use Sonata\AdminSearchBundle\Datagrid\Pager;
-use Elastica\Query\Builder;
 
 class ElasticaDatagridBuilder implements DatagridBuilderInterface
 {
