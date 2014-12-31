@@ -17,6 +17,7 @@ use Sonata\AdminBundle\Builder\DatagridBuilderInterface;
 use Sonata\AdminBundle\Datagrid\DatagridInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Sonata\AdminBundle\Datagrid\Datagrid;
+use Sonata\AdminBundle\Guesser\TypeGuesserInterface;
 use Sonata\AdminSearchBundle\Model\FinderProviderInterface;
 use Sonata\AdminSearchBundle\ProxyQuery\ElasticaProxyQuery;
 use Elastica\Query;
@@ -32,14 +33,17 @@ class ElasticSearchDatagridBuilder implements DatagridBuilderInterface
     private $databaseDatagridBuilder;
     private $finderProvider;
     private $formFactory;
+    private $guesser;
 
     public function __construct(
         DatagridBuilderInterface $databaseDatagridBuilder,
         FormFactoryInterface $formFactory,
+        TypeGuesserInterface $guesser,
         FinderProviderInterface $finderProvider
     ) {
         $this->databaseDatagridBuilder = $databaseDatagridBuilder;
         $this->formFactory             = $formFactory;
+        $this->guesser                 = $guesser;
         $this->finderProvider          = $finderProvider;
     }
 
@@ -62,25 +66,34 @@ class ElasticSearchDatagridBuilder implements DatagridBuilderInterface
     }
 
     /**
-     * proxy for the underlying datagrid builder
-     *
-     * @param \Sonata\AdminBundle\Datagrid\DatagridInterface      $datagrid
-     * @param null                                                $type
-     * @param \Sonata\AdminBundle\Admin\FieldDescriptionInterface $fieldDescription
-     * @param \Sonata\AdminBundle\Admin\AdminInterface            $admin
+     * {@inheritdoc}
      */
-    public function addFilter(
-        DatagridInterface $datagrid,
-        $type = null,
-        FieldDescriptionInterface $fieldDescription,
-        AdminInterface $admin
-    ) {
-        return $this->databaseDatagridBuilder->addFilter(
-            $datagrid,
-            $type,
-            $fieldDescription,
-            $admin
-        );
+    public function addFilter(DatagridInterface $datagrid, $type = null, FieldDescriptionInterface $fieldDescription, AdminInterface $admin)
+    {
+        // Try to wrap all types to search types
+        $guessType = $this->guesser->guessType($admin->getClass(), $fieldDescription->getName(), $admin->getModelManager());
+        $type = $guessType->getType();
+        $fieldDescription->setType($type);
+        $options = $guessType->getOptions();
+
+        foreach ($options as $name => $value) {
+            if (is_array($value)) {
+                $fieldDescription->setOption($name, array_merge($value, $fieldDescription->getOption($name, array())));
+            } else {
+                $fieldDescription->setOption($name, $fieldDescription->getOption($name, $value));
+            }
+        }
+
+        $admin->addFilterFieldDescription($fieldDescription->getName(), $fieldDescription);
+
+        $fieldDescription->mergeOption('field_options', array('required' => false));
+        $filter = $this->filterFactory->create($fieldDescription->getName(), $type, $fieldDescription->getOptions());
+
+        if (!$filter->getLabel()) {
+            $filter->setLabel($admin->getLabelTranslatorStrategy()->getLabel($fieldDescription->getName(), 'filter', 'label'));
+        }
+
+        $datagrid->addFilter($filter);
     }
 
     /**
