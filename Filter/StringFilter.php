@@ -19,7 +19,7 @@ class StringFilter extends Filter
     /**
      * {@inheritdoc}
      */
-    public function filter(ProxyQueryInterface $queryBuilder, $alias, $field, $data)
+    public function filter(ProxyQueryInterface $query, $alias, $field, $data)
     {
         if (!$data || !is_array($data) || !array_key_exists('value', $data)) {
             return;
@@ -33,33 +33,23 @@ class StringFilter extends Filter
 
         $data['type'] = !isset($data['type']) ?  ChoiceType::TYPE_CONTAINS : $data['type'];
 
-        $operator = $this->getOperator((int) $data['type']);
+        list($firstOperator, $secondOperator) = $this->getOperators((int) $data['type']);
 
-        if (!$operator) {
-            $operator = 'LIKE';
-        }
-
-        // c.name > '1' => c.name OPERATOR :FIELDNAME
-        /* $parameterName = $this->getNewParameterName($queryBuilder); */
-
+        // Create a query that match terms (indepedent of terms order) or a phrase
+        $queryBuilder = new \Elastica\Query\Builder();
         $queryBuilder
-            ->query()
-                ->filteredQuery()
-                    ->query()
-                        ->queryString()
-                            ->field('query', $data['value'])
-                            ->fields(array($field))
-                        ->queryStringClose()
-                    ->queryClose()
-                ->filteredQueryClose()
-            ->queryClose();
-        /* $this->applyWhere($queryBuilder, sprintf('%s.%s %s :%s', $alias, $field, $operator, $parameterName)); */
+            ->fieldOpen($secondOperator)
+                ->fieldOpen($field)
+                    ->field('query', $data['value'])
+                    ->field('operator', 'and')
+                ->fieldClose()
+            ->fieldClose();
 
-        /* if ($data['type'] == ChoiceType::TYPE_EQUAL) { */
-        /*     $queryBuilder->setParameter($parameterName, $data['value']); */
-        /* } else { */
-        /*     $queryBuilder->setParameter($parameterName, sprintf($this->getOption('format'), $data['value'])); */
-        /* } */
+        if ($firstOperator == 'must') {
+            $query->addMust($queryBuilder);
+        } else {
+            $query->addMustNot($queryBuilder);
+        }
     }
 
     /**
@@ -67,12 +57,12 @@ class StringFilter extends Filter
      *
      * @return bool
      */
-    private function getOperator($type)
+    private function getOperators($type)
     {
         $choices = array(
-            ChoiceType::TYPE_CONTAINS         => 'LIKE',
-            ChoiceType::TYPE_NOT_CONTAINS     => 'NOT LIKE',
-            ChoiceType::TYPE_EQUAL            => '=',
+            ChoiceType::TYPE_CONTAINS         => array('must', 'match'),
+            ChoiceType::TYPE_NOT_CONTAINS     => array('must_not', 'match'),
+            ChoiceType::TYPE_EQUAL            => array('must', 'match_phrase'),
         );
 
         return isset($choices[$type]) ? $choices[$type] : false;
@@ -83,9 +73,7 @@ class StringFilter extends Filter
      */
     public function getDefaultOptions()
     {
-        return array(
-            'format'   => '%%%s%%'
-        );
+        return array();
     }
 
     /**
