@@ -7,26 +7,30 @@
         <service
             id="sonata.admin.search.finder_provider"
             class="Sonata\AdminSearchBundle\Model\FinderProvider">
-                <argument type="service" id="service_container" />
-                <argument>%sonata.admin.search.admin_finder_services%</argument>
-            </service>
-            <service
-                id="elastic_search_datagrid_builder"
-                class="Sonata\AdminSearchBundle\Builder\ElasticSearchDatagridBuilder">
-                <!-- TODO : do not hardcode first argument -->
-                <argument type="service" id="sonata.admin.builder.orm_datagrid" />
-                <argument type="service" id="form.factory" />
-                <argument type="service" id="sonata.admin.search.finder_provider" />
-            </service>
-            <service
-                id="sonata.admin.search.filter.type.number"
-                class="Sonata\AdminSearchBundle\Filter\NumberFilter">
-                <tag name="sonata.admin.filter.type" alias="elastica_number" />
-            </service>
-            <service
-                id="sonata.admin.search.filter.type.string"
-                class="Sonata\AdminSearchBundle\Filter\StringFilter">
-                <tag name="sonata.admin.filter.type" alias="elastica_string" />
-            </service>
+            <argument type="service" id="service_container" />
+            <argument>%sonata.admin.search.admin_finder_services%</argument>
+        </service>
+        <service
+            id="elastic_search_datagrid_builder"
+            class="Sonata\AdminSearchBundle\Builder\ElasticSearchDatagridBuilder">
+            <argument type="service" id="form.factory" />
+            <argument type="service" id="sonata.admin.builder.filter.factory" />
+            <argument type="service" id="sonata.admin.search.guesser.filter_type" />
+            <argument type="service" id="sonata.admin.search.finder_provider" />
+        </service>
+        <service
+            id="sonata.admin.search.guesser.filter_type"
+            class="Sonata\AdminSearchBundle\Guesser\FilterTypeGuesser">
+        </service>
+        <service
+            id="sonata.admin.search.filter.type.number"
+            class="Sonata\AdminSearchBundle\Filter\NumberFilter">
+            <tag name="sonata.admin.filter.type" alias="elastica_number" />
+        </service>
+        <service
+            id="sonata.admin.search.filter.type.string"
+            class="Sonata\AdminSearchBundle\Filter\StringFilter">
+            <tag name="sonata.admin.filter.type" alias="elastica_string" />
+        </service>
     </services>
 </container>
