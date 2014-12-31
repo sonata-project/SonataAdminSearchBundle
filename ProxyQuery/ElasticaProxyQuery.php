@@ -14,24 +14,19 @@ namespace Sonata\AdminSearchBundle\ProxyQuery;
 use Elastica\Search;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use FOS\ElasticaBundle\Finder\TransformedFinder;
-use Elastica\Query\AbstractQuery;
-use Elastica\Query;
 
-class ElasticaProxyQuery extends Query implements ProxyQueryInterface
+class ElasticaProxyQuery implements ProxyQueryInterface
 {
     private $finder;
+    private $query;
+    private $boolQuery;
 
     public function __construct(
-        $queryBuilder,
         TransformedFinder $finder
     ) {
-        $this->queryBuilder  = $queryBuilder;
         $this->finder = $finder;
-    }
-
-    public function getQuery()
-    {
-        return new Query($this->queryBuilder->toArray());
+        $this->query = new \Elastica\Query();
+        $this->boolQuery = new \Elastica\Query\Bool();
     }
 
     /**
@@ -50,12 +45,13 @@ class ElasticaProxyQuery extends Query implements ProxyQueryInterface
         /* } */
 
         /* // Limit & offset */
-        $this->queryBuilder
-            ->from($this->getFirstResult());
+        /*$this->queryBuilder
+            ->from($this->getFirstResult());*/
 
-        return $this->finder->createPaginatorAdapter($this->getQuery(), array(
-            Search::OPTION_SIZE => $this->getMaxResults(),
-            Search::OPTION_FROM => $this->getFirstResult(),
+        return $this->finder->createPaginatorAdapter(
+            $this->query, array(
+                Search::OPTION_SIZE => $this->getMaxResults(),
+                Search::OPTION_FROM => $this->getFirstResult(),
         ));
     }
 
@@ -156,14 +152,6 @@ class ElasticaProxyQuery extends Query implements ProxyQueryInterface
     }
 
     /**
-     * @return mixed
-     */
-    public function getQueryBuilder()
-    {
-        return $this->queryBuilder;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function getResults()
@@ -186,12 +174,24 @@ class ElasticaProxyQuery extends Query implements ProxyQueryInterface
         // TODO
     }
 
+    public function addMust($args)
+    {
+        $this->boolQuery->addMust($args);
+        $this->query = new \Elastica\Query($this->boolQuery);
+    }
+
+    public function addMustNot($args)
+    {
+        $this->boolQuery->addMustNot($args);
+        $this->query = new \Elastica\Query($this->boolQuery);
+    }
+
     /**
      * {@inheritdoc}
      */
     public function __clone()
     {
-        $this->queryBuilder = clone $this->queryBuilder;
+        $this->query = clone $this->queryBuilder;
     }
 
     /**
@@ -199,6 +199,5 @@ class ElasticaProxyQuery extends Query implements ProxyQueryInterface
      */
     public function __call($name, $args)
     {
-        return call_user_func_array(array($this->queryBuilder, $name), $args);
     }
 }

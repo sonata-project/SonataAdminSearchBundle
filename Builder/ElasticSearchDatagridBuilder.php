@@ -105,7 +105,6 @@ class ElasticSearchDatagridBuilder implements DatagridBuilderInterface
         );
 
         $proxyQuery = new ElasticaProxyQuery(
-            new Builder(), //query builder
             $this->finderProvider->getFinderByAdmin($admin)
         );
 
