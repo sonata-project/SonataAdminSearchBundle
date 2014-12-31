@@ -26,20 +26,28 @@ class NumberFilter extends Filter
         }
 
         $type = isset($data['type']) ? $data['type'] : false;
-
         $operator = $this->getOperator($type);
 
-        if (!$operator) {
-            $operator = '=';
+
+        $queryBuilder = new \Elastica\Query\Builder();
+
+        if ($operator === false) {
+            // Match query to get equality
+            $queryBuilder
+                ->fieldOpen('match')
+                    ->field($field, $data['value'])
+                ->fieldClose();
+        } else {
+            // Range query
+            $queryBuilder
+                ->range()
+                    ->fieldOpen($field)
+                        ->field($operator, $data['value'])
+                    ->fieldClose()
+                ->rangeClose();
         }
 
-        // c.name > '1' => c.name OPERATOR :FIELDNAME
-        $parameterName = $this->getNewParameterName($query);
-        $fieldQuery = new \Elastica\Query\Match();
-        $fieldQuery->setFieldQuery($field, $data['value']);
-        $query->addMust($fieldQuery);
-        /* $this->applyWhere($queryBuilder, sprintf('%s.%s %s :%s', $alias, $field, $operator, $parameterName)); */
-        /* $queryBuilder->setParameter($parameterName, $data['value']); */
+        $query->addMust($queryBuilder);
     }
 
     /**
@@ -50,11 +58,11 @@ class NumberFilter extends Filter
     private function getOperator($type)
     {
         $choices = array(
-            NumberType::TYPE_EQUAL            => '=',
-            NumberType::TYPE_GREATER_EQUAL    => '>=',
-            NumberType::TYPE_GREATER_THAN     => '>',
-            NumberType::TYPE_LESS_EQUAL       => '<=',
-            NumberType::TYPE_LESS_THAN        => '<',
+            NumberType::TYPE_EQUAL            => false,
+            NumberType::TYPE_GREATER_EQUAL    => 'gte',
+            NumberType::TYPE_GREATER_THAN     => 'gt',
+            NumberType::TYPE_LESS_EQUAL       => 'lte',
+            NumberType::TYPE_LESS_THAN        => 'lt'
         );
 
         return isset($choices[$type]) ? $choices[$type] : false;
