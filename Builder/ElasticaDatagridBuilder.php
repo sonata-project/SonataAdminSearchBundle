@@ -17,11 +17,11 @@ use Sonata\AdminBundle\Builder\DatagridBuilderInterface;
 use Sonata\AdminBundle\Datagrid\DatagridInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Sonata\AdminBundle\Filter\FilterFactoryInterface;
-use Sonata\AdminBundle\Datagrid\Datagrid;
 use Sonata\AdminBundle\Guesser\TypeGuesserInterface;
 use Sonata\AdminSearchBundle\Model\FinderProviderInterface;
 use Sonata\AdminSearchBundle\ProxyQuery\ElasticaProxyQuery;
 use Sonata\AdminSearchBundle\Datagrid\Pager;
+use Sonata\AdminSearchBundle\Datagrid\Datagrid;
 
 class ElasticaDatagridBuilder implements DatagridBuilderInterface
 {
