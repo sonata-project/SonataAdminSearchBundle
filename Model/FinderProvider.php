@@ -39,4 +39,14 @@ class FinderProvider implements FinderProviderInterface
     {
         return $this->container->get($this->adminFinderServices[$adminId]['finder']);
     }
+
+    public function getFinderIdByAdmin(AdminInterface $admin)
+    {
+        return $this->getFinderIdByAdminId($admin->getCode());
+    }
+
+    public function getFinderIdByAdminId($adminId)
+    {
+        return $this->adminFinderServices[$adminId]['finder'];
+    }
 }

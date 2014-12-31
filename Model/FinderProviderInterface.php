@@ -26,4 +26,16 @@ interface FinderProviderInterface
      * @return FOS\ElasticaBundle\Finder\PaginatedFinderInterface
      */
     public function getFinderByAdminId($adminId);
+
+    /**
+     * @param Sonata\AdminBundle\Admin\AdminInterface $admin Sonata Admin interface
+     * @return string
+     */
+    public function getFinderIdByAdmin(AdminInterface $admin);
+
+    /**
+     * @param string $adminId Sonata Admin service id
+     * @return string
+     */
+    public function getFinderIdByAdminId($adminId);
 }
