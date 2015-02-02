@@ -1,8 +1,12 @@
 # SonataAdminSearchBundle
 
-Provides search engine integration with [SonataAdminBundle][0].
+By default, [SonataAdminBundle][0] uses the storage backend full-text search
+capabilities to provide search results or filtered listings. This bundle should
+help you leverage the power of your search engine when full-text search is not
+good enough.
 
-[0]:http://sonata-project.org/bundles/admin
+For the moment, only [elasticsearch][1] is supported, with the help of
+[FOSElasticaBundle][2] finder services.
 
 ## Installation
 
@@ -19,3 +23,7 @@ sonata_admin_search:
         my_admin.id: # Admin service id
             finder: Id for a FOS finder service that should be used # Finder service
 ```
+
+[0]:http://sonata-project.org/bundles/admin
+[1]:http://www.elasticsearch.org/
+[2]:https://github.com/FriendsOfSymfony/FOSElasticaBundle
