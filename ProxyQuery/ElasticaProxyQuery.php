@@ -36,17 +36,13 @@ class ElasticaProxyQuery implements ProxyQueryInterface
     {
         // TODO find method names
 
-        /* // Sorted field and sort order */
-        /* $sortBy = $this->getSortBy(); */
-        /* $sortOrder = $this->getSortOrder(); */
+        // Sorted field and sort order
+        $sortBy = $this->getSortBy();
+        $sortOrder = $this->getSortOrder();
 
-        /* if ($sortBy && $sortOrder) { */
-        /*     $query->setSort(array($sortBy => array('order' => $sortOrder))); */
-        /* } */
-
-        /* // Limit & offset */
-        /*$this->queryBuilder
-            ->from($this->getFirstResult());*/
+        if ($sortBy && $sortOrder) {
+            $this->query->setSort(array($sortBy => array('order' => strtolower($sortOrder))));
+        }
 
         return $this->finder->createPaginatorAdapter(
             $this->query, array(
@@ -80,13 +76,20 @@ class ElasticaProxyQuery implements ProxyQueryInterface
      */
     protected $results;
 
-
     /**
      * {@inheritdoc}
      */
     public function setSortBy($parentAssociationMappings, $fieldMapping)
     {
-        // TODO
+        $alias = '';
+
+        foreach ((array) $parentAssociationMappings as $associationMapping) {
+            $alias .= $associationMapping['fieldName'] . '.';
+        }
+
+        $this->sortBy = $alias . $fieldMapping['fieldName'];
+
+        return $this;
     }
 
     /**
