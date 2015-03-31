@@ -189,14 +189,6 @@ class ElasticaProxyQuery implements ProxyQueryInterface
     /**
      * {@inheritdoc}
      */
-    public function __clone()
-    {
-        $this->query = clone $this->queryBuilder;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function __call($name, $args)
     {
     }
