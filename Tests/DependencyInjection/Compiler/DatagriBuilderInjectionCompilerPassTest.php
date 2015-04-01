@@ -12,7 +12,16 @@ class DatagridBuilderInjectionCompilerPassTest extends AbstractCompilerPassTestC
     protected function registerCompilerPass(ContainerBuilder $container)
     {
         $container->addCompilerPass(new DatagridBuilderInjectionCompilerPass());
-
+        $container->setDefinition(
+            'sonata.admin.search.datagrid_builder',
+            new Definition(
+                'Sonata\AdminSearchBundle\Builder\DatagridBuilder',
+                array(
+                    new Reference('sonata.admin.search.elastica_datagrid_builder'),
+                    null
+                )
+            )
+        );
     }
 
     public function testDatagridBuilderIsInjected()
@@ -26,7 +35,7 @@ class DatagridBuilderInjectionCompilerPassTest extends AbstractCompilerPassTestC
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'my_admin',
             'setDatagridBuilder',
-            array(new Reference('elastic_search_datagrid_builder'))
+            array(new Reference('sonata.admin.search.datagrid_builder'))
         );
     }
 }
