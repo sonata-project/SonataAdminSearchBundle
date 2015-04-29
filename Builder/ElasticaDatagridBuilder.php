@@ -60,25 +60,29 @@ class ElasticaDatagridBuilder implements DatagridBuilderInterface
     public function addFilter(DatagridInterface $datagrid, $type = null, FieldDescriptionInterface $fieldDescription, AdminInterface $admin)
     {
         // Try to wrap all types to search types
-        $guessType = $this->guesser->guessType($admin->getClass(), $fieldDescription->getName(), $admin->getModelManager());
-        $type = $guessType->getType();
-        $fieldDescription->setType($type);
-        $options = $guessType->getOptions();
+    	if ($type == null) { 
+            $guessType = $this->guesser->guessType($admin->getClass(), $fieldDescription->getName(), $admin->getModelManager());
+            $type = $guessType->getType();
+            $fieldDescription->setType($type);
+            $options = $guessType->getOptions();
 
-        foreach ($options as $name => $value) {
-            if (is_array($value)) {
-                $fieldDescription->setOption($name, array_merge($value, $fieldDescription->getOption($name, array())));
-            } else {
-                $fieldDescription->setOption($name, $fieldDescription->getOption($name, $value));
+            foreach ($options as $name => $value) {
+                if (is_array($value)) {
+                    $fieldDescription->setOption($name, array_merge($value, $fieldDescription->getOption($name, array())));
+                } else {
+                    $fieldDescription->setOption($name, $fieldDescription->getOption($name, $value));
+                }
             }
+    	}else{
+            $fieldDescription->setType($type);
         }
-
+        $this->fixFieldDescription($admin, $fieldDescription);
         $admin->addFilterFieldDescription($fieldDescription->getName(), $fieldDescription);
 
         $fieldDescription->mergeOption('field_options', array('required' => false));
         $filter = $this->filterFactory->create($fieldDescription->getName(), $type, $fieldDescription->getOptions());
 
-        if (!$filter->getLabel()) {
+        if (false !== $filter->getLabel() && !$filter->getLabel()) {
             $filter->setLabel($admin->getLabelTranslatorStrategy()->getLabel($fieldDescription->getName(), 'filter', 'label'));
         }
 
