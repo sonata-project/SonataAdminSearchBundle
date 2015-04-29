@@ -39,5 +39,10 @@
             class="Sonata\AdminSearchBundle\Filter\StringFilter">
             <tag name="sonata.admin.filter.type" alias="elastica_string" />
         </service>
+        <service
+            id="sonata.admin.search.filter.type.choice"
+            class="Sonata\AdminSearchBundle\Filter\ChoiceFilter">
+            <tag name="sonata.admin.filter.type" alias="elastica_choice" />
+        </service>
     </services>
 </container>
