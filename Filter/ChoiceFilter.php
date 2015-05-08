@@ -14,18 +14,22 @@ namespace Sonata\AdminSearchBundle\Filter;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Form\Type\Filter\ChoiceType;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
+use Elastica\Util;
 
 class ChoiceFilter extends Filter
 {
     /**
      * {@inheritdoc}
      */
-    public function filter(ProxyQueryInterface $queryBuilder, $alias, $field, $data)
+    public function filter(ProxyQueryInterface $query, $alias, $field, $data)
     {
         if (!$data || !is_array($data) || !array_key_exists('type', $data) || !array_key_exists('value', $data)) {
             return;
         }
-
+        
+        $data['type'] = !isset($data['type']) ?  ChoiceType::TYPE_CONTAINS : $data['type'];
+        list($firstOperator, $secondOperator) = $this->getOperators((int) $data['type']);
+        
         if (is_array($data['value'])) {
             if (count($data['value']) == 0) {
                 return;
@@ -35,11 +39,17 @@ class ChoiceFilter extends Filter
                 return;
             }
 
-            if ($data['type'] == ChoiceType::TYPE_NOT_CONTAINS) {
-                $this->applyWhere($queryBuilder, $queryBuilder->expr()->notIn(sprintf('%s.%s', $alias, $field ), $data['value']));
-            } else {
-                $this->applyWhere($queryBuilder, $queryBuilder->expr()->in(sprintf('%s.%s', $alias, $field ), $data['value']));
-            }
+            $queryBuilder = new \Elastica\Query\Builder();
+            $queryBuilder
+            ->fieldOpen($secondOperator)
+	            ->field($field, Util::escapeTerm($data['value']))
+            ->fieldClose();
+            
+            if ($firstOperator == 'must') {
+            	$query->addMust($queryBuilder);
+	        } else {
+	            $query->addMustNot($queryBuilder);
+	        }
 
         } else {
 
@@ -47,15 +57,17 @@ class ChoiceFilter extends Filter
                 return;
             }
 
-            $parameterName = $this->getNewParameterName($queryBuilder);
-
-            if ($data['type'] == ChoiceType::TYPE_NOT_CONTAINS) {
-                $this->applyWhere($queryBuilder, sprintf('%s.%s <> :%s', $alias, $field, $parameterName));
-            } else {
-                $this->applyWhere($queryBuilder, sprintf('%s.%s = :%s', $alias, $field, $parameterName));
-            }
-
-            $queryBuilder->setParameter($parameterName, $data['value']);
+            $queryBuilder = new \Elastica\Query\Builder();
+            $queryBuilder
+            ->fieldOpen($secondOperator)
+	            ->field($field, Util::escapeTerm(array($data['value'])))
+            ->fieldClose();
+            
+            if ($firstOperator == 'must') {
+         	   $query->addMust($queryBuilder);
+	        } else {
+	            $query->addMustNot($queryBuilder);
+	        }
         }
     }
 
@@ -64,12 +76,11 @@ class ChoiceFilter extends Filter
      *
      * @return bool
      */
-    private function getOperator($type)
+    private function getOperators($type)
     {
         $choices = array(
-            ChoiceType::TYPE_CONTAINS         => 'IN',
-            ChoiceType::TYPE_NOT_CONTAINS     => 'NOT IN',
-            ChoiceType::TYPE_EQUAL            => '=',
+            ChoiceType::TYPE_CONTAINS         => array('must', 'terms'),
+            ChoiceType::TYPE_NOT_CONTAINS     => array('must_not', 'terms'),
         );
 
         return isset($choices[$type]) ? $choices[$type] : false;
