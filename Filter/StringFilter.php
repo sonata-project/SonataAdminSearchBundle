@@ -13,7 +13,6 @@ namespace Sonata\AdminSearchBundle\Filter;
 
 use Sonata\AdminBundle\Form\Type\Filter\ChoiceType;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
-use Elastica\Util;
 
 class StringFilter extends Filter
 {
@@ -41,7 +40,7 @@ class StringFilter extends Filter
         $queryBuilder
             ->fieldOpen($secondOperator)
                 ->fieldOpen($field)
-                    ->field('query', Util::escapeTerm($data['value']))
+                    ->field('query', str_replace(array('\\', '"'), array('\\\\', '\"'), $data['value']))
                     ->field('operator', 'and')
                 ->fieldClose()
             ->fieldClose();
