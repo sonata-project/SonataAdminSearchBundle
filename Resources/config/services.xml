@@ -42,7 +42,12 @@
         <service
             id="sonata.admin.search.filter.type.choice"
             class="Sonata\AdminSearchBundle\Filter\ChoiceFilter">
-            <tag name="sonata.admin.filter.type" alias="elastica_choice" />
+            <tag name="sonata.admin.filter.type" alias="sonata_search_elastica_choice" />
         </service>
+        <service
+            id="sonata.admin.search.filter.type.boolean"
+            class="Sonata\AdminSearchBundle\Filter\BooleanFilter">
+            <tag name="sonata.admin.filter.type" alias="sonata_search_elastica_boolean" />
+        </service>        
     </services>
 </container>

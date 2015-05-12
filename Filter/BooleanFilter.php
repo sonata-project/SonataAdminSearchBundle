@@ -19,7 +19,7 @@ class BooleanFilter extends Filter
     /**
      * {@inheritdoc}
      */
-    public function filter(ProxyQueryInterface $queryBuilder, $alias, $field, $data)
+    public function filter(ProxyQueryInterface $query, $alias, $field, $data)
     {
         if (!$data || !is_array($data) || !array_key_exists('type', $data) || !array_key_exists('value', $data)) {
             return;
@@ -32,23 +32,35 @@ class BooleanFilter extends Filter
                     continue;
                 }
 
-                $values[] = ($v == BooleanType::TYPE_YES) ? 1 : 0;
+                $values[] = ($v == BooleanType::TYPE_YES);
             }
 
             if (count($values) == 0) {
                 return;
             }
+            
+            $queryBuilder = new \Elastica\Query\Builder();
+            $queryBuilder
+                ->fieldOpen('terms')
+                    ->field($field, $values)
+                ->fieldClose();
 
-            $this->applyWhere($queryBuilder, $queryBuilder->expr()->in(sprintf('%s.%s', $alias, $field), $values));
+            $query->addMust($queryBuilder);
+
         } else {
 
             if (!in_array($data['value'], array(BooleanType::TYPE_NO, BooleanType::TYPE_YES))) {
                 return;
             }
 
-            $parameterName = $this->getNewParameterName($queryBuilder);
-            $this->applyWhere($queryBuilder, sprintf('%s.%s = :%s', $alias, $field, $parameterName));
-            $queryBuilder->setParameter($parameterName, ($data['value'] == BooleanType::TYPE_YES) ? 1 : 0);
+            $queryBuilder = new \Elastica\Query\Builder();
+            $queryBuilder
+                ->fieldOpen('term')
+                    ->field($field, ($data['value'] == BooleanType::TYPE_YES))
+                ->fieldClose();
+            
+            $query->addMust($queryBuilder);
+
         }
     }
 
@@ -74,3 +86,4 @@ class BooleanFilter extends Filter
         ));
     }
 }
+
