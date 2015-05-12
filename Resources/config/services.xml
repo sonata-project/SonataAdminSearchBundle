@@ -32,12 +32,12 @@
         <service
             id="sonata.admin.search.filter.type.number"
             class="Sonata\AdminSearchBundle\Filter\NumberFilter">
-            <tag name="sonata.admin.filter.type" alias="elastica_number" />
+            <tag name="sonata.admin.filter.type" alias="sonata_search_elastica_number" />
         </service>
         <service
             id="sonata.admin.search.filter.type.string"
             class="Sonata\AdminSearchBundle\Filter\StringFilter">
-            <tag name="sonata.admin.filter.type" alias="elastica_string" />
+            <tag name="sonata.admin.filter.type" alias="sonata_search_elastica_string" />
         </service>
         <service
             id="sonata.admin.search.filter.type.choice"
