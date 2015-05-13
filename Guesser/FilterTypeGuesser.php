@@ -73,33 +73,33 @@ class FilterTypeGuesser implements TypeGuesserInterface
                 $options['field_type']    = 'sonata_type_boolean';
                 $options['field_options'] = array();
 
-                return new TypeGuess('elastic_boolean', $options, Guess::HIGH_CONFIDENCE);
+                return new TypeGuess('sonata_search_elastic_boolean', $options, Guess::HIGH_CONFIDENCE);
             case 'datetime':
             case 'vardatetime':
             case 'datetimetz':
-                return new TypeGuess('elastica_datetime', $options, Guess::HIGH_CONFIDENCE);
+                return new TypeGuess('sonata_search_elastica_datetime', $options, Guess::HIGH_CONFIDENCE);
             case 'date':
-                return new TypeGuess('elastica_date', $options, Guess::HIGH_CONFIDENCE);
+                return new TypeGuess('sonata_search_elastica_date', $options, Guess::HIGH_CONFIDENCE);
             case 'decimal':
             case 'float':
                 $options['field_type'] = 'number';
 
-                return new TypeGuess('elastica_number', $options, Guess::MEDIUM_CONFIDENCE);
+                return new TypeGuess('sonata_search_elastica_number', $options, Guess::MEDIUM_CONFIDENCE);
             case 'integer':
             case 'bigint':
             case 'smallint':
                 $options['field_type'] = 'number';
 
-                return new TypeGuess('elastica_number', $options, Guess::MEDIUM_CONFIDENCE);
+                return new TypeGuess('sonata_search_elastica_number', $options, Guess::MEDIUM_CONFIDENCE);
             case 'string':
             case 'text':
                 $options['field_type'] = 'text';
 
-                return new TypeGuess('elastica_string', $options, Guess::MEDIUM_CONFIDENCE);
+                return new TypeGuess('sonata_search_elastica_string', $options, Guess::MEDIUM_CONFIDENCE);
             case 'time':
-                return new TypeGuess('elastica_time', $options, Guess::HIGH_CONFIDENCE);
+                return new TypeGuess('sonata_search_elastica_time', $options, Guess::HIGH_CONFIDENCE);
             default:
-                return new TypeGuess('elastica_string', $options, Guess::LOW_CONFIDENCE);
+                return new TypeGuess('sonata_search_elastica_string', $options, Guess::LOW_CONFIDENCE);
         }
     }
 }
