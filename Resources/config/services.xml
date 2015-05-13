@@ -45,9 +45,14 @@
             <tag name="sonata.admin.filter.type" alias="sonata_search_elastica_choice" />
         </service>
         <service
+            id="sonata.admin.search.filter.type.callback"
+            class="Sonata\AdminSearchBundle\Filter\CallbackFilter">
+            <tag name="sonata.admin.filter.type" alias="sonata_search_elastica_callback" />
+        </service>
+        <service
             id="sonata.admin.search.filter.type.boolean"
             class="Sonata\AdminSearchBundle\Filter\BooleanFilter">
             <tag name="sonata.admin.filter.type" alias="sonata_search_elastica_boolean" />
-        </service>        
+        </service>
     </services>
 </container>
