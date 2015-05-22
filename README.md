@@ -26,6 +26,10 @@ sonata_admin_search:
             finder: Id for a FOS finder service that should be used # Finder service
 ```
 
+## Documentation
+
+For contribution to the documentation you cand find it on [Resources/doc](https://github.com/sonata-project/SonataAdminSearchBundle/tree/master/Resources/doc).
+
 [0]:https://travis-ci.org/sonata-project/SonataAdminSearchBundle.svg?branch=master
 [1]:https://travis-ci.org/sonata-project/SonataAdminSearchBundle
 [2]:http://sonata-project.org/bundles/admin
