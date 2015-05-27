@@ -54,5 +54,25 @@
             class="Sonata\AdminSearchBundle\Filter\BooleanFilter">
             <tag name="sonata.admin.filter.type" alias="sonata_search_elastica_boolean" />
         </service>
+        <service
+            id="sonata.admin.search.filter.type.date"
+            class="Sonata\AdminSearchBundle\Filter\DateFilter">
+            <tag name="sonata.admin.filter.type" alias="sonata_search_elastica_date" />
+        </service>        
+        <service
+            id="sonata.admin.search.filter.type.date.range"
+            class="Sonata\AdminSearchBundle\Filter\DateRangeFilter">
+            <tag name="sonata.admin.filter.type" alias="sonata_search_elastica_date_range" />
+        </service>  
+        <service
+            id="sonata.admin.search.filter.type.datetime"
+            class="Sonata\AdminSearchBundle\Filter\DateTimeFilter">
+            <tag name="sonata.admin.filter.type" alias="sonata_search_elastica_datetime" />
+        </service>        
+        <service
+            id="sonata.admin.search.filter.type.datetime.range"
+            class="Sonata\AdminSearchBundle\Filter\DateTimeRangeFilter">
+            <tag name="sonata.admin.filter.type" alias="sonata_search_elastica_datetime_range" />
+        </service>
     </services>
 </container>

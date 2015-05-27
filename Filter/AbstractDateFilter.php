@@ -25,12 +25,15 @@ abstract class AbstractDateFilter extends Filter
     /**
      * {@inheritdoc}
      */
-    public function filter(ProxyQueryInterface $queryBuilder, $alias, $field, $data)
+    public function filter(ProxyQueryInterface $query, $alias, $field, $data)
     {
         // check data sanity
         if (!$data || !is_array($data) || !array_key_exists('value', $data)) {
             return;
         }
+
+        $format = array_key_exists('format', $this->getFieldOptions()) ? $this->getFieldOptions()['format'] : 'c';
+        $queryBuilder = new \Elastica\Query\Builder();
 
         if ($this->range) {
             // additional data check for ranged items
@@ -51,26 +54,26 @@ abstract class AbstractDateFilter extends Filter
             // default type for range filter
             $data['type'] = !isset($data['type']) || !is_numeric($data['type']) ? DateRangeType::TYPE_BETWEEN : $data['type'];
 
-            $startDateParameterName = $this->getNewParameterName($queryBuilder);
-            $endDateParameterName = $this->getNewParameterName($queryBuilder);
+            $queryBuilder
+                ->fieldOpen('range')
+                    ->fieldOpen($field)
+                        ->field('gte', $data['value']['start']->format($format))
+                        ->field('lte', $data['value']['end']->format($format))
+                    ->fieldClose()
+                ->fieldClose();
 
             if ($data['type'] == DateRangeType::TYPE_NOT_BETWEEN) {
-                $this->applyWhere($queryBuilder, sprintf('%s.%s < :%s OR %s.%s > :%s', $alias, $field, $startDateParameterName, $alias, $field, $endDateParameterName));
+                $query->addMustNot($queryBuilder);
             } else {
-                $this->applyWhere($queryBuilder, sprintf('%s.%s %s :%s', $alias, $field, '>=', $startDateParameterName));
-                $this->applyWhere($queryBuilder, sprintf('%s.%s %s :%s', $alias, $field, '<=', $endDateParameterName));
+                $query->addMust($queryBuilder);
             }
-
-            $queryBuilder->setParameter($startDateParameterName,  $data['value']['start']);
-            $queryBuilder->setParameter($endDateParameterName,  $data['value']['end']);
         } else {
             if (!$data['value']) {
                 return;
             }
 
             // default type for simple filter
-            $data['type'] = !isset($data['type']) || !is_numeric($data['type']) ? DateType::TYPE_EQUAL : $data['type'];
-
+            $data['type'] = !isset($data['type']) || !is_numeric($data['type']) ? DateType::TYPE_GREATER_EQUAL : $data['type'];
             // just find an operator and apply query
             $operator = $this->getOperator($data['type']);
 
@@ -80,14 +83,28 @@ abstract class AbstractDateFilter extends Filter
             }
 
             // null / not null only check for col
-            if (in_array($operator, array('NULL', 'NOT NULL'))) {
-                $this->applyWhere($queryBuilder, sprintf('%s.%s IS %s ', $alias, $field, $operator));
+            if (in_array($operator, array('missing', 'exists'))) {
+                $queryBuilder
+                    ->fieldOpen($operator)
+                        ->field('field', $field)
+                    ->fieldClose();
+            } elseif ($operator == '=') {
+                $queryBuilder
+                    ->fieldOpen('range')
+                        ->fieldOpen($field)
+                          ->field('gte', $data['value']->format($format))
+                          ->field('lte', $data['value']->format($format))
+                      ->fieldClose()
+                  ->fieldClose();
             } else {
-                $parameterName = $this->getNewParameterName($queryBuilder);
-
-                $this->applyWhere($queryBuilder, sprintf('%s.%s %s :%s', $alias, $field, $operator, $parameterName));
-                $queryBuilder->setParameter($parameterName, $data['value']);
+                $queryBuilder
+                    ->fieldOpen('range')
+                        ->fieldOpen($field)
+                            ->field($operator, $data['value']->format($format))
+                        ->fieldClose()
+                    ->fieldClose();
             }
+            $query->addMust($queryBuilder);
         }
     }
 
@@ -103,13 +120,13 @@ abstract class AbstractDateFilter extends Filter
         $type = intval($type);
 
         $choices = array(
-            DateType::TYPE_EQUAL            => '=',
-            DateType::TYPE_GREATER_EQUAL    => '>=',
-            DateType::TYPE_GREATER_THAN     => '>',
-            DateType::TYPE_LESS_EQUAL       => '<=',
-            DateType::TYPE_LESS_THAN        => '<',
-            DateType::TYPE_NULL             => 'NULL',
-            DateType::TYPE_NOT_NULL         => 'NOT NULL',
+            DateType::TYPE_EQUAL => '=',
+            DateType::TYPE_GREATER_EQUAL => 'gte',
+            DateType::TYPE_GREATER_THAN => 'gt',
+            DateType::TYPE_LESS_EQUAL => 'lte',
+            DateType::TYPE_LESS_THAN => 'lt',
+            DateType::TYPE_NULL => 'missing',
+            DateType::TYPE_NOT_NULL => 'exists',
         );
 
         return isset($choices[$type]) ? $choices[$type] : '=';
