@@ -9,14 +9,16 @@ use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 abstract class AbstractDateFilter extends Filter
 {
     /**
-     * Flag indicating that filter will have range
-     * @var boolean
+     * Flag indicating that filter will have range.
+     *
+     * @var bool
      */
     protected $range = false;
 
     /**
-     * Flag indicating that filter will filter by datetime instead by date
-     * @var boolean
+     * Flag indicating that filter will filter by datetime instead by date.
+     *
+     * @var bool
      */
     protected $time = false;
 
@@ -47,7 +49,7 @@ abstract class AbstractDateFilter extends Filter
             }
 
             // default type for range filter
-            $data['type'] = !isset($data['type']) || !is_numeric($data['type']) ?  DateRangeType::TYPE_BETWEEN : $data['type'];
+            $data['type'] = !isset($data['type']) || !is_numeric($data['type']) ? DateRangeType::TYPE_BETWEEN : $data['type'];
 
             $startDateParameterName = $this->getNewParameterName($queryBuilder);
             $endDateParameterName = $this->getNewParameterName($queryBuilder);
@@ -62,7 +64,6 @@ abstract class AbstractDateFilter extends Filter
             $queryBuilder->setParameter($startDateParameterName,  $data['value']['start']);
             $queryBuilder->setParameter($endDateParameterName,  $data['value']['end']);
         } else {
-
             if (!$data['value']) {
                 return;
             }
@@ -91,9 +92,9 @@ abstract class AbstractDateFilter extends Filter
     }
 
     /**
-     * Resolves DataType:: constants to SQL operators
+     * Resolves DataType:: constants to SQL operators.
      *
-     * @param integer $type
+     * @param int $type
      *
      * @return string
      */
@@ -120,7 +121,7 @@ abstract class AbstractDateFilter extends Filter
     public function getDefaultOptions()
     {
         return array(
-            'input_type' => 'datetime'
+            'input_type' => 'datetime',
         );
     }
 
@@ -139,10 +140,13 @@ abstract class AbstractDateFilter extends Filter
             $name .= '_range';
         }
 
-        return array($name, array(
-            'field_type'    => $this->getFieldType(),
-            'field_options' => $this->getFieldOptions(),
-            'label'         => $this->getLabel(),
-        ));
+        return array(
+            $name,
+            array(
+                'field_type' => $this->getFieldType(),
+                'field_options' => $this->getFieldOptions(),
+                'label' => $this->getLabel(),
+            ),
+        );
     }
 }
