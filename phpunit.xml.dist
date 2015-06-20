@@ -9,9 +9,10 @@
          processIsolation="false"
          stopOnFailure="false"
          syntaxCheck="false"
+         bootstrap="vendor/autoload.php"
 >
     <testsuites>
-        <testsuite name="AdminBundle Test Suite">
+        <testsuite name="AdminSearchBundle Test Suite">
             <directory>./Tests</directory>
         </testsuite>
     </testsuites>
@@ -23,7 +24,6 @@
                 <directory>./Tests/</directory>
                 <directory>./DataFixtures/</directory>
                 <directory>./Resources/</directory>
-                <directory>./DependencyInjection/</directory>
                 <directory>./vendor/</directory>
                 <directory>./coverage/</directory>
             </exclude>
