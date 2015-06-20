@@ -11,8 +11,8 @@
 
 namespace Sonata\AdminSearchBundle\Filter;
 
-use Sonata\AdminBundle\Form\Type\Filter\NumberType;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
+use Sonata\AdminBundle\Form\Type\Filter\NumberType;
 
 class NumberFilter extends Filter
 {
@@ -27,7 +27,6 @@ class NumberFilter extends Filter
 
         $type = isset($data['type']) ? $data['type'] : false;
         $operator = $this->getOperator($type);
-
 
         $queryBuilder = new \Elastica\Query\Builder();
 
@@ -62,7 +61,7 @@ class NumberFilter extends Filter
             NumberType::TYPE_GREATER_EQUAL    => 'gte',
             NumberType::TYPE_GREATER_THAN     => 'gt',
             NumberType::TYPE_LESS_EQUAL       => 'lte',
-            NumberType::TYPE_LESS_THAN        => 'lt'
+            NumberType::TYPE_LESS_THAN        => 'lt',
         );
 
         return isset($choices[$type]) ? $choices[$type] : false;
@@ -84,7 +83,7 @@ class NumberFilter extends Filter
         return array('sonata_type_filter_number', array(
             'field_type'    => $this->getFieldType(),
             'field_options' => $this->getFieldOptions(),
-            'label'         => $this->getLabel()
+            'label'         => $this->getLabel(),
         ));
     }
 }

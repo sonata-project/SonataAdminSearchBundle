@@ -1,8 +1,9 @@
 <?php
+
 namespace Sonata\AdminSearchBundle\Tests\DependencyInjection;
 
-use Sonata\AdminSearchBundle\DependencyInjection\Configuration;
 use Matthias\SymfonyConfigTest\PhpUnit\AbstractConfigurationTestCase;
+use Sonata\AdminSearchBundle\DependencyInjection\Configuration;
 
 class ConfigurationTest extends AbstractConfigurationTestCase
 {
@@ -17,9 +18,9 @@ class ConfigurationTest extends AbstractConfigurationTestCase
             array(
                 array('admin_finder_services' => array(
                     'my_admin' => array(
-                        'not_finder' => 42
-                    )
-                ))
+                        'not_finder' => 42,
+                    ),
+                )),
             )
         );
     }
@@ -30,14 +31,14 @@ class ConfigurationTest extends AbstractConfigurationTestCase
             array(
                 array('admin_finder_services' => array(
                     'my_admin' => array(
-                        'finder' => 42
-                    )
-                ))
+                        'finder' => 42,
+                    ),
+                )),
             ),
             array('admin_finder_services' => array(
                 'my_admin' => array(
-                    'finder' => 42
-                )
+                    'finder' => 42,
+                ),
             ))
         );
     }

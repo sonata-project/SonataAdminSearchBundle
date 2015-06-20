@@ -2,8 +2,8 @@
 
 namespace Sonata\AdminSearchBundle\Tests\Filter;
 
-use Sonata\AdminSearchBundle\ProxyQuery\ElasticaProxyQuery;
 use Sonata\AdminSearchBundle\Filter\StringFilter;
+use Sonata\AdminSearchBundle\ProxyQuery\ElasticaProxyQuery;
 
 class StringFilterTest extends \PHPUnit_Framework_TestCase
 {
@@ -39,7 +39,7 @@ class StringFilterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Check if filter query with special characters can be translated into JSON
+     * Check if filter query with special characters can be translated into JSON.
      */
     public function testFilterSpecialCharacters()
     {

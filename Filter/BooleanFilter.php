@@ -38,7 +38,7 @@ class BooleanFilter extends Filter
             if (count($values) == 0) {
                 return;
             }
-            
+
             $queryBuilder = new \Elastica\Query\Builder();
             $queryBuilder
                 ->fieldOpen('terms')
@@ -46,9 +46,7 @@ class BooleanFilter extends Filter
                 ->fieldClose();
 
             $query->addMust($queryBuilder);
-
         } else {
-
             if (!in_array($data['value'], array(BooleanType::TYPE_NO, BooleanType::TYPE_YES))) {
                 return;
             }
@@ -58,9 +56,8 @@ class BooleanFilter extends Filter
                 ->fieldOpen('term')
                     ->field($field, ($data['value'] == BooleanType::TYPE_YES))
                 ->fieldClose();
-            
-            $query->addMust($queryBuilder);
 
+            $query->addMust($queryBuilder);
         }
     }
 
@@ -78,12 +75,11 @@ class BooleanFilter extends Filter
     public function getRenderSettings()
     {
         return array('sonata_type_filter_default', array(
-            'field_type'    => $this->getFieldType(),
-            'field_options' => $this->getFieldOptions(),
-            'operator_type' => 'hidden',
+            'field_type'       => $this->getFieldType(),
+            'field_options'    => $this->getFieldOptions(),
+            'operator_type'    => 'hidden',
             'operator_options' => array(),
-            'label'         => $this->getLabel()
+            'label'            => $this->getLabel(),
         ));
     }
 }
-

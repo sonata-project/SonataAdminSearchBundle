@@ -5,7 +5,7 @@ namespace Sonata\AdminSearchBundle\Datagrid;
 use Sonata\AdminBundle\Datagrid\Datagrid as BaseDatagrid;
 
 /**
- * Marker class
+ * Marker class.
  */
 class Datagrid extends BaseDatagrid
 {

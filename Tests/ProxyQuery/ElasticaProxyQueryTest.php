@@ -43,8 +43,8 @@ class ElasticaProxyQueryTest extends \PHPUnit_Framework_TestCase
     {
         $parentMapping = array(
             array(
-                'fieldName' => 'category'
-            )
+                'fieldName' => 'category',
+            ),
         );
 
         $this->proxyQuery->setSortBy($parentMapping, $this->fieldMapping);
@@ -60,7 +60,7 @@ class ElasticaProxyQueryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test if "setSort" method of Elastica query has been called
+     * Test if "setSort" method of Elastica query has been called.
      */
     public function testExecuteWithSort()
     {

@@ -12,8 +12,8 @@
 namespace Sonata\AdminSearchBundle\ProxyQuery;
 
 use Elastica\Search;
-use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use FOS\ElasticaBundle\Finder\TransformedFinder;
+use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 
 class ElasticaProxyQuery implements ProxyQueryInterface
 {
@@ -62,12 +62,12 @@ class ElasticaProxyQuery implements ProxyQueryInterface
     protected $sortOrder;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $firstResult;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $maxResults;
 
@@ -84,10 +84,10 @@ class ElasticaProxyQuery implements ProxyQueryInterface
         $alias = '';
 
         foreach ((array) $parentAssociationMappings as $associationMapping) {
-            $alias .= $associationMapping['fieldName'] . '.';
+            $alias .= $associationMapping['fieldName'].'.';
         }
 
-        $this->sortBy = $alias . $fieldMapping['fieldName'];
+        $this->sortBy = $alias.$fieldMapping['fieldName'];
 
         return $this;
     }

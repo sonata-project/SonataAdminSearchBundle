@@ -11,31 +11,30 @@
 
 namespace Sonata\AdminSearchBundle\Builder;
 
-use Sonata\AdminBundle\Admin\FieldDescriptionInterface;
 use Sonata\AdminBundle\Admin\AdminInterface;
+use Sonata\AdminBundle\Admin\FieldDescriptionInterface;
 use Sonata\AdminBundle\Builder\DatagridBuilderInterface;
 use Sonata\AdminBundle\Datagrid\DatagridInterface;
 use Sonata\AdminSearchBundle\Datagrid\Datagrid;
-use FOS\ElasticaBundle\Configuration\ManagerInterface;
 
 /**
  * Admin search bundle wraps existing datagrid builder (orm, odm, phpcr)
  * and provides efficient datagrid builder based on smart engine (elasticsearch, )
  * Some filter fields could not be stored in the smart engine so we have to fallback
- * on the original datagrid builder (orm, odm, phpcr)
+ * on the original datagrid builder (orm, odm, phpcr).
  */
 class DatagridBuilder implements DatagridBuilderInterface
 {
     private $smartDatagridBuilder; // FIXME: Assume the default one is based on elasticsearch
     private $originalAdminDatagridBuilders; // For each admin, keep a reference to the original datagrid builder
 
-    public function __construct(DatagridBuilderInterface $smartDatagridBuilder, $originalAdminDatagridBuilders=array())
+    public function __construct(DatagridBuilderInterface $smartDatagridBuilder, $originalAdminDatagridBuilders = array())
     {
         $this->smartDatagridBuilder          = $smartDatagridBuilder;
         $this->originalAdminDatagridBuilders = $originalAdminDatagridBuilders;
     }
 
-    private function getAdminDatagridBuilder($admin, $smartDatagrid=true)
+    private function getAdminDatagridBuilder($admin, $smartDatagrid = true)
     {
         if ($smartDatagrid) {
             return $this->smartDatagridBuilder;
@@ -43,6 +42,7 @@ class DatagridBuilder implements DatagridBuilderInterface
 
         // Search the original datagrid builder for the specified admin
         $datagridBuilder = $this->originalAdminDatagridBuilders[$admin->getCode()];
+
         return $datagridBuilder;
     }
 
@@ -69,6 +69,7 @@ class DatagridBuilder implements DatagridBuilderInterface
     {
         // Check if we use smart or original datagrid builder
         $smartDatagrid = $this->smartDatagridBuilder->isSmart($admin, $values);
+
         return $this->getAdminDatagridBuilder($admin, $smartDatagrid)->getBaseDatagrid($admin, $values);
     }
 }
