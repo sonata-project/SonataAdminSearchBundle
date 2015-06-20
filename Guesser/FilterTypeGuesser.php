@@ -11,12 +11,11 @@
 
 namespace Sonata\AdminSearchBundle\Guesser;
 
-use Symfony\Component\Form\Guess\Guess;
-use Symfony\Component\Form\Guess\TypeGuess;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Sonata\AdminBundle\Guesser\TypeGuesserInterface;
-use Doctrine\ORM\Mapping\MappingException;
 use Sonata\AdminBundle\Model\ModelManagerInterface;
+use Symfony\Component\Form\Guess\Guess;
+use Symfony\Component\Form\Guess\TypeGuess;
 
 class FilterTypeGuesser implements TypeGuesserInterface
 {
@@ -25,7 +24,6 @@ class FilterTypeGuesser implements TypeGuesserInterface
      */
     public function guessType($class, $property, ModelManagerInterface $modelManager)
     {
-
         if (!$ret = $modelManager->getParentMetadataForProperty($class, $property, $modelManager)) {
             return false;
         }

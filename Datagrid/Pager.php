@@ -17,7 +17,6 @@ class Pager extends BasePager
         return $this->paginator;
     }
 
-
     /**
      * {@inheritdoc}
      */
@@ -44,7 +43,6 @@ class Pager extends BasePager
     {
         $this->resetIterator();
 
-
         $this->getQuery()->setFirstResult(null);
         $this->getQuery()->setMaxResults(null);
 
@@ -57,7 +55,6 @@ class Pager extends BasePager
             $this->setNbResults($this->computeNbResult());
         } else {
             $offset = ($this->getPage() - 1) * $this->getMaxPerPage();
-
 
             $this->getQuery()->setFirstResult($offset);
             $this->getQuery()->setMaxResults($this->getMaxPerPage());

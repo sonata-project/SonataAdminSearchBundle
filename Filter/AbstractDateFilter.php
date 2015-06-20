@@ -2,9 +2,9 @@
 
 namespace Sonata\AdminSearchBundle\Filter;
 
-use Sonata\AdminBundle\Form\Type\Filter\DateType;
-use Sonata\AdminBundle\Form\Type\Filter\DateRangeType;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
+use Sonata\AdminBundle\Form\Type\Filter\DateRangeType;
+use Sonata\AdminBundle\Form\Type\Filter\DateType;
 
 abstract class AbstractDateFilter extends Filter
 {
@@ -120,13 +120,13 @@ abstract class AbstractDateFilter extends Filter
         $type = intval($type);
 
         $choices = array(
-            DateType::TYPE_EQUAL => '=',
+            DateType::TYPE_EQUAL         => '=',
             DateType::TYPE_GREATER_EQUAL => 'gte',
-            DateType::TYPE_GREATER_THAN => 'gt',
-            DateType::TYPE_LESS_EQUAL => 'lte',
-            DateType::TYPE_LESS_THAN => 'lt',
-            DateType::TYPE_NULL => 'missing',
-            DateType::TYPE_NOT_NULL => 'exists',
+            DateType::TYPE_GREATER_THAN  => 'gt',
+            DateType::TYPE_LESS_EQUAL    => 'lte',
+            DateType::TYPE_LESS_THAN     => 'lt',
+            DateType::TYPE_NULL          => 'missing',
+            DateType::TYPE_NOT_NULL      => 'exists',
         );
 
         return isset($choices[$type]) ? $choices[$type] : '=';
@@ -160,9 +160,9 @@ abstract class AbstractDateFilter extends Filter
         return array(
             $name,
             array(
-                'field_type' => $this->getFieldType(),
+                'field_type'    => $this->getFieldType(),
                 'field_options' => $this->getFieldOptions(),
-                'label' => $this->getLabel(),
+                'label'         => $this->getLabel(),
             ),
         );
     }

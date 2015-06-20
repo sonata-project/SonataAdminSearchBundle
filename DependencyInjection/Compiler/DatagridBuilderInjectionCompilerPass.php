@@ -11,15 +11,14 @@
 
 namespace Sonata\AdminSearchBundle\DependencyInjection\Compiler;
 
-use Symfony\Component\DependencyInjection\Definition;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * Finds all admin finder services definition and add a datagrid builder
- * injection
+ * injection.
  */
 class DatagridBuilderInjectionCompilerPass implements CompilerPassInterface
 {

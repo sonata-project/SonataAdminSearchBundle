@@ -1,4 +1,5 @@
 <?php
+
 namespace Sonata\AdminSearchBundle\Tests\Model;
 
 use Sonata\AdminSearchBundle\Model\FinderProvider;
@@ -13,8 +14,8 @@ class FinderProviderTest extends \PHPUnit_Framework_TestCase
             $container,
             array(
                 $adminId = 'planet_admin' => array(
-                    'finder' => $finderId = 'fos_elastica.planet_finder'
-                )
+                    'finder' => $finderId = 'fos_elastica.planet_finder',
+                ),
             )
         );
         $finder = new \StdClass();

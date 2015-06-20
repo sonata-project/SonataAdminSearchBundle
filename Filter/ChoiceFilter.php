@@ -11,10 +11,9 @@
 
 namespace Sonata\AdminSearchBundle\Filter;
 
-use Doctrine\ORM\QueryBuilder;
-use Sonata\AdminBundle\Form\Type\Filter\ChoiceType;
-use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Elastica\Util;
+use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
+use Sonata\AdminBundle\Form\Type\Filter\ChoiceType;
 
 class ChoiceFilter extends Filter
 {
@@ -26,10 +25,10 @@ class ChoiceFilter extends Filter
         if (!$data || !is_array($data) || !array_key_exists('type', $data) || !array_key_exists('value', $data)) {
             return;
         }
-        
+
         $data['type'] = !isset($data['type']) ?  ChoiceType::TYPE_CONTAINS : $data['type'];
         list($firstOperator, $secondOperator) = $this->getOperators((int) $data['type']);
-        
+
         if (is_array($data['value'])) {
             if (count($data['value']) == 0) {
                 return;
@@ -42,17 +41,15 @@ class ChoiceFilter extends Filter
             $queryBuilder = new \Elastica\Query\Builder();
             $queryBuilder
             ->fieldOpen($secondOperator)
-	            ->field($field, Util::escapeTerm($data['value']))
+                ->field($field, Util::escapeTerm($data['value']))
             ->fieldClose();
-            
+
             if ($firstOperator == 'must') {
-            	$query->addMust($queryBuilder);
-	        } else {
-	            $query->addMustNot($queryBuilder);
-	        }
-
+                $query->addMust($queryBuilder);
+            } else {
+                $query->addMustNot($queryBuilder);
+            }
         } else {
-
             if ($data['value'] === '' || $data['value'] === null || $data['value'] === false || $data['value'] === 'all') {
                 return;
             }
@@ -60,14 +57,14 @@ class ChoiceFilter extends Filter
             $queryBuilder = new \Elastica\Query\Builder();
             $queryBuilder
             ->fieldOpen($secondOperator)
-	            ->field($field, Util::escapeTerm(array($data['value'])))
+                ->field($field, Util::escapeTerm(array($data['value'])))
             ->fieldClose();
-            
+
             if ($firstOperator == 'must') {
-         	   $query->addMust($queryBuilder);
-	        } else {
-	            $query->addMustNot($queryBuilder);
-	        }
+                $query->addMust($queryBuilder);
+            } else {
+                $query->addMustNot($queryBuilder);
+            }
         }
     }
 
@@ -103,7 +100,7 @@ class ChoiceFilter extends Filter
             'operator_type' => 'sonata_type_equal',
             'field_type'    => $this->getFieldType(),
             'field_options' => $this->getFieldOptions(),
-            'label'         => $this->getLabel()
+            'label'         => $this->getLabel(),
         ));
     }
 }

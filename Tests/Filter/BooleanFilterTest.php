@@ -2,8 +2,8 @@
 
 namespace Sonata\AdminSearchBundle\Tests\Filter;
 
-use Sonata\AdminSearchBundle\ProxyQuery\ElasticaProxyQuery;
 use Sonata\AdminSearchBundle\Filter\BooleanFilter;
+use Sonata\AdminSearchBundle\ProxyQuery\ElasticaProxyQuery;
 use Sonata\CoreBundle\Form\Type\BooleanType;
 
 class BooleanFilterTest extends \PHPUnit_Framework_TestCase
@@ -27,7 +27,7 @@ class BooleanFilterTest extends \PHPUnit_Framework_TestCase
         $filter = new BooleanFilter();
         $value  = BooleanType::TYPE_NO;
 
-        $filter->filter($this->proxyQuery, 'filter', 'foo', array('value' => $value, 'type'=> null));
+        $filter->filter($this->proxyQuery, 'filter', 'foo', array('value' => $value, 'type' => null));
 
         $queryReflection = new \ReflectionClass($this->proxyQuery);
         $queryProperty   = $queryReflection->getProperty('query');
@@ -44,7 +44,7 @@ class BooleanFilterTest extends \PHPUnit_Framework_TestCase
         $filter = new BooleanFilter();
         $value  = BooleanType::TYPE_YES;
 
-        $filter->filter($this->proxyQuery, 'filter', 'foo', array('value' => $value, 'type'=> null));
+        $filter->filter($this->proxyQuery, 'filter', 'foo', array('value' => $value, 'type' => null));
 
         $queryReflection = new \ReflectionClass($this->proxyQuery);
         $queryProperty   = $queryReflection->getProperty('query');
@@ -52,8 +52,7 @@ class BooleanFilterTest extends \PHPUnit_Framework_TestCase
         $queryProperty->setAccessible(true);
 
         $queryArray = $queryProperty->getValue($this->proxyQuery)->toArray();
-         
+
         $this->assertEquals('true', $queryArray['query']['bool']['must'][0]['term']['foo']);
     }
-
 }

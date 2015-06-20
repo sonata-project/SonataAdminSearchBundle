@@ -11,18 +11,18 @@
 
 namespace Sonata\AdminSearchBundle\Builder;
 
-use Sonata\AdminBundle\Admin\FieldDescriptionInterface;
+use FOS\ElasticaBundle\Configuration\ManagerInterface;
 use Sonata\AdminBundle\Admin\AdminInterface;
+use Sonata\AdminBundle\Admin\FieldDescriptionInterface;
 use Sonata\AdminBundle\Builder\DatagridBuilderInterface;
 use Sonata\AdminBundle\Datagrid\DatagridInterface;
-use Symfony\Component\Form\FormFactoryInterface;
 use Sonata\AdminBundle\Filter\FilterFactoryInterface;
 use Sonata\AdminBundle\Guesser\TypeGuesserInterface;
+use Sonata\AdminSearchBundle\Datagrid\Datagrid;
+use Sonata\AdminSearchBundle\Datagrid\Pager;
 use Sonata\AdminSearchBundle\Model\FinderProviderInterface;
 use Sonata\AdminSearchBundle\ProxyQuery\ElasticaProxyQuery;
-use Sonata\AdminSearchBundle\Datagrid\Pager;
-use Sonata\AdminSearchBundle\Datagrid\Datagrid;
-use FOS\ElasticaBundle\Configuration\ManagerInterface;
+use Symfony\Component\Form\FormFactoryInterface;
 
 class ElasticaDatagridBuilder implements DatagridBuilderInterface
 {
