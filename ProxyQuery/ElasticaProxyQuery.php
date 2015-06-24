@@ -190,6 +190,19 @@ class ElasticaProxyQuery implements ProxyQueryInterface
     }
 
     /**
+     * Add should part to query.
+     *
+     * @param \Elastica\Query\AbstractQuery|array $args Should query
+     *
+     * @return $this
+     */
+    public function addShould($args)
+    {
+        $this->boolQuery->addShould($args);
+        $this->query = new \Elastica\Query($this->boolQuery);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function __call($name, $args)
