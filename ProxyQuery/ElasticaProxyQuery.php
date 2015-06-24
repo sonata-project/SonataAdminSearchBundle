@@ -45,10 +45,12 @@ class ElasticaProxyQuery implements ProxyQueryInterface
         }
 
         return $this->finder->createPaginatorAdapter(
-            $this->query, array(
+            $this->query,
+            array(
                 Search::OPTION_SIZE => $this->getMaxResults(),
                 Search::OPTION_FROM => $this->getFirstResult(),
-        ));
+            )
+        );
     }
 
     /**
