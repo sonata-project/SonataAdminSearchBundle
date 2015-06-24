@@ -45,10 +45,12 @@ class ElasticaProxyQuery implements ProxyQueryInterface
         }
 
         return $this->finder->createPaginatorAdapter(
-            $this->query, array(
+            $this->query,
+            array(
                 Search::OPTION_SIZE => $this->getMaxResults(),
                 Search::OPTION_FROM => $this->getFirstResult(),
-        ));
+            )
+        );
     }
 
     /**
@@ -186,6 +188,19 @@ class ElasticaProxyQuery implements ProxyQueryInterface
     public function addMustNot($args)
     {
         $this->boolQuery->addMustNot($args);
+        $this->query = new \Elastica\Query($this->boolQuery);
+    }
+
+    /**
+     * Add should part to query.
+     *
+     * @param AbstractQuery|array $args Should query
+     *
+     * @return ElasticaProxyQuery
+     */
+    public function addShould($args)
+    {
+        $this->boolQuery->addShould($args);
         $this->query = new \Elastica\Query($this->boolQuery);
     }
 
