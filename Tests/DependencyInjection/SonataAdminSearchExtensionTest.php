@@ -19,7 +19,8 @@ class SonataAdminSearchExtensionTest extends AbstractExtensionTestCase
         $this->load(array(
             'admin_finder_services' => $expectedParameterValue = array(
                 'my_id' => array(
-                    'finder' => 'test',
+                    'finder'  => 'test',
+                    'actions' => array('list'),
                 ),
             ),
         ));

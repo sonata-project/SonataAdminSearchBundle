@@ -21,6 +21,31 @@ class ElasticaProxyQuery implements ProxyQueryInterface
     private $query;
     private $boolQuery;
 
+    /**
+     * @var array
+     */
+    protected $sortBy;
+
+    /**
+     * @var array
+     */
+    protected $sortOrder;
+
+    /**
+     * @var int
+     */
+    protected $firstResult;
+
+    /**
+     * @var int
+     */
+    protected $maxResults;
+
+    /**
+     * @var array
+     */
+    protected $results;
+
     public function __construct(
         TransformedFinder $finder
     ) {
@@ -52,31 +77,6 @@ class ElasticaProxyQuery implements ProxyQueryInterface
             )
         );
     }
-
-    /**
-     * @var array
-     */
-    protected $sortBy;
-
-    /**
-     * @var array
-     */
-    protected $sortOrder;
-
-    /**
-     * @var int
-     */
-    protected $firstResult;
-
-    /**
-     * @var int
-     */
-    protected $maxResults;
-
-    /**
-     * @var array
-     */
-    protected $results;
 
     /**
      * {@inheritdoc}
