@@ -129,6 +129,17 @@ class ElasticaDatagridBuilder implements DatagridBuilderInterface
      */
     public function isSmart(AdminInterface $admin, array $values = array())
     {
+
+        // first : validate if elastica is asked in the configuration for this action
+        $fullCurrentAction = $admin->getRequest()->attributes->get('_controller');
+        $currentAction = explode('::', $fullCurrentAction);
+        // remove Action from 'listAction'
+        $currentAction = substr($currentAction[1], 0, -strlen('Action'));
+        // in case of batch|export action, no need to elasticsearch
+        if (!in_array($currentAction, $this->finderProvider->getActionsByAdmin($admin))) {
+            return false;
+        }
+
         // Get mapped field names
         $finderId = $this->finderProvider->getFinderIdByAdmin($admin);
 

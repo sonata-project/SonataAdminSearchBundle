@@ -42,4 +42,18 @@ interface FinderProviderInterface
      * @return string
      */
     public function getFinderIdByAdminId($adminId);
+
+    /**
+     * @param Sonata\AdminBundle\Admin\AdminInterface $admin Sonata Admin interface
+     * 
+     * @return array
+     */
+    public function getActionsByAdmin(AdminInterface $admin);
+
+    /**
+     * @param string $adminId Sonata Admin service id
+     *
+     * @return array
+     */
+    public function getActionsByAdminId($adminId);
 }

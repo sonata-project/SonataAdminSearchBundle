@@ -32,12 +32,14 @@ class ConfigurationTest extends AbstractConfigurationTestCase
                 array('admin_finder_services' => array(
                     'my_admin' => array(
                         'finder' => 42,
+                        'actions' => array('list'),
                     ),
                 )),
             ),
             array('admin_finder_services' => array(
                 'my_admin' => array(
-                    'finder' => 42,
+                    'finder'  => 42,
+                    'actions' => array('list'),
                 ),
             ))
         );
