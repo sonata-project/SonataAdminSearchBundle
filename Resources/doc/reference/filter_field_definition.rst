@@ -1,5 +1,3 @@
-.. index::
-
 Filter field definition
 =======================
 
