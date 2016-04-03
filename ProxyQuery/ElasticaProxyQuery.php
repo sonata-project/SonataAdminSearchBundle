@@ -51,7 +51,7 @@ class ElasticaProxyQuery implements ProxyQueryInterface
     ) {
         $this->finder = $finder;
         $this->query = new \Elastica\Query();
-        $this->boolQuery = new \Elastica\Query\Bool();
+        $this->boolQuery = new \Elastica\Query\BoolQuery();
     }
 
     /**
