@@ -71,7 +71,7 @@ class FilterTypeGuesser implements TypeGuesserInterface
                 $options['field_type']    = 'sonata_type_boolean';
                 $options['field_options'] = array();
 
-                return new TypeGuess('sonata_search_elastic_boolean', $options, Guess::HIGH_CONFIDENCE);
+                return new TypeGuess('sonata_search_elastica_boolean', $options, Guess::HIGH_CONFIDENCE);
             case 'datetime':
             case 'vardatetime':
             case 'datetimetz':
