@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata package.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -53,22 +53,6 @@ class StringFilter extends Filter
     }
 
     /**
-     * @param string $type
-     *
-     * @return bool
-     */
-    private function getOperators($type)
-    {
-        $choices = array(
-            ChoiceType::TYPE_CONTAINS         => array('must', 'match'),
-            ChoiceType::TYPE_NOT_CONTAINS     => array('must_not', 'match'),
-            ChoiceType::TYPE_EQUAL            => array('must', 'match_phrase'),
-        );
-
-        return isset($choices[$type]) ? $choices[$type] : false;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function getDefaultOptions()
@@ -82,9 +66,25 @@ class StringFilter extends Filter
     public function getRenderSettings()
     {
         return array('sonata_type_filter_choice', array(
-            'field_type'    => $this->getFieldType(),
+            'field_type' => $this->getFieldType(),
             'field_options' => $this->getFieldOptions(),
-            'label'         => $this->getLabel(),
+            'label' => $this->getLabel(),
         ));
+    }
+
+    /**
+     * @param string $type
+     *
+     * @return bool
+     */
+    private function getOperators($type)
+    {
+        $choices = array(
+            ChoiceType::TYPE_CONTAINS => array('must', 'match'),
+            ChoiceType::TYPE_NOT_CONTAINS => array('must_not', 'match'),
+            ChoiceType::TYPE_EQUAL => array('must', 'match_phrase'),
+        );
+
+        return isset($choices[$type]) ? $choices[$type] : false;
     }
 }

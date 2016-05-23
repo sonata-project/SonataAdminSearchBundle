@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata package.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -69,21 +69,6 @@ class ChoiceFilter extends Filter
     }
 
     /**
-     * @param string $type
-     *
-     * @return bool
-     */
-    private function getOperators($type)
-    {
-        $choices = array(
-            ChoiceType::TYPE_CONTAINS         => array('must', 'terms'),
-            ChoiceType::TYPE_NOT_CONTAINS     => array('must_not', 'terms'),
-        );
-
-        return isset($choices[$type]) ? $choices[$type] : false;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function getDefaultOptions()
@@ -98,9 +83,24 @@ class ChoiceFilter extends Filter
     {
         return array('sonata_type_filter_default', array(
             'operator_type' => 'sonata_type_equal',
-            'field_type'    => $this->getFieldType(),
+            'field_type' => $this->getFieldType(),
             'field_options' => $this->getFieldOptions(),
-            'label'         => $this->getLabel(),
+            'label' => $this->getLabel(),
         ));
+    }
+
+    /**
+     * @param string $type
+     *
+     * @return bool
+     */
+    private function getOperators($type)
+    {
+        $choices = array(
+            ChoiceType::TYPE_CONTAINS => array('must', 'terms'),
+            ChoiceType::TYPE_NOT_CONTAINS => array('must_not', 'terms'),
+        );
+
+        return isset($choices[$type]) ? $choices[$type] : false;
     }
 }

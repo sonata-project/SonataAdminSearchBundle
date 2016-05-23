@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata package.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -30,20 +30,8 @@ class DatagridBuilder implements DatagridBuilderInterface
 
     public function __construct(DatagridBuilderInterface $smartDatagridBuilder, $originalAdminDatagridBuilders = array())
     {
-        $this->smartDatagridBuilder          = $smartDatagridBuilder;
+        $this->smartDatagridBuilder = $smartDatagridBuilder;
         $this->originalAdminDatagridBuilders = $originalAdminDatagridBuilders;
-    }
-
-    private function getAdminDatagridBuilder($admin, $smartDatagrid = true)
-    {
-        if ($smartDatagrid) {
-            return $this->smartDatagridBuilder;
-        }
-
-        // Search the original datagrid builder for the specified admin
-        $datagridBuilder = $this->originalAdminDatagridBuilders[$admin->getCode()];
-
-        return $datagridBuilder;
     }
 
     /**
@@ -57,7 +45,7 @@ class DatagridBuilder implements DatagridBuilderInterface
     /**
      * {@inheritdoc}
      */
-    public function addFilter(DatagridInterface $datagrid, $type = null, FieldDescriptionInterface $fieldDescription, AdminInterface $admin)
+    public function addFilter(DatagridInterface $datagrid, $type, FieldDescriptionInterface $fieldDescription, AdminInterface $admin)
     {
         return $this->getAdminDatagridBuilder($admin, $datagrid instanceof Datagrid)->addFilter($datagrid, $type, $fieldDescription, $admin);
     }
@@ -71,5 +59,17 @@ class DatagridBuilder implements DatagridBuilderInterface
         $smartDatagrid = $this->smartDatagridBuilder->isSmart($admin, $values);
 
         return $this->getAdminDatagridBuilder($admin, $smartDatagrid)->getBaseDatagrid($admin, $values);
+    }
+
+    private function getAdminDatagridBuilder($admin, $smartDatagrid = true)
+    {
+        if ($smartDatagrid) {
+            return $this->smartDatagridBuilder;
+        }
+
+        // Search the original datagrid builder for the specified admin
+        $datagridBuilder = $this->originalAdminDatagridBuilders[$admin->getCode()];
+
+        return $datagridBuilder;
     }
 }
