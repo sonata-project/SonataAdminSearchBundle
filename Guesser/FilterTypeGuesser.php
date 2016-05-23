@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata package.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -29,9 +29,9 @@ class FilterTypeGuesser implements TypeGuesserInterface
         }
 
         $options = array(
-            'field_type'     => null,
-            'field_options'  => array(),
-            'options'        => array(),
+            'field_type' => null,
+            'field_options' => array(),
+            'options' => array(),
         );
 
         list($metadata, $propertyName, $parentAssociationMappings) = $ret;
@@ -68,7 +68,7 @@ class FilterTypeGuesser implements TypeGuesserInterface
 
         switch ($metadata->getTypeOfField($propertyName)) {
             case 'boolean':
-                $options['field_type']    = 'sonata_type_boolean';
+                $options['field_type'] = 'sonata_type_boolean';
                 $options['field_options'] = array();
 
                 return new TypeGuess('sonata_search_elastica_boolean', $options, Guess::HIGH_CONFIDENCE);

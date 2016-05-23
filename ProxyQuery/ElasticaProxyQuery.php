@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata package.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -17,10 +17,6 @@ use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 
 class ElasticaProxyQuery implements ProxyQueryInterface
 {
-    private $finder;
-    private $query;
-    private $boolQuery;
-
     /**
      * @var array
      */
@@ -45,6 +41,9 @@ class ElasticaProxyQuery implements ProxyQueryInterface
      * @var array
      */
     protected $results;
+    private $finder;
+    private $query;
+    private $boolQuery;
 
     public function __construct(
         TransformedFinder $finder
@@ -52,6 +51,13 @@ class ElasticaProxyQuery implements ProxyQueryInterface
         $this->finder = $finder;
         $this->query = new \Elastica\Query();
         $this->boolQuery = new \Elastica\Query\BoolQuery();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function __call($name, $args)
+    {
     }
 
     /**
@@ -202,12 +208,5 @@ class ElasticaProxyQuery implements ProxyQueryInterface
     {
         $this->boolQuery->addShould($args);
         $this->query = new \Elastica\Query($this->boolQuery);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function __call($name, $args)
-    {
     }
 }

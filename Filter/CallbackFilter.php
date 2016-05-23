@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata package.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -15,14 +15,6 @@ use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 
 class CallbackFilter extends Filter
 {
-    /**
-     * {@inheritdoc}
-     */
-    protected function association(ProxyQueryInterface $queryBuilder, $data)
-    {
-        return array($this->getOption('alias', $queryBuilder->getRootAlias()), false);
-    }
-
     /**
      * {@inheritdoc}
      */
@@ -41,9 +33,9 @@ class CallbackFilter extends Filter
     public function getDefaultOptions()
     {
         return array(
-            'callback'         => null,
-            'field_type'       => 'text',
-            'operator_type'    => 'hidden',
+            'callback' => null,
+            'field_type' => 'text',
+            'operator_type' => 'hidden',
             'operator_options' => array(),
         );
     }
@@ -54,11 +46,19 @@ class CallbackFilter extends Filter
     public function getRenderSettings()
     {
         return array('sonata_type_filter_default', array(
-            'field_type'       => $this->getFieldType(),
-            'field_options'    => $this->getFieldOptions(),
-            'operator_type'    => $this->getOption('operator_type'),
+            'field_type' => $this->getFieldType(),
+            'field_options' => $this->getFieldOptions(),
+            'operator_type' => $this->getOption('operator_type'),
             'operator_options' => $this->getOption('operator_options'),
-            'label'            => $this->getLabel(),
+            'label' => $this->getLabel(),
         ));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function association(ProxyQueryInterface $queryBuilder, $data)
+    {
+        return array($this->getOption('alias', $queryBuilder->getRootAlias()), false);
     }
 }
