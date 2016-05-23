@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Sonata Project package.
+ *
+ * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Sonata\AdminSearchBundle\Filter;
 
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
@@ -109,30 +118,6 @@ abstract class AbstractDateFilter extends Filter
     }
 
     /**
-     * Resolves DataType:: constants to SQL operators.
-     *
-     * @param int $type
-     *
-     * @return string
-     */
-    protected function getOperator($type)
-    {
-        $type = intval($type);
-
-        $choices = array(
-            DateType::TYPE_EQUAL         => '=',
-            DateType::TYPE_GREATER_EQUAL => 'gte',
-            DateType::TYPE_GREATER_THAN  => 'gt',
-            DateType::TYPE_LESS_EQUAL    => 'lte',
-            DateType::TYPE_LESS_THAN     => 'lt',
-            DateType::TYPE_NULL          => 'missing',
-            DateType::TYPE_NOT_NULL      => 'exists',
-        );
-
-        return isset($choices[$type]) ? $choices[$type] : '=';
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function getDefaultOptions()
@@ -160,10 +145,34 @@ abstract class AbstractDateFilter extends Filter
         return array(
             $name,
             array(
-                'field_type'    => $this->getFieldType(),
+                'field_type' => $this->getFieldType(),
                 'field_options' => $this->getFieldOptions(),
-                'label'         => $this->getLabel(),
+                'label' => $this->getLabel(),
             ),
         );
+    }
+
+    /**
+     * Resolves DataType:: constants to SQL operators.
+     *
+     * @param int $type
+     *
+     * @return string
+     */
+    protected function getOperator($type)
+    {
+        $type = intval($type);
+
+        $choices = array(
+            DateType::TYPE_EQUAL => '=',
+            DateType::TYPE_GREATER_EQUAL => 'gte',
+            DateType::TYPE_GREATER_THAN => 'gt',
+            DateType::TYPE_LESS_EQUAL => 'lte',
+            DateType::TYPE_LESS_THAN => 'lt',
+            DateType::TYPE_NULL => 'missing',
+            DateType::TYPE_NOT_NULL => 'exists',
+        );
+
+        return isset($choices[$type]) ? $choices[$type] : '=';
     }
 }

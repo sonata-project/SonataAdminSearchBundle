@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Sonata Project package.
+ *
+ * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Sonata\AdminSearchBundle\Tests\DependencyInjection\Compiler;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
@@ -10,21 +19,6 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class DatagridBuilderInjectionCompilerPassTest extends AbstractCompilerPassTestCase
 {
-    protected function registerCompilerPass(ContainerBuilder $container)
-    {
-        $container->addCompilerPass(new DatagridBuilderInjectionCompilerPass());
-        $container->setDefinition(
-            'sonata.admin.search.datagrid_builder',
-            new Definition(
-                'Sonata\AdminSearchBundle\Builder\DatagridBuilder',
-                array(
-                    new Reference('sonata.admin.search.elastica_datagrid_builder'),
-                    null,
-                )
-            )
-        );
-    }
-
     public function testDatagridBuilderIsInjected()
     {
         $this->setParameter(
@@ -37,6 +31,21 @@ class DatagridBuilderInjectionCompilerPassTest extends AbstractCompilerPassTestC
             'my_admin',
             'setDatagridBuilder',
             array(new Reference('sonata.admin.search.datagrid_builder'))
+        );
+    }
+
+    protected function registerCompilerPass(ContainerBuilder $container)
+    {
+        $container->addCompilerPass(new DatagridBuilderInjectionCompilerPass());
+        $container->setDefinition(
+            'sonata.admin.search.datagrid_builder',
+            new Definition(
+                'Sonata\AdminSearchBundle\Builder\DatagridBuilder',
+                array(
+                    new Reference('sonata.admin.search.elastica_datagrid_builder'),
+                    null,
+                )
+            )
         );
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata package.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -26,7 +26,7 @@ class FinderProvider implements FinderProviderInterface
         ContainerInterface $container,
         array $adminFinderServices
     ) {
-        $this->container           = $container;
+        $this->container = $container;
         $this->adminFinderServices = $adminFinderServices;
     }
 

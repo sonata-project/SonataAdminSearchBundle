@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Sonata Project package.
+ *
+ * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Sonata\AdminSearchBundle\Datagrid;
 
 use Sonata\AdminBundle\Datagrid\Pager as BasePager;
@@ -7,15 +16,6 @@ use Sonata\AdminBundle\Datagrid\Pager as BasePager;
 class Pager extends BasePager
 {
     private $paginator;
-
-    protected function getPaginator()
-    {
-        if (is_null($this->paginator)) {
-            $this->paginator = $this->getQuery()->execute();
-        }
-
-        return $this->paginator;
-    }
 
     /**
      * {@inheritdoc}
@@ -61,5 +61,14 @@ class Pager extends BasePager
             $this->setNbResults($this->computeNbResult());
             $this->setLastPage(ceil($this->getNbResults() / $this->getMaxPerPage()));
         }
+    }
+
+    protected function getPaginator()
+    {
+        if (is_null($this->paginator)) {
+            $this->paginator = $this->getQuery()->execute();
+        }
+
+        return $this->paginator;
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata package.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -45,7 +45,7 @@ interface FinderProviderInterface
 
     /**
      * @param Sonata\AdminBundle\Admin\AdminInterface $admin Sonata Admin interface
-     * 
+     *
      * @return array
      */
     public function getActionsByAdmin(AdminInterface $admin);

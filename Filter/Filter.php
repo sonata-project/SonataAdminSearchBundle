@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata package.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -29,6 +29,14 @@ abstract class Filter extends BaseFilter
 
             $this->filter($queryBuilder, $alias, $field, $value);
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isActive()
+    {
+        return $this->active;
     }
 
     /**
@@ -67,13 +75,5 @@ abstract class Filter extends BaseFilter
         // dots are not accepted in a DQL identifier so replace them
         // by underscores.
         return str_replace('.', '_', $this->getName()).'_'.$queryBuilder->getUniqueParameterId();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function isActive()
-    {
-        return $this->active;
     }
 }

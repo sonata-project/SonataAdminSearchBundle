@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Sonata Project package.
+ *
+ * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Sonata\AdminSearchBundle\Tests\ProxyQuery;
 
 use FOS\ElasticaBundle\Finder\TransformedFinder;
@@ -18,8 +27,8 @@ class ElasticaProxyQueryTest extends \PHPUnit_Framework_TestCase
     protected $proxyQuery;
 
     protected $fieldMapping = array(
-        'fieldName'  => 'name',
-        'type'       => 'string',
+        'fieldName' => 'name',
+        'type' => 'string',
         'columnName' => 'name',
     );
 
@@ -74,7 +83,7 @@ class ElasticaProxyQueryTest extends \PHPUnit_Framework_TestCase
         $this->proxyQuery->execute();
 
         $queryReflection = new \ReflectionClass($this->proxyQuery);
-        $queryProperty   = $queryReflection->getProperty('query');
+        $queryProperty = $queryReflection->getProperty('query');
 
         $queryProperty->setAccessible(true);
 
