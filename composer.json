@@ -24,8 +24,8 @@
         "sonata-project/admin-bundle": "^3.0"
     },
     "require-dev": {
-        "matthiasnoback/symfony-dependency-injection-test": "^0.7.1",
         "matthiasnoback/symfony-config-test": "^0.4.0 || ^1.0",
+        "matthiasnoback/symfony-dependency-injection-test": "^0.7.1",
         "sllh/php-cs-fixer-styleci-bridge": "^2.0",
         "symfony/phpunit-bridge": "^2.7 || ^3.0"
     },
