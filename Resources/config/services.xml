@@ -1,78 +1,49 @@
-<?xml version="1.0" ?>
-
-<container xmlns="http://symfony.com/schema/dic/services"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service
-            id="sonata.admin.search.finder_provider"
-            class="Sonata\AdminSearchBundle\Model\FinderProvider">
-            <argument type="service" id="service_container" />
+        <service id="sonata.admin.search.finder_provider" class="Sonata\AdminSearchBundle\Model\FinderProvider">
+            <argument type="service" id="service_container"/>
             <argument>%sonata.admin.search.admin_finder_services%</argument>
         </service>
-        <service
-            id="sonata.admin.search.elastica_datagrid_builder"
-            class="Sonata\AdminSearchBundle\Builder\ElasticaDatagridBuilder">
-            <argument type="service" id="form.factory" />
-            <argument type="service" id="sonata.admin.builder.filter.factory" />
-            <argument type="service" id="sonata.admin.search.guesser.filter_type" />
-            <argument type="service" id="sonata.admin.search.finder_provider" />
-            <argument type="service" id="fos_elastica.config_manager" />
+        <service id="sonata.admin.search.elastica_datagrid_builder" class="Sonata\AdminSearchBundle\Builder\ElasticaDatagridBuilder">
+            <argument type="service" id="form.factory"/>
+            <argument type="service" id="sonata.admin.builder.filter.factory"/>
+            <argument type="service" id="sonata.admin.search.guesser.filter_type"/>
+            <argument type="service" id="sonata.admin.search.finder_provider"/>
+            <argument type="service" id="fos_elastica.config_manager"/>
         </service>
-        <service
-            id="sonata.admin.search.datagrid_builder"
-            class="Sonata\AdminSearchBundle\Builder\DatagridBuilder">
-            <argument type="service" id="sonata.admin.search.elastica_datagrid_builder" />
-            <argument />
+        <service id="sonata.admin.search.datagrid_builder" class="Sonata\AdminSearchBundle\Builder\DatagridBuilder">
+            <argument type="service" id="sonata.admin.search.elastica_datagrid_builder"/>
+            <argument/>
         </service>
-        <service
-            id="sonata.admin.search.guesser.filter_type"
-            class="Sonata\AdminSearchBundle\Guesser\FilterTypeGuesser">
+        <service id="sonata.admin.search.guesser.filter_type" class="Sonata\AdminSearchBundle\Guesser\FilterTypeGuesser">
         </service>
-        <service
-            id="sonata.admin.search.filter.type.number"
-            class="Sonata\AdminSearchBundle\Filter\NumberFilter">
-            <tag name="sonata.admin.filter.type" alias="sonata_search_elastica_number" />
+        <service id="sonata.admin.search.filter.type.number" class="Sonata\AdminSearchBundle\Filter\NumberFilter">
+            <tag name="sonata.admin.filter.type" alias="sonata_search_elastica_number"/>
         </service>
-        <service
-            id="sonata.admin.search.filter.type.string"
-            class="Sonata\AdminSearchBundle\Filter\StringFilter">
-            <tag name="sonata.admin.filter.type" alias="sonata_search_elastica_string" />
+        <service id="sonata.admin.search.filter.type.string" class="Sonata\AdminSearchBundle\Filter\StringFilter">
+            <tag name="sonata.admin.filter.type" alias="sonata_search_elastica_string"/>
         </service>
-        <service
-            id="sonata.admin.search.filter.type.choice"
-            class="Sonata\AdminSearchBundle\Filter\ChoiceFilter">
-            <tag name="sonata.admin.filter.type" alias="sonata_search_elastica_choice" />
+        <service id="sonata.admin.search.filter.type.choice" class="Sonata\AdminSearchBundle\Filter\ChoiceFilter">
+            <tag name="sonata.admin.filter.type" alias="sonata_search_elastica_choice"/>
         </service>
-        <service
-            id="sonata.admin.search.filter.type.callback"
-            class="Sonata\AdminSearchBundle\Filter\CallbackFilter">
-            <tag name="sonata.admin.filter.type" alias="sonata_search_elastica_callback" />
+        <service id="sonata.admin.search.filter.type.callback" class="Sonata\AdminSearchBundle\Filter\CallbackFilter">
+            <tag name="sonata.admin.filter.type" alias="sonata_search_elastica_callback"/>
         </service>
-        <service
-            id="sonata.admin.search.filter.type.boolean"
-            class="Sonata\AdminSearchBundle\Filter\BooleanFilter">
-            <tag name="sonata.admin.filter.type" alias="sonata_search_elastica_boolean" />
+        <service id="sonata.admin.search.filter.type.boolean" class="Sonata\AdminSearchBundle\Filter\BooleanFilter">
+            <tag name="sonata.admin.filter.type" alias="sonata_search_elastica_boolean"/>
         </service>
-        <service
-            id="sonata.admin.search.filter.type.date"
-            class="Sonata\AdminSearchBundle\Filter\DateFilter">
-            <tag name="sonata.admin.filter.type" alias="sonata_search_elastica_date" />
+        <service id="sonata.admin.search.filter.type.date" class="Sonata\AdminSearchBundle\Filter\DateFilter">
+            <tag name="sonata.admin.filter.type" alias="sonata_search_elastica_date"/>
         </service>
-        <service
-            id="sonata.admin.search.filter.type.date.range"
-            class="Sonata\AdminSearchBundle\Filter\DateRangeFilter">
-            <tag name="sonata.admin.filter.type" alias="sonata_search_elastica_date_range" />
+        <service id="sonata.admin.search.filter.type.date.range" class="Sonata\AdminSearchBundle\Filter\DateRangeFilter">
+            <tag name="sonata.admin.filter.type" alias="sonata_search_elastica_date_range"/>
         </service>
-        <service
-            id="sonata.admin.search.filter.type.datetime"
-            class="Sonata\AdminSearchBundle\Filter\DateTimeFilter">
-            <tag name="sonata.admin.filter.type" alias="sonata_search_elastica_datetime" />
+        <service id="sonata.admin.search.filter.type.datetime" class="Sonata\AdminSearchBundle\Filter\DateTimeFilter">
+            <tag name="sonata.admin.filter.type" alias="sonata_search_elastica_datetime"/>
         </service>
-        <service
-            id="sonata.admin.search.filter.type.datetime.range"
-            class="Sonata\AdminSearchBundle\Filter\DateTimeRangeFilter">
-            <tag name="sonata.admin.filter.type" alias="sonata_search_elastica_datetime_range" />
+        <service id="sonata.admin.search.filter.type.datetime.range" class="Sonata\AdminSearchBundle\Filter\DateTimeRangeFilter">
+            <tag name="sonata.admin.filter.type" alias="sonata_search_elastica_datetime_range"/>
         </service>
     </services>
 </container>
