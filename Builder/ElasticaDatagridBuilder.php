@@ -132,9 +132,9 @@ class ElasticaDatagridBuilder implements DatagridBuilderInterface
 
         // first : validate if elastica is asked in the configuration for this action
         $fullCurrentAction = $admin->getRequest()->attributes->get('_controller');
-        $currentAction = explode('::', $fullCurrentAction);
+        $currentAction = explode(':', $fullCurrentAction);
         // remove Action from 'listAction'
-        $currentAction = substr($currentAction[1], 0, -strlen('Action'));
+        $currentAction = substr(end($currentAction), 0, -strlen('Action'));
         // in case of batch|export action, no need to elasticsearch
         if (!in_array($currentAction, $this->finderProvider->getActionsByAdmin($admin))) {
             return false;
