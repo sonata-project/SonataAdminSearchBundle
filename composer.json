@@ -1,7 +1,7 @@
 {
     "name": "sonata-project/admin-search-bundle",
     "type": "symfony-bundle",
-    "description": "Symfony SonataAdminSearchBundle",
+    "description": "Implement Search Engine (ElasticSearch) inside Sonata Admin",
     "keywords": ["Admin", "search", "sonata" ],
     "homepage": "http://sonata-project.org/bundles/admin-search",
     "license": "MIT",
