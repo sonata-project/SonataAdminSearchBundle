@@ -32,8 +32,14 @@
     "suggest": {
     },
     "autoload": {
-        "psr-4": { "Sonata\\AdminSearchBundle\\": "" }
+        "psr-4": { "Sonata\\AdminSearchBundle\\": "" },
+        "exclude-from-classmap": [
+            "Tests/"
+        ]
     },
+    "autoload-dev": {
+        "psr-4": { "Sonata\\AdminSearchBundle\\Tests\\": "Tests/" }
+     },
     "config": {
         "sort-packages": true
     },
