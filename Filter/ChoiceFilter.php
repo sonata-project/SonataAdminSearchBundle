@@ -26,7 +26,7 @@ class ChoiceFilter extends Filter
             return;
         }
 
-        $data['type'] = !isset($data['type']) ?  ChoiceType::TYPE_CONTAINS : $data['type'];
+        $data['type'] = !isset($data['type']) ? ChoiceType::TYPE_CONTAINS : $data['type'];
         list($firstOperator, $secondOperator) = $this->getOperators((int) $data['type']);
 
         if (is_array($data['value'])) {
