@@ -32,13 +32,8 @@ class ElasticaDatagridBuilder implements DatagridBuilderInterface
     private $guesser;
     private $configManager;
 
-    public function __construct(
-        FormFactoryInterface $formFactory,
-        FilterFactoryInterface $filterFactory,
-        TypeGuesserInterface $guesser,
-        FinderProviderInterface $finderProvider,
-        ManagerInterface $configManager
-    ) {
+    public function __construct(FormFactoryInterface $formFactory, FilterFactoryInterface $filterFactory, TypeGuesserInterface $guesser, FinderProviderInterface $finderProvider, ManagerInterface $configManager)
+    {
         $this->formFactory = $formFactory;
         $this->filterFactory = $filterFactory;
         $this->guesser = $guesser;
