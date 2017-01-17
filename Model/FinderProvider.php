@@ -21,6 +21,7 @@ class FinderProvider implements FinderProviderInterface
 
     /**
      * @param ContainerInterface $container
+     * @param array              $adminFinderServices
      */
     public function __construct(
         ContainerInterface $container,
