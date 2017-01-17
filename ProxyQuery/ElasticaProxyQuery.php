@@ -41,13 +41,16 @@ class ElasticaProxyQuery implements ProxyQueryInterface
      * @var array
      */
     protected $results;
+
     private $finder;
     private $query;
     private $boolQuery;
 
-    public function __construct(
-        TransformedFinder $finder
-    ) {
+    /**
+     * @param TransformedFinder $finder
+     */
+    public function __construct(TransformedFinder $finder)
+    {
         $this->finder = $finder;
         $this->query = new \Elastica\Query();
         $this->boolQuery = new \Elastica\Query\BoolQuery();
