@@ -56,14 +56,21 @@ class ElasticaDatagridBuilder implements DatagridBuilderInterface
     {
         // Try to wrap all types to search types
         if ($type == null) {
-            $guessType = $this->guesser->guessType($admin->getClass(), $fieldDescription->getName(), $admin->getModelManager());
+            $guessType = $this->guesser->guessType(
+                $admin->getClass(),
+                $fieldDescription->getName(),
+                $admin->getModelManager()
+            );
             $type = $guessType->getType();
             $fieldDescription->setType($type);
             $options = $guessType->getOptions();
 
             foreach ($options as $name => $value) {
                 if (is_array($value)) {
-                    $fieldDescription->setOption($name, array_merge($value, $fieldDescription->getOption($name, array())));
+                    $fieldDescription->setOption(
+                        $name,
+                        array_merge($value, $fieldDescription->getOption($name, array()))
+                    );
                 } else {
                     $fieldDescription->setOption($name, $fieldDescription->getOption($name, $value));
                 }
@@ -78,7 +85,9 @@ class ElasticaDatagridBuilder implements DatagridBuilderInterface
         $filter = $this->filterFactory->create($fieldDescription->getName(), $type, $fieldDescription->getOptions());
 
         if (false !== $filter->getLabel() && !$filter->getLabel()) {
-            $filter->setLabel($admin->getLabelTranslatorStrategy()->getLabel($fieldDescription->getName(), 'filter', 'label'));
+            $filter->setLabel(
+                $admin->getLabelTranslatorStrategy()->getLabel($fieldDescription->getName(), 'filter', 'label')
+            );
         }
 
         $datagrid->addFilter($filter);
@@ -103,7 +112,8 @@ class ElasticaDatagridBuilder implements DatagridBuilderInterface
 
         $proxyQuery = $admin->createQuery();
         // if the default modelmanager query builder is used, we need to replace it with elastica
-        // if not, that means $admin->createQuery has been overriden by the user and already returns an ElasticaProxyQuery object
+        // if not, that means $admin->createQuery has been overriden by the user and already returns
+        // an ElasticaProxyQuery object
         if (!$proxyQuery instanceof ElasticaProxyQuery) {
             if ($this->isSmart($admin, $values)) {
                 $proxyQuery = new ElasticaProxyQuery($this->finderProvider->getFinderByAdmin($admin));

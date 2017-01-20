@@ -47,7 +47,12 @@ class DatagridBuilder implements DatagridBuilderInterface
      */
     public function addFilter(DatagridInterface $datagrid, $type, FieldDescriptionInterface $fieldDescription, AdminInterface $admin)
     {
-        return $this->getAdminDatagridBuilder($admin, $datagrid instanceof Datagrid)->addFilter($datagrid, $type, $fieldDescription, $admin);
+        return $this->getAdminDatagridBuilder($admin, $datagrid instanceof Datagrid)->addFilter(
+            $datagrid,
+            $type,
+            $fieldDescription,
+            $admin
+        );
     }
 
     /**
