@@ -1,2 +1,2 @@
-UPGRADE 3.x
+UPGRADE 1.x
 ===========
