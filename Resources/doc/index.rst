@@ -18,10 +18,9 @@ but we do review and merge PRs pretty quickly.
 .. _elasticsearch: http://www.elasticsearch.org/
 .. _FOSElasticaBundle: https://github.com/FriendsOfSymfony/FOSElasticaBundle
 
-Reference Guide
----------------
-
 .. toctree::
+   :caption: Reference Guide
+   :name: reference-guide
    :maxdepth: 1
    :numbered:
 
