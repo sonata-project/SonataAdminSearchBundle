@@ -188,6 +188,7 @@ class ElasticaDatagridBuilder implements DatagridBuilderInterface
                 // This filter field is not mapped in elasticsearch
                 // so we cannot use elasticsearch
                 $smart = false;
+
                 break;
             }
         }
