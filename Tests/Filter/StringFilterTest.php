@@ -35,7 +35,7 @@ class StringFilterTest extends \PHPUnit_Framework_TestCase
         $filter = new StringFilter();
         $value = 'bar';
 
-        $filter->filter($this->proxyQuery, 'filter', 'foo', array('value' => $value));
+        $filter->filter($this->proxyQuery, 'filter', 'foo', ['value' => $value]);
 
         $queryReflection = new \ReflectionClass($this->proxyQuery);
         $queryProperty = $queryReflection->getProperty('query');
@@ -55,7 +55,7 @@ class StringFilterTest extends \PHPUnit_Framework_TestCase
         $filter = new StringFilter();
         $value = 'bar \ + - && || ! ( ) { } [ ] ^ " ~ * ? : baz';
 
-        $filter->filter($this->proxyQuery, 'filter', 'foo', array('value' => $value));
+        $filter->filter($this->proxyQuery, 'filter', 'foo', ['value' => $value]);
 
         $queryReflection = new \ReflectionClass($this->proxyQuery);
         $queryProperty = $queryReflection->getProperty('query');

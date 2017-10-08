@@ -43,14 +43,14 @@ class ModelFilter extends Filter
      */
     public function getDefaultOptions()
     {
-        return array(
+        return [
             'mapping_type' => false,
             'field_name' => false,
             'field_type' => 'entity',
-            'field_options' => array(),
+            'field_options' => [],
             'operator_type' => 'sonata_type_equal',
-            'operator_options' => array(),
-        );
+            'operator_options' => [],
+        ];
     }
 
     /**
@@ -58,13 +58,13 @@ class ModelFilter extends Filter
      */
     public function getRenderSettings()
     {
-        return array('sonata_type_filter_default', array(
+        return ['sonata_type_filter_default', [
             'field_type' => $this->getFieldType(),
             'field_options' => $this->getFieldOptions(),
             'operator_type' => $this->getOption('operator_type'),
             'operator_options' => $this->getOption('operator_options'),
             'label' => $this->getLabel(),
-        ));
+        ]];
     }
 
     /**
@@ -123,12 +123,12 @@ class ModelFilter extends Filter
      */
     protected function association(ProxyQueryInterface $queryBuilder, $data)
     {
-        $types = array(
+        $types = [
             ClassMetadataInfo::ONE_TO_ONE,
             ClassMetadataInfo::ONE_TO_MANY,
             ClassMetadataInfo::MANY_TO_MANY,
             ClassMetadataInfo::MANY_TO_ONE,
-        );
+        ];
 
         if (!in_array($this->getOption('mapping_type'), $types)) {
             throw new \RunTimeException('Invalid mapping type');
@@ -138,6 +138,6 @@ class ModelFilter extends Filter
         $associationMappings[] = $this->getAssociationMapping();
         $alias = $queryBuilder->entityJoin($associationMappings);
 
-        return array($alias, false);
+        return [$alias, false];
     }
 }

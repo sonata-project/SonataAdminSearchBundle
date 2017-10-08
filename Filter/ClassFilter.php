@@ -46,7 +46,7 @@ class ClassFilter extends Filter
      */
     public function getDefaultOptions()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -62,13 +62,13 @@ class ClassFilter extends Filter
      */
     public function getFieldOptions()
     {
-        return $this->getOption('choices', array(
+        return $this->getOption('choices', [
             'required' => false,
             'choice_list' => new ChoiceList(
                 \array_values($this->getOption('sub_classes')),
                 \array_keys($this->getOption('sub_classes'))
             ),
-        ));
+        ]);
     }
 
     /**
@@ -76,12 +76,12 @@ class ClassFilter extends Filter
      */
     public function getRenderSettings()
     {
-        return array('sonata_type_filter_default', array(
+        return ['sonata_type_filter_default', [
             'operator_type' => 'sonata_type_equal',
             'field_type' => $this->getFieldType(),
             'field_options' => $this->getFieldOptions(),
             'label' => $this->getLabel(),
-        ));
+        ]];
     }
 
     /**
@@ -91,10 +91,10 @@ class ClassFilter extends Filter
      */
     private function getOperator($type)
     {
-        $choices = array(
+        $choices = [
             EqualType::TYPE_IS_EQUAL => 'INSTANCE OF',
             EqualType::TYPE_IS_NOT_EQUAL => 'NOT INSTANCE OF',
-        );
+        ];
 
         return isset($choices[$type]) ? $choices[$type] : false;
     }

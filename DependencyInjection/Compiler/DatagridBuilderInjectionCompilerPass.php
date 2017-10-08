@@ -35,7 +35,7 @@ class DatagridBuilderInjectionCompilerPass implements CompilerPassInterface
         );
 
         // Keep a trace of datagrid builder for each admin
-        $originalAdminDatagridBuilders = array();
+        $originalAdminDatagridBuilders = [];
 
         foreach ($adminFinderServices as $adminId => $finderServiceId) {
             $definition = $container->getDefinition($adminId);
@@ -50,7 +50,7 @@ class DatagridBuilderInjectionCompilerPass implements CompilerPassInterface
 
             $definition->addMethodCall(
                 'setDatagridBuilder',
-                array(new Reference('sonata.admin.search.datagrid_builder'))
+                [new Reference('sonata.admin.search.datagrid_builder')]
             );
         }
 
