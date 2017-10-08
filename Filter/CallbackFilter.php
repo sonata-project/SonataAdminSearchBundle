@@ -34,12 +34,12 @@ class CallbackFilter extends Filter
      */
     public function getDefaultOptions()
     {
-        return array(
+        return [
             'callback' => null,
             'field_type' => 'text',
             'operator_type' => 'hidden',
-            'operator_options' => array(),
-        );
+            'operator_options' => [],
+        ];
     }
 
     /**
@@ -47,13 +47,13 @@ class CallbackFilter extends Filter
      */
     public function getRenderSettings()
     {
-        return array('sonata_type_filter_default', array(
+        return ['sonata_type_filter_default', [
             'field_type' => $this->getFieldType(),
             'field_options' => $this->getFieldOptions(),
             'operator_type' => $this->getOption('operator_type'),
             'operator_options' => $this->getOption('operator_options'),
             'label' => $this->getLabel(),
-        ));
+        ]];
     }
 
     /**
@@ -61,6 +61,6 @@ class CallbackFilter extends Filter
      */
     protected function association(ProxyQueryInterface $queryBuilder, $data)
     {
-        return array($this->getOption('alias', $queryBuilder->getRootAlias()), false);
+        return [$this->getOption('alias', $queryBuilder->getRootAlias()), false];
     }
 }

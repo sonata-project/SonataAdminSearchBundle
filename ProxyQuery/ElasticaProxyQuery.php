@@ -66,7 +66,7 @@ class ElasticaProxyQuery implements ProxyQueryInterface
     /**
      * {@inheritdoc}
      */
-    public function execute(array $params = array(), $hydrationMode = null)
+    public function execute(array $params = [], $hydrationMode = null)
     {
         // TODO find method names
 
@@ -75,15 +75,15 @@ class ElasticaProxyQuery implements ProxyQueryInterface
         $sortOrder = $this->getSortOrder();
 
         if ($sortBy && $sortOrder) {
-            $this->query->setSort(array($sortBy => array('order' => strtolower($sortOrder))));
+            $this->query->setSort([$sortBy => ['order' => strtolower($sortOrder)]]);
         }
 
         return $this->finder->createPaginatorAdapter(
             $this->query,
-            array(
+            [
                 Search::OPTION_SIZE => $this->getMaxResults(),
                 Search::OPTION_FROM => $this->getFirstResult(),
-            )
+            ]
         );
     }
 

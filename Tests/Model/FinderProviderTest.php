@@ -21,11 +21,11 @@ class FinderProviderTest extends \PHPUnit_Framework_TestCase
         $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');
         $provider = new FinderProvider(
             $container,
-            array(
-                $adminId = 'planet_admin' => array(
+            [
+                $adminId = 'planet_admin' => [
                     'finder' => $finderId = 'fos_elastica.planet_finder',
-                ),
-            )
+                ],
+            ]
         );
         $finder = new \StdClass();
 

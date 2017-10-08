@@ -26,11 +26,11 @@ class ElasticaProxyQueryTest extends \PHPUnit_Framework_TestCase
      */
     protected $proxyQuery;
 
-    protected $fieldMapping = array(
+    protected $fieldMapping = [
         'fieldName' => 'name',
         'type' => 'string',
         'columnName' => 'name',
-    );
+    ];
 
     public function setup()
     {
@@ -50,11 +50,11 @@ class ElasticaProxyQueryTest extends \PHPUnit_Framework_TestCase
 
     public function testSortByWithParent()
     {
-        $parentMapping = array(
-            array(
+        $parentMapping = [
+            [
                 'fieldName' => 'category',
-            ),
-        );
+            ],
+        ];
 
         $this->proxyQuery->setSortBy($parentMapping, $this->fieldMapping);
 
@@ -88,7 +88,7 @@ class ElasticaProxyQueryTest extends \PHPUnit_Framework_TestCase
         $queryProperty->setAccessible(true);
 
         $this->assertEquals(
-            array('name' => array('order' => 'desc')),
+            ['name' => ['order' => 'desc']],
             $queryProperty->getValue($this->proxyQuery)->getParam('sort')
         );
     }

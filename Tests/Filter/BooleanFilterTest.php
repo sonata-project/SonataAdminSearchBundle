@@ -36,7 +36,7 @@ class BooleanFilterTest extends \PHPUnit_Framework_TestCase
         $filter = new BooleanFilter();
         $value = BooleanType::TYPE_NO;
 
-        $filter->filter($this->proxyQuery, 'filter', 'foo', array('value' => $value, 'type' => null));
+        $filter->filter($this->proxyQuery, 'filter', 'foo', ['value' => $value, 'type' => null]);
 
         $queryReflection = new \ReflectionClass($this->proxyQuery);
         $queryProperty = $queryReflection->getProperty('query');
@@ -53,7 +53,7 @@ class BooleanFilterTest extends \PHPUnit_Framework_TestCase
         $filter = new BooleanFilter();
         $value = BooleanType::TYPE_YES;
 
-        $filter->filter($this->proxyQuery, 'filter', 'foo', array('value' => $value, 'type' => null));
+        $filter->filter($this->proxyQuery, 'filter', 'foo', ['value' => $value, 'type' => null]);
 
         $queryReflection = new \ReflectionClass($this->proxyQuery);
         $queryProperty = $queryReflection->getProperty('query');
