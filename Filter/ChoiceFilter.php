@@ -57,7 +57,7 @@ class ChoiceFilter extends Filter
             $queryBuilder = new \Elastica\Query\Builder();
             $queryBuilder
             ->fieldOpen($secondOperator)
-                ->field($field, Util::escapeTerm(array($data['value'])))
+                ->field($field, Util::escapeTerm([$data['value']]))
             ->fieldClose();
 
             if ($firstOperator == 'must') {
@@ -73,7 +73,7 @@ class ChoiceFilter extends Filter
      */
     public function getDefaultOptions()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -81,12 +81,12 @@ class ChoiceFilter extends Filter
      */
     public function getRenderSettings()
     {
-        return array('sonata_type_filter_default', array(
+        return ['sonata_type_filter_default', [
             'operator_type' => 'sonata_type_equal',
             'field_type' => $this->getFieldType(),
             'field_options' => $this->getFieldOptions(),
             'label' => $this->getLabel(),
-        ));
+        ]];
     }
 
     /**
@@ -96,10 +96,10 @@ class ChoiceFilter extends Filter
      */
     private function getOperators($type)
     {
-        $choices = array(
-            ChoiceType::TYPE_CONTAINS => array('must', 'terms'),
-            ChoiceType::TYPE_NOT_CONTAINS => array('must_not', 'terms'),
-        );
+        $choices = [
+            ChoiceType::TYPE_CONTAINS => ['must', 'terms'],
+            ChoiceType::TYPE_NOT_CONTAINS => ['must_not', 'terms'],
+        ];
 
         return isset($choices[$type]) ? $choices[$type] : false;
     }

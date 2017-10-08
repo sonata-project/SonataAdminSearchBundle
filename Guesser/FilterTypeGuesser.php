@@ -28,11 +28,11 @@ class FilterTypeGuesser implements TypeGuesserInterface
             return false;
         }
 
-        $options = array(
+        $options = [
             'field_type' => null,
-            'field_options' => array(),
-            'options' => array(),
-        );
+            'field_options' => [],
+            'options' => [],
+        ];
 
         list($metadata, $propertyName, $parentAssociationMappings) = $ret;
 
@@ -69,7 +69,7 @@ class FilterTypeGuesser implements TypeGuesserInterface
         switch ($metadata->getTypeOfField($propertyName)) {
             case 'boolean':
                 $options['field_type'] = 'sonata_type_boolean';
-                $options['field_options'] = array();
+                $options['field_options'] = [];
 
                 return new TypeGuess('sonata_search_elastica_boolean', $options, Guess::HIGH_CONFIDENCE);
             case 'datetime':

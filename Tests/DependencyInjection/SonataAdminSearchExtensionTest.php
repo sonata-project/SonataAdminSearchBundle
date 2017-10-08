@@ -18,21 +18,21 @@ class SonataAdminSearchExtensionTest extends AbstractExtensionTestCase
 {
     public function getContainerExtensions()
     {
-        return array(
+        return [
             new SonataAdminSearchExtension(),
-        );
+        ];
     }
 
     public function testLoad()
     {
-        $this->load(array(
-            'admin_finder_services' => $expectedParameterValue = array(
-                'my_id' => array(
+        $this->load([
+            'admin_finder_services' => $expectedParameterValue = [
+                'my_id' => [
                     'finder' => 'test',
-                    'actions' => array('list'),
-                ),
-            ),
-        ));
+                    'actions' => ['list'],
+                ],
+            ],
+        ]);
         $this->assertContainerBuilderHasParameter(
             'sonata.admin.search.admin_finder_services',
             $expectedParameterValue

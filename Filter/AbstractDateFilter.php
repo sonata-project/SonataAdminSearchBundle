@@ -92,7 +92,7 @@ abstract class AbstractDateFilter extends Filter
             }
 
             // null / not null only check for col
-            if (in_array($operator, array('missing', 'exists'))) {
+            if (in_array($operator, ['missing', 'exists'])) {
                 $queryBuilder
                     ->fieldOpen($operator)
                         ->field('field', $field)
@@ -122,9 +122,9 @@ abstract class AbstractDateFilter extends Filter
      */
     public function getDefaultOptions()
     {
-        return array(
+        return [
             'input_type' => 'datetime',
-        );
+        ];
     }
 
     /**
@@ -142,14 +142,14 @@ abstract class AbstractDateFilter extends Filter
             $name .= '_range';
         }
 
-        return array(
+        return [
             $name,
-            array(
+            [
                 'field_type' => $this->getFieldType(),
                 'field_options' => $this->getFieldOptions(),
                 'label' => $this->getLabel(),
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -163,7 +163,7 @@ abstract class AbstractDateFilter extends Filter
     {
         $type = intval($type);
 
-        $choices = array(
+        $choices = [
             DateType::TYPE_EQUAL => '=',
             DateType::TYPE_GREATER_EQUAL => 'gte',
             DateType::TYPE_GREATER_THAN => 'gt',
@@ -171,7 +171,7 @@ abstract class AbstractDateFilter extends Filter
             DateType::TYPE_LESS_THAN => 'lt',
             DateType::TYPE_NULL => 'missing',
             DateType::TYPE_NOT_NULL => 'exists',
-        );
+        ];
 
         return isset($choices[$type]) ? $choices[$type] : '=';
     }

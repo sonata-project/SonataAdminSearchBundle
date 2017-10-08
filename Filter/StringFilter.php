@@ -40,7 +40,7 @@ class StringFilter extends Filter
         $queryBuilder
             ->fieldOpen($secondOperator)
                 ->fieldOpen($field)
-                    ->field('query', str_replace(array('\\', '"'), array('\\\\', '\"'), $data['value']))
+                    ->field('query', str_replace(['\\', '"'], ['\\\\', '\"'], $data['value']))
                     ->field('operator', 'and')
                 ->fieldClose()
             ->fieldClose();
@@ -57,7 +57,7 @@ class StringFilter extends Filter
      */
     public function getDefaultOptions()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -65,11 +65,11 @@ class StringFilter extends Filter
      */
     public function getRenderSettings()
     {
-        return array('sonata_type_filter_choice', array(
+        return ['sonata_type_filter_choice', [
             'field_type' => $this->getFieldType(),
             'field_options' => $this->getFieldOptions(),
             'label' => $this->getLabel(),
-        ));
+        ]];
     }
 
     /**
@@ -79,11 +79,11 @@ class StringFilter extends Filter
      */
     private function getOperators($type)
     {
-        $choices = array(
-            ChoiceType::TYPE_CONTAINS => array('must', 'match'),
-            ChoiceType::TYPE_NOT_CONTAINS => array('must_not', 'match'),
-            ChoiceType::TYPE_EQUAL => array('must', 'match_phrase'),
-        );
+        $choices = [
+            ChoiceType::TYPE_CONTAINS => ['must', 'match'],
+            ChoiceType::TYPE_NOT_CONTAINS => ['must_not', 'match'],
+            ChoiceType::TYPE_EQUAL => ['must', 'match_phrase'],
+        ];
 
         return isset($choices[$type]) ? $choices[$type] : false;
     }
