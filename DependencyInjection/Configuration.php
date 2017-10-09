@@ -33,7 +33,7 @@ class Configuration implements ConfigurationInterface
                       ->children()
                           ->scalarNode('finder')->isRequired()->end()
                           ->arrayNode('actions')
-                              ->defaultValue(array('list', 'retrieveAutocompleteItems'))
+                              ->defaultValue(['list', 'retrieveAutocompleteItems'])
                               ->prototype('scalar')
                               ->info('array of actions where elasticsearch has to be enabled')
                            ->end()

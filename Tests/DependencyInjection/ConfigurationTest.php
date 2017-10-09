@@ -19,33 +19,33 @@ class ConfigurationTest extends AbstractConfigurationTestCase
     public function testValidation()
     {
         $this->assertConfigurationIsInvalid(
-            array(
-                array('admin_finder_services' => array(
-                    'my_admin' => array(
+            [
+                ['admin_finder_services' => [
+                    'my_admin' => [
                         'not_finder' => 42,
-                    ),
-                )),
-            )
+                    ],
+                ]],
+            ]
         );
     }
 
     public function testProcessing()
     {
         $this->assertProcessedConfigurationEquals(
-            array(
-                array('admin_finder_services' => array(
-                    'my_admin' => array(
+            [
+                ['admin_finder_services' => [
+                    'my_admin' => [
                         'finder' => 42,
-                        'actions' => array('list'),
-                    ),
-                )),
-            ),
-            array('admin_finder_services' => array(
-                'my_admin' => array(
+                        'actions' => ['list'],
+                    ],
+                ]],
+            ],
+            ['admin_finder_services' => [
+                'my_admin' => [
                     'finder' => 42,
-                    'actions' => array('list'),
-                ),
-            ))
+                    'actions' => ['list'],
+                ],
+            ]]
         );
     }
 

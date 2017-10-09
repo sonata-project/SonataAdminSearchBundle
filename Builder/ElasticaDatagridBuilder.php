@@ -69,7 +69,7 @@ class ElasticaDatagridBuilder implements DatagridBuilderInterface
                 if (is_array($value)) {
                     $fieldDescription->setOption(
                         $name,
-                        array_merge($value, $fieldDescription->getOption($name, array()))
+                        array_merge($value, $fieldDescription->getOption($name, []))
                     );
                 } else {
                     $fieldDescription->setOption($name, $fieldDescription->getOption($name, $value));
@@ -81,7 +81,7 @@ class ElasticaDatagridBuilder implements DatagridBuilderInterface
         $this->fixFieldDescription($admin, $fieldDescription);
         $admin->addFilterFieldDescription($fieldDescription->getName(), $fieldDescription);
 
-        $fieldDescription->mergeOption('field_options', array('required' => false));
+        $fieldDescription->mergeOption('field_options', ['required' => false]);
         $filter = $this->filterFactory->create($fieldDescription->getName(), $type, $fieldDescription->getOptions());
 
         if (false !== $filter->getLabel() && !$filter->getLabel()) {
@@ -96,17 +96,17 @@ class ElasticaDatagridBuilder implements DatagridBuilderInterface
     /**
      * {@inheritdoc}
      */
-    public function getBaseDatagrid(AdminInterface $admin, array $values = array())
+    public function getBaseDatagrid(AdminInterface $admin, array $values = [])
     {
         $pager = new Pager();
 
-        $defaultOptions = array();
+        $defaultOptions = [];
         $defaultOptions['csrf_protection'] = false;
 
         $formBuilder = $this->formFactory->createNamedBuilder(
             'filter',
             'form',
-            array(),
+            [],
             $defaultOptions
         );
 
@@ -132,7 +132,7 @@ class ElasticaDatagridBuilder implements DatagridBuilderInterface
     /**
      * Returns true if this datagrid builder can process these values.
      */
-    public function isSmart(AdminInterface $admin, array $values = array())
+    public function isSmart(AdminInterface $admin, array $values = [])
     {
         // first : validate if elastica is asked in the configuration for this action
         $logicalControllerName = $admin->getRequest()->attributes->get('_controller');

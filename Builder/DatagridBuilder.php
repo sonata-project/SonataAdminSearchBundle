@@ -28,7 +28,7 @@ class DatagridBuilder implements DatagridBuilderInterface
     private $smartDatagridBuilder; // FIXME: Assume the default one is based on elasticsearch
     private $originalAdminDatagridBuilders; // For each admin, keep a reference to the original datagrid builder
 
-    public function __construct(DatagridBuilderInterface $smartDatagridBuilder, $originalAdminDatagridBuilders = array())
+    public function __construct(DatagridBuilderInterface $smartDatagridBuilder, $originalAdminDatagridBuilders = [])
     {
         $this->smartDatagridBuilder = $smartDatagridBuilder;
         $this->originalAdminDatagridBuilders = $originalAdminDatagridBuilders;
@@ -58,7 +58,7 @@ class DatagridBuilder implements DatagridBuilderInterface
     /**
      * {@inheritdoc}
      */
-    public function getBaseDatagrid(AdminInterface $admin, array $values = array())
+    public function getBaseDatagrid(AdminInterface $admin, array $values = [])
     {
         // Check if we use smart or original datagrid builder
         $smartDatagrid = $this->smartDatagridBuilder->isSmart($admin, $values);

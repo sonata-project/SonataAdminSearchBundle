@@ -23,14 +23,14 @@ class DatagridBuilderInjectionCompilerPassTest extends AbstractCompilerPassTestC
     {
         $this->setParameter(
             'sonata.admin.search.admin_finder_services',
-            array('my_admin' => array('finder' => 'my_finder_service'))
+            ['my_admin' => ['finder' => 'my_finder_service']]
         );
         $this->setDefinition('my_admin', new Definition());
         $this->compile();
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'my_admin',
             'setDatagridBuilder',
-            array(new Reference('sonata.admin.search.datagrid_builder'))
+            [new Reference('sonata.admin.search.datagrid_builder')]
         );
     }
 
@@ -41,10 +41,10 @@ class DatagridBuilderInjectionCompilerPassTest extends AbstractCompilerPassTestC
             'sonata.admin.search.datagrid_builder',
             new Definition(
                 'Sonata\AdminSearchBundle\Builder\DatagridBuilder',
-                array(
+                [
                     new Reference('sonata.admin.search.elastica_datagrid_builder'),
                     null,
-                )
+                ]
             )
         );
     }
