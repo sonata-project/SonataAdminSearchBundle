@@ -37,7 +37,7 @@ modified according to your needs.
         {
             $datagridMapper
                 ->add('title')
-                ->add('name', 'sonata_search_elastica_callback', array(
+                ->add('name', Sonata\AdminSearchBundle\Filter\CallbackFilter::class, array(
                     'callback' => function (ElasticaProxyQuery $query, $alias, $field, $data) {
                         if (!$data || !is_array($data) || !array_key_exists('value', $data)) {
                             return;
@@ -71,7 +71,7 @@ For example if you have a date in the ISO 8601 date format :
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('date', 'sonata_search_elastica_datetime', null, 'datetime', array(
+            ->add('date', Sonata\AdminSearchBundle\Filter\DateTimeFilter::class, null, 'datetime', array(
                 'format' => 'c'
             ))        
         ;
