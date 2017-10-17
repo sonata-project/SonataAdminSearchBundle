@@ -11,10 +11,11 @@
 
 namespace Sonata\AdminSearchBundle\Tests\Filter;
 
+use PHPUnit\Framework\TestCase;
 use Sonata\AdminSearchBundle\Filter\StringFilter;
 use Sonata\AdminSearchBundle\ProxyQuery\ElasticaProxyQuery;
 
-class StringFilterTest extends \PHPUnit_Framework_TestCase
+class StringFilterTest extends TestCase
 {
     /**
      * @var ElasticaProxyQuery
