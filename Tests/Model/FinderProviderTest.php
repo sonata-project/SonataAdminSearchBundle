@@ -11,14 +11,15 @@
 
 namespace Sonata\AdminSearchBundle\Tests\Model;
 
+use PHPUnit\Framework\TestCase;
 use Sonata\AdminSearchBundle\Model\FinderProvider;
 
-class FinderProviderTest extends \PHPUnit_Framework_TestCase
+class FinderProviderTest extends TestCase
 {
     public function testGetFinderByAdmin()
     {
-        $admin = $this->getMock('Sonata\AdminBundle\Admin\AdminInterface');
-        $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');
+        $admin = $this->createMock('Sonata\AdminBundle\Admin\AdminInterface');
+        $container = $this->createMock('Symfony\Component\DependencyInjection\ContainerInterface');
         $provider = new FinderProvider(
             $container,
             [

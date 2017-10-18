@@ -12,9 +12,10 @@
 namespace Sonata\AdminSearchBundle\Tests\ProxyQuery;
 
 use FOS\ElasticaBundle\Finder\TransformedFinder;
+use PHPUnit\Framework\TestCase;
 use Sonata\AdminSearchBundle\ProxyQuery\ElasticaProxyQuery;
 
-class ElasticaProxyQueryTest extends \PHPUnit_Framework_TestCase
+class ElasticaProxyQueryTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject|TransformedFinder

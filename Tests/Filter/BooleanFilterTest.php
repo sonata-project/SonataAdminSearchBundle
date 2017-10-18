@@ -11,11 +11,12 @@
 
 namespace Sonata\AdminSearchBundle\Tests\Filter;
 
+use PHPUnit\Framework\TestCase;
 use Sonata\AdminSearchBundle\Filter\BooleanFilter;
 use Sonata\AdminSearchBundle\ProxyQuery\ElasticaProxyQuery;
 use Sonata\CoreBundle\Form\Type\BooleanType;
 
-class BooleanFilterTest extends \PHPUnit_Framework_TestCase
+class BooleanFilterTest extends TestCase
 {
     /**
      * @var ElasticaProxyQuery
