@@ -32,10 +32,10 @@ class BooleanFilter extends Filter
                     continue;
                 }
 
-                $values[] = ($v == BooleanType::TYPE_YES);
+                $values[] = (BooleanType::TYPE_YES == $v);
             }
 
-            if (count($values) == 0) {
+            if (0 == count($values)) {
                 return;
             }
 
@@ -54,7 +54,7 @@ class BooleanFilter extends Filter
             $queryBuilder = new \Elastica\Query\Builder();
             $queryBuilder
                 ->fieldOpen('term')
-                    ->field($field, ($data['value'] == BooleanType::TYPE_YES))
+                    ->field($field, (BooleanType::TYPE_YES == $data['value']))
                 ->fieldClose();
 
             $query->addMust($queryBuilder);

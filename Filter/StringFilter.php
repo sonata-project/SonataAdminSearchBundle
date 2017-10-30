@@ -27,7 +27,7 @@ class StringFilter extends Filter
 
         $data['value'] = trim($data['value']);
 
-        if (strlen($data['value']) == 0) {
+        if (0 == strlen($data['value'])) {
             return;
         }
 
@@ -45,7 +45,7 @@ class StringFilter extends Filter
                 ->fieldClose()
             ->fieldClose();
 
-        if ($firstOperator == 'must') {
+        if ('must' == $firstOperator) {
             $query->addMust($queryBuilder);
         } else {
             $query->addMustNot($queryBuilder);
