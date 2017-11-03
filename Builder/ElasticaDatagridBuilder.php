@@ -55,7 +55,7 @@ class ElasticaDatagridBuilder implements DatagridBuilderInterface
     public function addFilter(DatagridInterface $datagrid, $type, FieldDescriptionInterface $fieldDescription, AdminInterface $admin)
     {
         // Try to wrap all types to search types
-        if ($type == null) {
+        if (null == $type) {
             $guessType = $this->guesser->guessType(
                 $admin->getClass(),
                 $fieldDescription->getName(),
