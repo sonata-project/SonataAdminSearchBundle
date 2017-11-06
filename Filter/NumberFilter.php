@@ -30,7 +30,7 @@ class NumberFilter extends Filter
 
         $queryBuilder = new \Elastica\Query\Builder();
 
-        if ($operator === false) {
+        if (false === $operator) {
             // Match query to get equality
             $queryBuilder
                 ->fieldOpen('match')
