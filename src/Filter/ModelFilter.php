@@ -14,6 +14,7 @@ namespace Sonata\AdminSearchBundle\Filter;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
+use Sonata\AdminBundle\Form\Type\Filter\DefaultType;
 use Sonata\CoreBundle\Form\Type\EqualType;
 
 class ModelFilter extends Filter
@@ -58,7 +59,7 @@ class ModelFilter extends Filter
      */
     public function getRenderSettings()
     {
-        return ['sonata_type_filter_default', [
+        return [DefaultType::class, [
             'field_type' => $this->getFieldType(),
             'field_options' => $this->getFieldOptions(),
             'operator_type' => $this->getOption('operator_type'),

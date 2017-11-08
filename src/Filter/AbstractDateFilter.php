@@ -13,6 +13,7 @@ namespace Sonata\AdminSearchBundle\Filter;
 
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Sonata\AdminBundle\Form\Type\Filter\DateRangeType;
+use Sonata\AdminBundle\Form\Type\Filter\DateTimeType;
 use Sonata\AdminBundle\Form\Type\Filter\DateType;
 
 abstract class AbstractDateFilter extends Filter
@@ -21,6 +22,10 @@ abstract class AbstractDateFilter extends Filter
      * Flag indicating that filter will have range.
      *
      * @var bool
+     *
+     * NEXT_MAJOR: Remove this property
+     *
+     * @deprecated since 1.x, will be removed in 2.0.
      */
     protected $range = false;
 
@@ -28,6 +33,10 @@ abstract class AbstractDateFilter extends Filter
      * Flag indicating that filter will filter by datetime instead by date.
      *
      * @var bool
+     *
+     * NEXT_MAJOR: Remove this property
+     *
+     * @deprecated since 1.x, will be removed in 2.0.
      */
     protected $time = false;
 
@@ -44,7 +53,23 @@ abstract class AbstractDateFilter extends Filter
         $format = array_key_exists('format', $this->getFieldOptions()) ? $this->getFieldOptions()['format'] : 'c';
         $queryBuilder = new \Elastica\Query\Builder();
 
-        if ($this->range) {
+        /*
+         * NEXT_MAJOR: Use ($this instanceof RangeFilterInterface) for if statement, remove deprecated range.
+         */
+        if (!($range = $this instanceof RangeFilterInterface)) {
+            @trigger_error(
+                sprintf(
+                    'Using `range` property is deprecated since version 1.x, will be removed in 2.0.'.
+                    ' Implement %s instead.',
+                    RangeFilterInterface::class
+                ),
+                E_USER_DEPRECATED
+            );
+
+            $range = $this->range;
+        }
+
+        if ($range) {
             // additional data check for ranged items
             if (!array_key_exists('start', $data['value']) || !array_key_exists('end', $data['value'])) {
                 return;
@@ -132,24 +157,29 @@ abstract class AbstractDateFilter extends Filter
      */
     public function getRenderSettings()
     {
-        $name = 'sonata_type_filter_date';
-
-        if ($this->time) {
-            $name .= 'time';
-        }
-
-        if ($this->range) {
-            $name .= '_range';
-        }
-
         return [
-            $name,
+            $this->getFilterTypeClass(),
             [
                 'field_type' => $this->getFieldType(),
                 'field_options' => $this->getFieldOptions(),
                 'label' => $this->getLabel(),
             ],
         ];
+    }
+
+    /**
+     * @return string
+     *
+     * NEXT_MAJOR: Make this method abstract
+     */
+    protected function getFilterTypeClass()
+    {
+        @trigger_error(
+            __METHOD__.' should be implemented. It will be abstract in 2.0.',
+            E_USER_DEPRECATED
+        );
+
+        return DateTimeType::class;
     }
 
     /**
