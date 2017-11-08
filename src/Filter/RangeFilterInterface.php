@@ -11,15 +11,9 @@
 
 namespace Sonata\AdminSearchBundle\Filter;
 
-use Sonata\AdminBundle\Form\Type\Filter\DateType;
-
-class DateFilter extends AbstractDateFilter
+/**
+ * @author Ahmet Akbana <ahmetakbana@gmail.com>
+ */
+interface RangeFilterInterface
 {
-    /**
-     * {@inheritdoc}
-     */
-    protected function getFilterTypeClass()
-    {
-        return DateType::class;
-    }
 }

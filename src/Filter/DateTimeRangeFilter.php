@@ -11,12 +11,18 @@
 
 namespace Sonata\AdminSearchBundle\Filter;
 
-class DateTimeRangeFilter extends AbstractDateFilter
+use Sonata\AdminBundle\Form\Type\Filter\DateTimeRangeType;
+
+class DateTimeRangeFilter extends AbstractDateFilter implements RangeFilterInterface
 {
     /**
      * This Filter allows filtering by time.
      *
      * @var bool
+     *
+     * NEXT_MAJOR: Remove this property
+     *
+     * @deprecated since 1.x, will be removed in 2.0.
      */
     protected $time = true;
 
@@ -24,6 +30,18 @@ class DateTimeRangeFilter extends AbstractDateFilter
      * This is a range filter.
      *
      * @var bool
+     *
+     * NEXT_MAJOR: Remove this property
+     *
+     * @deprecated since 1.x, will be removed in 2.0.
      */
     protected $range = true;
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getFilterTypeClass()
+    {
+        return DateTimeRangeType::class;
+    }
 }

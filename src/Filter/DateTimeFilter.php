@@ -11,19 +11,26 @@
 
 namespace Sonata\AdminSearchBundle\Filter;
 
+use Sonata\AdminBundle\Form\Type\Filter\DateTimeType;
+
 class DateTimeFilter extends AbstractDateFilter
 {
     /**
      * This filter has time.
      *
      * @var bool
+     *
+     * NEXT_MAJOR: Remove this property
+     *
+     * @deprecated since 1.x, will be removed in 2.0.
      */
     protected $time = true;
 
     /**
-     * This is not a rangle filter.
-     *
-     * @var bool
+     * {@inheritdoc}
      */
-    protected $range = false;
+    protected function getFilterTypeClass()
+    {
+        return DateTimeType::class;
+    }
 }
