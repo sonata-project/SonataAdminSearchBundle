@@ -29,16 +29,11 @@
         "sllh/php-cs-fixer-styleci-bridge": "^2.0",
         "symfony/phpunit-bridge": "^3.3"
     },
-    "suggest": {
-    },
     "autoload": {
-        "psr-4": { "Sonata\\AdminSearchBundle\\": "" },
-        "exclude-from-classmap": [
-            "Tests/"
-        ]
+        "psr-4": { "Sonata\\AdminSearchBundle\\": "src/" }
     },
     "autoload-dev": {
-        "psr-4": { "Sonata\\AdminSearchBundle\\Tests\\": "Tests/" }
+        "psr-4": { "Sonata\\AdminSearchBundle\\Tests\\": "tests/" }
      },
     "config": {
         "sort-packages": true
