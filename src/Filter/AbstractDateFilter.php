@@ -25,7 +25,7 @@ abstract class AbstractDateFilter extends Filter
      *
      * NEXT_MAJOR: Remove this property
      *
-     * @deprecated since 1.x, will be removed in 2.0.
+     * @deprecated since 1.1, will be removed in 2.0.
      */
     protected $range = false;
 
@@ -36,7 +36,7 @@ abstract class AbstractDateFilter extends Filter
      *
      * NEXT_MAJOR: Remove this property
      *
-     * @deprecated since 1.x, will be removed in 2.0.
+     * @deprecated since 1.1, will be removed in 2.0.
      */
     protected $time = false;
 
