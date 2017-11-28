@@ -11,15 +11,13 @@
 
 namespace Sonata\AdminSearchBundle\Filter;
 
+/**
+ * NEXT_MAJOR: Remove this class, this is same with DateTimeFilter class.
+ *
+ * @deprecated since 1.1, will be removed in 2.0. Use `Sonata\AdminSearchBundle\Filter\DateTimeFilter' instead.
+ */
 class TimeFilter extends AbstractDateFilter
 {
-    /**
-     * This filter has no range.
-     *
-     * @var bool
-     */
-    protected $range = false;
-
     /**
      * This filter does not allow filtering by time.
      *
