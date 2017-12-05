@@ -65,7 +65,7 @@ class Pager extends BasePager
 
     protected function getPaginator()
     {
-        if (is_null($this->paginator)) {
+        if (null === $this->paginator) {
             $this->paginator = $this->getQuery()->execute();
         }
 
