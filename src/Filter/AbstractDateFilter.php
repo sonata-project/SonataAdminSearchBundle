@@ -191,7 +191,7 @@ abstract class AbstractDateFilter extends Filter
      */
     protected function getOperator($type)
     {
-        $type = intval($type);
+        $type = (int) $type;
 
         $choices = [
             DateType::TYPE_EQUAL => '=',
