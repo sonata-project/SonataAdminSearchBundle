@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -19,7 +21,7 @@ class StringFilter extends Filter
     /**
      * {@inheritdoc}
      */
-    public function filter(ProxyQueryInterface $query, $alias, $field, $data)
+    public function filter(ProxyQueryInterface $query, $alias, $field, $data): void
     {
         if (!$data || !is_array($data) || !array_key_exists('value', $data)) {
             return;
@@ -85,6 +87,6 @@ class StringFilter extends Filter
             ChoiceType::TYPE_EQUAL => ['must', 'match_phrase'],
         ];
 
-        return isset($choices[$type]) ? $choices[$type] : false;
+        return $choices[$type] ?? false;
     }
 }
