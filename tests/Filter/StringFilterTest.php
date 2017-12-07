@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -22,7 +24,7 @@ class StringFilterTest extends TestCase
      */
     protected $proxyQuery;
 
-    public function setup()
+    public function setup(): void
     {
         $finder = $this->getMockBuilder('FOS\ElasticaBundle\Finder\TransformedFinder')
             ->disableOriginalConstructor()
@@ -31,7 +33,7 @@ class StringFilterTest extends TestCase
         $this->proxyQuery = new ElasticaProxyQuery($finder);
     }
 
-    public function testFilterSimple()
+    public function testFilterSimple(): void
     {
         $filter = new StringFilter();
         $value = 'bar';
@@ -51,7 +53,7 @@ class StringFilterTest extends TestCase
     /**
      * Check if filter query with special characters can be translated into JSON.
      */
-    public function testFilterSpecialCharacters()
+    public function testFilterSpecialCharacters(): void
     {
         $filter = new StringFilter();
         $value = 'bar \ + - && || ! ( ) { } [ ] ^ " ~ * ? : baz';

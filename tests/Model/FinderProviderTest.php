@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -16,7 +18,7 @@ use Sonata\AdminSearchBundle\Model\FinderProvider;
 
 class FinderProviderTest extends TestCase
 {
-    public function testGetFinderByAdmin()
+    public function testGetFinderByAdmin(): void
     {
         $admin = $this->createMock('Sonata\AdminBundle\Admin\AdminInterface');
         $container = $this->createMock('Symfony\Component\DependencyInjection\ContainerInterface');

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -43,7 +45,7 @@ abstract class AbstractDateFilter extends Filter
     /**
      * {@inheritdoc}
      */
-    public function filter(ProxyQueryInterface $query, $alias, $field, $data)
+    public function filter(ProxyQueryInterface $query, $alias, $field, $data): void
     {
         // check data sanity
         if (!$data || !is_array($data) || !array_key_exists('value', $data)) {
@@ -203,6 +205,6 @@ abstract class AbstractDateFilter extends Filter
             DateType::TYPE_NOT_NULL => 'exists',
         ];
 
-        return isset($choices[$type]) ? $choices[$type] : '=';
+        return $choices[$type] ?? '=';
     }
 }

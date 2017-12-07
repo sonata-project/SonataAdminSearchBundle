@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -16,7 +18,7 @@ use Sonata\AdminSearchBundle\DependencyInjection\Configuration;
 
 class ConfigurationTest extends AbstractConfigurationTestCase
 {
-    public function testValidation()
+    public function testValidation(): void
     {
         $this->assertConfigurationIsInvalid(
             [
@@ -29,7 +31,7 @@ class ConfigurationTest extends AbstractConfigurationTestCase
         );
     }
 
-    public function testProcessing()
+    public function testProcessing(): void
     {
         $this->assertProcessedConfigurationEquals(
             [
