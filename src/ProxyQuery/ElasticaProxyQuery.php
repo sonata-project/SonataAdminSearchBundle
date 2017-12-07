@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -59,7 +61,7 @@ class ElasticaProxyQuery implements ProxyQueryInterface
     /**
      * {@inheritdoc}
      */
-    public function __call($name, $args)
+    public function __call($name, $args): void
     {
     }
 
@@ -173,28 +175,28 @@ class ElasticaProxyQuery implements ProxyQueryInterface
         return $this->results;
     }
 
-    public function getSingleScalarResult()
+    public function getSingleScalarResult(): void
     {
         // TODO
     }
 
-    public function getUniqueParameterId()
+    public function getUniqueParameterId(): void
     {
         // TODO
     }
 
-    public function entityJoin(array $associationMappings)
+    public function entityJoin(array $associationMappings): void
     {
         // TODO
     }
 
-    public function addMust($args)
+    public function addMust($args): void
     {
         $this->boolQuery->addMust($args);
         $this->query = new \Elastica\Query($this->boolQuery);
     }
 
-    public function addMustNot($args)
+    public function addMustNot($args): void
     {
         $this->boolQuery->addMustNot($args);
         $this->query = new \Elastica\Query($this->boolQuery);

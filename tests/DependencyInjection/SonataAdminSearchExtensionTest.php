@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -23,7 +25,7 @@ class SonataAdminSearchExtensionTest extends AbstractExtensionTestCase
         ];
     }
 
-    public function testLoad()
+    public function testLoad(): void
     {
         $this->load([
             'admin_finder_services' => $expectedParameterValue = [

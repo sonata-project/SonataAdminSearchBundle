@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -19,7 +21,7 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class DatagridBuilderInjectionCompilerPassTest extends AbstractCompilerPassTestCase
 {
-    public function testDatagridBuilderIsInjected()
+    public function testDatagridBuilderIsInjected(): void
     {
         $this->setParameter(
             'sonata.admin.search.admin_finder_services',
@@ -34,7 +36,7 @@ class DatagridBuilderInjectionCompilerPassTest extends AbstractCompilerPassTestC
         );
     }
 
-    protected function registerCompilerPass(ContainerBuilder $container)
+    protected function registerCompilerPass(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new DatagridBuilderInjectionCompilerPass());
         $container->setDefinition(

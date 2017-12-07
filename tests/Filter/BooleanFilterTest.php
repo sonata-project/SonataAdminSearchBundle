@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -23,7 +25,7 @@ class BooleanFilterTest extends TestCase
      */
     protected $proxyQuery;
 
-    public function setup()
+    public function setup(): void
     {
         $finder = $this->getMockBuilder('FOS\ElasticaBundle\Finder\TransformedFinder')
         ->disableOriginalConstructor()
@@ -32,7 +34,7 @@ class BooleanFilterTest extends TestCase
         $this->proxyQuery = new ElasticaProxyQuery($finder);
     }
 
-    public function testNoFilterSimple()
+    public function testNoFilterSimple(): void
     {
         $filter = new BooleanFilter();
         $value = BooleanType::TYPE_NO;
@@ -49,7 +51,7 @@ class BooleanFilterTest extends TestCase
         $this->assertEquals('false', $queryArray['query']['bool']['must'][0]['term']['foo']);
     }
 
-    public function testYesFilterSimple()
+    public function testYesFilterSimple(): void
     {
         $filter = new BooleanFilter();
         $value = BooleanType::TYPE_YES;
