@@ -66,7 +66,7 @@ class ElasticaDatagridBuilder implements DatagridBuilderInterface
             $options = $guessType->getOptions();
 
             foreach ($options as $name => $value) {
-                if (is_array($value)) {
+                if (\is_array($value)) {
                     $fieldDescription->setOption(
                         $name,
                         array_merge($value, $fieldDescription->getOption($name, []))
@@ -138,9 +138,9 @@ class ElasticaDatagridBuilder implements DatagridBuilderInterface
         $logicalControllerName = $admin->getRequest()->attributes->get('_controller');
         $currentAction = explode(':', $logicalControllerName);
         // remove Action from 'listAction'
-        $currentAction = substr(end($currentAction), 0, -strlen('Action'));
+        $currentAction = substr(end($currentAction), 0, -\strlen('Action'));
         // in case of batch|export action, no need to elasticsearch
-        if (!in_array($currentAction, $this->finderProvider->getActionsByAdmin($admin))) {
+        if (!\in_array($currentAction, $this->finderProvider->getActionsByAdmin($admin))) {
             return false;
         }
 
@@ -148,7 +148,7 @@ class ElasticaDatagridBuilder implements DatagridBuilderInterface
         $finderId = $this->finderProvider->getFinderIdByAdmin($admin);
 
         // Assume that finder id is composed like this 'fos_elastica.finder.<index name>.<type name>
-        list($indexName, $typeName) = array_slice(explode('.', $finderId), 2);
+        list($indexName, $typeName) = \array_slice(explode('.', $finderId), 2);
         $typeConfiguration = $this->configManager->getTypeConfiguration($indexName, $typeName);
         $mapping = $typeConfiguration->getMapping();
         $mappedFieldNames = array_keys($mapping['properties']);
@@ -157,7 +157,7 @@ class ElasticaDatagridBuilder implements DatagridBuilderInterface
         $smart = true;
 
         foreach ($values as $key => $value) {
-            if (!is_array($value) || !isset($value['value'])) {
+            if (!\is_array($value) || !isset($value['value'])) {
                 // This is not a filter field
                 continue;
             }
@@ -167,7 +167,7 @@ class ElasticaDatagridBuilder implements DatagridBuilderInterface
                 continue;
             }
 
-            if (!in_array($key, $mappedFieldNames)) {
+            if (!\in_array($key, $mappedFieldNames)) {
                 /*
                  * We are in the case where a field is used as filter
                  * without being mapped in elastic search.

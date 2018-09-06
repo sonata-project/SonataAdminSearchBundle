@@ -23,19 +23,19 @@ class ChoiceFilter extends Filter
      */
     public function filter(ProxyQueryInterface $query, $alias, $field, $data)
     {
-        if (!$data || !is_array($data) || !array_key_exists('type', $data) || !array_key_exists('value', $data)) {
+        if (!$data || !\is_array($data) || !array_key_exists('type', $data) || !array_key_exists('value', $data)) {
             return;
         }
 
         $data['type'] = !isset($data['type']) ? ChoiceType::TYPE_CONTAINS : $data['type'];
         list($firstOperator, $secondOperator) = $this->getOperators((int) $data['type']);
 
-        if (is_array($data['value'])) {
-            if (0 == count($data['value'])) {
+        if (\is_array($data['value'])) {
+            if (0 == \count($data['value'])) {
                 return;
             }
 
-            if (in_array('all', $data['value'], true)) {
+            if (\in_array('all', $data['value'], true)) {
                 return;
             }
 
