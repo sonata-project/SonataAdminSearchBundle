@@ -46,7 +46,7 @@ abstract class AbstractDateFilter extends Filter
     public function filter(ProxyQueryInterface $query, $alias, $field, $data)
     {
         // check data sanity
-        if (!$data || !is_array($data) || !array_key_exists('value', $data)) {
+        if (!$data || !\is_array($data) || !array_key_exists('value', $data)) {
             return;
         }
 
@@ -117,7 +117,7 @@ abstract class AbstractDateFilter extends Filter
             }
 
             // null / not null only check for col
-            if (in_array($operator, ['missing', 'exists'])) {
+            if (\in_array($operator, ['missing', 'exists'])) {
                 $queryBuilder
                     ->fieldOpen($operator)
                         ->field('field', $field)
