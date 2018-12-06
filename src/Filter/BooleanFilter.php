@@ -24,21 +24,21 @@ class BooleanFilter extends Filter
      */
     public function filter(ProxyQueryInterface $query, $alias, $field, $data): void
     {
-        if (!$data || !is_array($data) || !array_key_exists('type', $data) || !array_key_exists('value', $data)) {
+        if (!$data || !\is_array($data) || !array_key_exists('type', $data) || !array_key_exists('value', $data)) {
             return;
         }
 
-        if (is_array($data['value'])) {
+        if (\is_array($data['value'])) {
             $values = [];
             foreach ($data['value'] as $v) {
-                if (!in_array($v, [BooleanType::TYPE_NO, BooleanType::TYPE_YES])) {
+                if (!\in_array($v, [BooleanType::TYPE_NO, BooleanType::TYPE_YES])) {
                     continue;
                 }
 
                 $values[] = (BooleanType::TYPE_YES == $v);
             }
 
-            if (0 == count($values)) {
+            if (0 == \count($values)) {
                 return;
             }
 
@@ -50,7 +50,7 @@ class BooleanFilter extends Filter
 
             $query->addMust($queryBuilder);
         } else {
-            if (!in_array($data['value'], [BooleanType::TYPE_NO, BooleanType::TYPE_YES])) {
+            if (!\in_array($data['value'], [BooleanType::TYPE_NO, BooleanType::TYPE_YES])) {
                 return;
             }
 
