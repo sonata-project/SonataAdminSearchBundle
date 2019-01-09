@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -102,6 +104,6 @@ class ChoiceFilter extends Filter
             ChoiceType::TYPE_NOT_CONTAINS => ['must_not', 'terms'],
         ];
 
-        return isset($choices[$type]) ? $choices[$type] : false;
+        return $choices[$type] ?? false;
     }
 }

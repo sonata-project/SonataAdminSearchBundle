@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -66,8 +68,8 @@ class ClassFilter extends Filter
         return $this->getOption('choices', [
             'required' => false,
             'choice_list' => new ChoiceList(
-                \array_values($this->getOption('sub_classes')),
-                \array_keys($this->getOption('sub_classes'))
+                array_values($this->getOption('sub_classes')),
+                array_keys($this->getOption('sub_classes'))
             ),
         ]);
     }
@@ -97,6 +99,6 @@ class ClassFilter extends Filter
             EqualType::TYPE_IS_NOT_EQUAL => 'NOT INSTANCE OF',
         ];
 
-        return isset($choices[$type]) ? $choices[$type] : false;
+        return $choices[$type] ?? false;
     }
 }
