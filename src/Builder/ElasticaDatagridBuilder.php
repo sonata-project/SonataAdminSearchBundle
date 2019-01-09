@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -44,7 +46,7 @@ class ElasticaDatagridBuilder implements DatagridBuilderInterface
     /**
      * {@inheritdoc}
      */
-    public function fixFieldDescription(AdminInterface $admin, FieldDescriptionInterface $fieldDescription)
+    public function fixFieldDescription(AdminInterface $admin, FieldDescriptionInterface $fieldDescription): void
     {
         // Nothing todo
     }
@@ -52,7 +54,7 @@ class ElasticaDatagridBuilder implements DatagridBuilderInterface
     /**
      * {@inheritdoc}
      */
-    public function addFilter(DatagridInterface $datagrid, $type, FieldDescriptionInterface $fieldDescription, AdminInterface $admin)
+    public function addFilter(DatagridInterface $datagrid, $type, FieldDescriptionInterface $fieldDescription, AdminInterface $admin): void
     {
         // Try to wrap all types to search types
         if (null == $type) {
