@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -25,7 +27,7 @@ class NumberFilter extends Filter
             return;
         }
 
-        $type = isset($data['type']) ? $data['type'] : false;
+        $type = $data['type'] ?? false;
         $operator = $this->getOperator($type);
 
         $queryBuilder = new \Elastica\Query\Builder();
@@ -84,6 +86,6 @@ class NumberFilter extends Filter
             NumberType::TYPE_LESS_THAN => 'lt',
         ];
 
-        return isset($choices[$type]) ? $choices[$type] : false;
+        return $choices[$type] ?? false;
     }
 }
