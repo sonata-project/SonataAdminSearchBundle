@@ -32,9 +32,9 @@
         "symfony/http-kernel": "^2.8 || ^3.2 || ^4.0"
     },
     "require-dev": {
-        "matthiasnoback/symfony-config-test": "^2.0",
-        "matthiasnoback/symfony-dependency-injection-test": "^1.0",
-        "symfony/phpunit-bridge": "^4.0"
+        "matthiasnoback/symfony-config-test": "^4.0",
+        "matthiasnoback/symfony-dependency-injection-test": "^3.1",
+        "symfony/phpunit-bridge": "^4.2"
     },
     "config": {
         "sort-packages": true

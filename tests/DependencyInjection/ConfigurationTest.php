@@ -13,11 +13,13 @@ declare(strict_types=1);
 
 namespace Sonata\AdminSearchBundle\Tests\DependencyInjection;
 
-use Matthias\SymfonyConfigTest\PhpUnit\AbstractConfigurationTestCase;
+use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
 use Sonata\AdminSearchBundle\DependencyInjection\Configuration;
 
-class ConfigurationTest extends AbstractConfigurationTestCase
+class ConfigurationTest
 {
+    use ConfigurationTestCaseTrait;
+
     public function testValidation(): void
     {
         $this->assertConfigurationIsInvalid(

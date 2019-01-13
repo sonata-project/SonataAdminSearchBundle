@@ -68,8 +68,8 @@ class ClassFilter extends Filter
         return $this->getOption('choices', [
             'required' => false,
             'choice_list' => new ChoiceList(
-                \array_values($this->getOption('sub_classes')),
-                \array_keys($this->getOption('sub_classes'))
+                array_values($this->getOption('sub_classes')),
+                array_keys($this->getOption('sub_classes'))
             ),
         ]);
     }
