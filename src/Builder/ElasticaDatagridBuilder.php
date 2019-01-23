@@ -57,7 +57,7 @@ class ElasticaDatagridBuilder implements DatagridBuilderInterface
     public function addFilter(DatagridInterface $datagrid, $type, FieldDescriptionInterface $fieldDescription, AdminInterface $admin)
     {
         // Try to wrap all types to search types
-        if (null == $type) {
+        if (null === $type) {
             $guessType = $this->guesser->guessType(
                 $admin->getClass(),
                 $fieldDescription->getName(),
@@ -142,7 +142,7 @@ class ElasticaDatagridBuilder implements DatagridBuilderInterface
         // remove Action from 'listAction'
         $currentAction = substr(end($currentAction), 0, -\strlen('Action'));
         // in case of batch|export action, no need to elasticsearch
-        if (!\in_array($currentAction, $this->finderProvider->getActionsByAdmin($admin))) {
+        if (!\in_array($currentAction, $this->finderProvider->getActionsByAdmin($admin), true)) {
             return false;
         }
 
@@ -169,7 +169,7 @@ class ElasticaDatagridBuilder implements DatagridBuilderInterface
                 continue;
             }
 
-            if (!\in_array($key, $mappedFieldNames)) {
+            if (!\in_array($key, $mappedFieldNames, true)) {
                 /*
                  * We are in the case where a field is used as filter
                  * without being mapped in elastic search.
