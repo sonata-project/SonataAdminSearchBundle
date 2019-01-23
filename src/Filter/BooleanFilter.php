@@ -31,14 +31,14 @@ class BooleanFilter extends Filter
         if (\is_array($data['value'])) {
             $values = [];
             foreach ($data['value'] as $v) {
-                if (!\in_array($v, [BooleanType::TYPE_NO, BooleanType::TYPE_YES])) {
+                if (!\in_array($v, [BooleanType::TYPE_NO, BooleanType::TYPE_YES], true)) {
                     continue;
                 }
 
-                $values[] = (BooleanType::TYPE_YES == $v);
+                $values[] = (BooleanType::TYPE_YES === $v);
             }
 
-            if (0 == \count($values)) {
+            if (0 === \count($values)) {
                 return;
             }
 
@@ -50,14 +50,14 @@ class BooleanFilter extends Filter
 
             $query->addMust($queryBuilder);
         } else {
-            if (!\in_array($data['value'], [BooleanType::TYPE_NO, BooleanType::TYPE_YES])) {
+            if (!\in_array($data['value'], [BooleanType::TYPE_NO, BooleanType::TYPE_YES], true)) {
                 return;
             }
 
             $queryBuilder = new \Elastica\Query\Builder();
             $queryBuilder
                 ->fieldOpen('term')
-                    ->field($field, (BooleanType::TYPE_YES == $data['value']))
+                    ->field($field, (BooleanType::TYPE_YES === $data['value']))
                 ->fieldClose();
 
             $query->addMust($queryBuilder);

@@ -48,7 +48,7 @@ class BooleanFilterTest extends TestCase
 
         $queryArray = $queryProperty->getValue($this->proxyQuery)->toArray();
 
-        $this->assertEquals('false', $queryArray['query']['bool']['must'][0]['term']['foo']);
+        $this->assertSame('false', $queryArray['query']['bool']['must'][0]['term']['foo']);
     }
 
     public function testYesFilterSimple()
@@ -65,6 +65,6 @@ class BooleanFilterTest extends TestCase
 
         $queryArray = $queryProperty->getValue($this->proxyQuery)->toArray();
 
-        $this->assertEquals('true', $queryArray['query']['bool']['must'][0]['term']['foo']);
+        $this->assertSame('true', $queryArray['query']['bool']['must'][0]['term']['foo']);
     }
 }

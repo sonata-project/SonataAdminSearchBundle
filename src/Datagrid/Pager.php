@@ -52,7 +52,7 @@ class Pager extends BasePager
             $this->getQuery()->setParameters($this->getParameters());
         }
 
-        if (0 == $this->getPage() || 0 == $this->getMaxPerPage()) {
+        if (0 === $this->getPage() || 0 === $this->getMaxPerPage()) {
             $this->setLastPage(0);
             $this->setNbResults($this->computeNbResult());
         } else {
