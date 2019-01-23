@@ -82,7 +82,7 @@ abstract class AbstractDateFilter extends Filter
             }
 
             // transform types
-            if ('timestamp' == $this->getOption('input_type')) {
+            if ('timestamp' === $this->getOption('input_type')) {
                 $data['value']['start'] = $data['value']['start'] instanceof \DateTime ? $data['value']['start']->getTimestamp() : 0;
                 $data['value']['end'] = $data['value']['end'] instanceof \DateTime ? $data['value']['end']->getTimestamp() : 0;
             }
@@ -98,7 +98,7 @@ abstract class AbstractDateFilter extends Filter
                     ->fieldClose()
                 ->fieldClose();
 
-            if (DateRangeType::TYPE_NOT_BETWEEN == $data['type']) {
+            if (DateRangeType::TYPE_NOT_BETWEEN === $data['type']) {
                 $query->addMustNot($queryBuilder);
             } else {
                 $query->addMust($queryBuilder);
@@ -114,17 +114,17 @@ abstract class AbstractDateFilter extends Filter
             $operator = $this->getOperator($data['type']);
 
             // transform types
-            if ('timestamp' == $this->getOption('input_type')) {
+            if ('timestamp' === $this->getOption('input_type')) {
                 $data['value'] = $data['value'] instanceof \DateTime ? $data['value']->getTimestamp() : 0;
             }
 
             // null / not null only check for col
-            if (\in_array($operator, ['missing', 'exists'])) {
+            if (\in_array($operator, ['missing', 'exists'], true)) {
                 $queryBuilder
                     ->fieldOpen($operator)
                         ->field('field', $field)
                     ->fieldClose();
-            } elseif ('=' == $operator) {
+            } elseif ('=' === $operator) {
                 $queryBuilder
                     ->fieldOpen('range')
                         ->fieldOpen($field)

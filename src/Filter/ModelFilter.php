@@ -82,13 +82,13 @@ class ModelFilter extends Filter
      */
     protected function handleMultiple(ProxyQueryInterface $queryBuilder, $alias, $data)
     {
-        if (0 == \count($data['value'])) {
+        if (0 === \count($data['value'])) {
             return;
         }
 
         $parameterName = $this->getNewParameterName($queryBuilder);
 
-        if (isset($data['type']) && EqualType::TYPE_IS_NOT_EQUAL == $data['type']) {
+        if (isset($data['type']) && EqualType::TYPE_IS_NOT_EQUAL === $data['type']) {
             $this->applyWhere($queryBuilder, $queryBuilder->expr()->notIn($alias, ':'.$parameterName));
         } else {
             $this->applyWhere($queryBuilder, $queryBuilder->expr()->in($alias, ':'.$parameterName));
@@ -112,7 +112,7 @@ class ModelFilter extends Filter
 
         $parameterName = $this->getNewParameterName($queryBuilder);
 
-        if (isset($data['type']) && EqualType::TYPE_IS_NOT_EQUAL == $data['type']) {
+        if (isset($data['type']) && EqualType::TYPE_IS_NOT_EQUAL === $data['type']) {
             $this->applyWhere($queryBuilder, sprintf('%s != :%s', $alias, $parameterName));
         } else {
             $this->applyWhere($queryBuilder, sprintf('%s = :%s', $alias, $parameterName));
@@ -133,7 +133,7 @@ class ModelFilter extends Filter
             ClassMetadataInfo::MANY_TO_ONE,
         ];
 
-        if (!\in_array($this->getOption('mapping_type'), $types)) {
+        if (!\in_array($this->getOption('mapping_type'), $types, true)) {
             throw new \RunTimeException('Invalid mapping type');
         }
 
