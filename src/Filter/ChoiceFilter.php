@@ -33,7 +33,7 @@ class ChoiceFilter extends Filter
         list($firstOperator, $secondOperator) = $this->getOperators((int) $data['type']);
 
         if (\is_array($data['value'])) {
-            if (0 == \count($data['value'])) {
+            if (0 === \count($data['value'])) {
                 return;
             }
 
@@ -47,7 +47,7 @@ class ChoiceFilter extends Filter
                 ->field($field, Util::escapeTerm($data['value']))
             ->fieldClose();
 
-            if ('must' == $firstOperator) {
+            if ('must' === $firstOperator) {
                 $query->addMust($queryBuilder);
             } else {
                 $query->addMustNot($queryBuilder);
@@ -63,7 +63,7 @@ class ChoiceFilter extends Filter
                 ->field($field, Util::escapeTerm([$data['value']]))
             ->fieldClose();
 
-            if ('must' == $firstOperator) {
+            if ('must' === $firstOperator) {
                 $query->addMust($queryBuilder);
             } else {
                 $query->addMustNot($queryBuilder);
