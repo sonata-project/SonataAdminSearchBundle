@@ -48,11 +48,11 @@ abstract class AbstractDateFilter extends Filter
     public function filter(ProxyQueryInterface $query, $alias, $field, $data)
     {
         // check data sanity
-        if (!$data || !\is_array($data) || !array_key_exists('value', $data)) {
+        if (!$data || !\is_array($data) || !\array_key_exists('value', $data)) {
             return;
         }
 
-        $format = array_key_exists('format', $this->getFieldOptions()) ? $this->getFieldOptions()['format'] : 'c';
+        $format = \array_key_exists('format', $this->getFieldOptions()) ? $this->getFieldOptions()['format'] : 'c';
         $queryBuilder = new \Elastica\Query\Builder();
 
         /*
@@ -73,7 +73,7 @@ abstract class AbstractDateFilter extends Filter
 
         if ($range) {
             // additional data check for ranged items
-            if (!array_key_exists('start', $data['value']) || !array_key_exists('end', $data['value'])) {
+            if (!\array_key_exists('start', $data['value']) || !\array_key_exists('end', $data['value'])) {
                 return;
             }
 
