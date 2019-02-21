@@ -24,7 +24,7 @@ class BooleanFilter extends Filter
      */
     public function filter(ProxyQueryInterface $query, $alias, $field, $data)
     {
-        if (!$data || !\is_array($data) || !array_key_exists('type', $data) || !array_key_exists('value', $data)) {
+        if (!$data || !\is_array($data) || !\array_key_exists('type', $data) || !\array_key_exists('value', $data)) {
             return;
         }
 
