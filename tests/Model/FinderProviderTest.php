@@ -35,11 +35,11 @@ class FinderProviderTest extends TestCase
         $container->expects($this->once())
             ->method('get')
             ->with($finderId)
-            ->will($this->returnValue($finder));
+            ->willReturn($finder);
 
         $admin->expects($this->once())
             ->method('getCode')
-            ->will($this->returnValue($adminId));
+            ->willReturn($adminId);
 
         $this->assertSame(
             $finder,
