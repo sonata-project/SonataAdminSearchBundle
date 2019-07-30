@@ -21,10 +21,6 @@ class FinderProvider implements FinderProviderInterface
     protected $container;
     protected $adminFinderServices; // admin_id => array(finder)
 
-    /**
-     * @param ContainerInterface $container
-     * @param array              $adminFinderServices
-     */
     public function __construct(ContainerInterface $container, array $adminFinderServices)
     {
         $this->container = $container;

@@ -24,9 +24,6 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 class DatagridBuilderInjectionCompilerPass implements CompilerPassInterface
 {
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if (!$container->hasParameter('sonata.admin.search.admin_finder_services')) {
