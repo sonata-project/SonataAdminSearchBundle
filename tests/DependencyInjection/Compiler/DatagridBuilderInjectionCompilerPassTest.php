@@ -18,10 +18,11 @@ use Sonata\AdminSearchBundle\DependencyInjection\Compiler\DatagridBuilderInjecti
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
+use Sonata\AdminSearchBundle\Builder\DatagridBuilder;
 
 class DatagridBuilderInjectionCompilerPassTest extends AbstractCompilerPassTestCase
 {
-    public function testDatagridBuilderIsInjected()
+    public function testDatagridBuilderIsInjected(): void
     {
         $this->setParameter(
             'sonata.admin.search.admin_finder_services',
@@ -32,7 +33,7 @@ class DatagridBuilderInjectionCompilerPassTest extends AbstractCompilerPassTestC
         $this->setDefinition(
             'sonata.admin.search.datagrid_builder',
             new Definition(
-                'Sonata\AdminSearchBundle\Builder\DatagridBuilder',
+                DatagridBuilder::class,
                 [
                     new Reference('sonata.admin.search.elastica_datagrid_builder'),
                     null,
@@ -47,7 +48,7 @@ class DatagridBuilderInjectionCompilerPassTest extends AbstractCompilerPassTestC
         );
     }
 
-    protected function registerCompilerPass(ContainerBuilder $container)
+    protected function registerCompilerPass(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new DatagridBuilderInjectionCompilerPass());
     }

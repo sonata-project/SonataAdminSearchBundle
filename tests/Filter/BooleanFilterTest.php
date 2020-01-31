@@ -17,6 +17,7 @@ use PHPUnit\Framework\TestCase;
 use Sonata\AdminSearchBundle\Filter\BooleanFilter;
 use Sonata\AdminSearchBundle\ProxyQuery\ElasticaProxyQuery;
 use Sonata\CoreBundle\Form\Type\BooleanType;
+use FOS\ElasticaBundle\Finder\TransformedFinder;
 
 class BooleanFilterTest extends TestCase
 {
@@ -25,16 +26,14 @@ class BooleanFilterTest extends TestCase
      */
     protected $proxyQuery;
 
-    public function setup()
+    protected function setUp(): void
     {
-        $finder = $this->getMockBuilder('FOS\ElasticaBundle\Finder\TransformedFinder')
-        ->disableOriginalConstructor()
-        ->getMock();
+        $finder = $this->createMock(TransformedFinder::class);
 
         $this->proxyQuery = new ElasticaProxyQuery($finder);
     }
 
-    public function testNoFilterSimple()
+    public function testNoFilterSimple(): void
     {
         $filter = new BooleanFilter();
         $value = BooleanType::TYPE_NO;
@@ -51,7 +50,7 @@ class BooleanFilterTest extends TestCase
         $this->assertSame('false', $queryArray['query']['bool']['must'][0]['term']['foo']);
     }
 
-    public function testYesFilterSimple()
+    public function testYesFilterSimple(): void
     {
         $filter = new BooleanFilter();
         $value = BooleanType::TYPE_YES;
