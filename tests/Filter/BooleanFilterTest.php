@@ -13,11 +13,11 @@ declare(strict_types=1);
 
 namespace Sonata\AdminSearchBundle\Tests\Filter;
 
+use FOS\ElasticaBundle\Finder\TransformedFinder;
 use PHPUnit\Framework\TestCase;
 use Sonata\AdminSearchBundle\Filter\BooleanFilter;
 use Sonata\AdminSearchBundle\ProxyQuery\ElasticaProxyQuery;
 use Sonata\CoreBundle\Form\Type\BooleanType;
-use FOS\ElasticaBundle\Finder\TransformedFinder;
 
 class BooleanFilterTest extends TestCase
 {
