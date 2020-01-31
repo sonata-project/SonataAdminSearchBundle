@@ -14,8 +14,8 @@ declare(strict_types=1);
 namespace Sonata\AdminSearchBundle\Tests\Model;
 
 use PHPUnit\Framework\TestCase;
-use Sonata\AdminSearchBundle\Model\FinderProvider;
 use Sonata\AdminBundle\Admin\AdminInterface;
+use Sonata\AdminSearchBundle\Model\FinderProvider;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class FinderProviderTest extends TestCase

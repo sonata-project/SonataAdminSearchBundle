@@ -14,11 +14,11 @@ declare(strict_types=1);
 namespace Sonata\AdminSearchBundle\Tests\DependencyInjection\Compiler;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
+use Sonata\AdminSearchBundle\Builder\DatagridBuilder;
 use Sonata\AdminSearchBundle\DependencyInjection\Compiler\DatagridBuilderInjectionCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
-use Sonata\AdminSearchBundle\Builder\DatagridBuilder;
 
 class DatagridBuilderInjectionCompilerPassTest extends AbstractCompilerPassTestCase
 {

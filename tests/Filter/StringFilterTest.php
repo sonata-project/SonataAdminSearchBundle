@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace Sonata\AdminSearchBundle\Tests\Filter;
 
+use FOS\ElasticaBundle\Finder\TransformedFinder;
 use PHPUnit\Framework\TestCase;
 use Sonata\AdminSearchBundle\Filter\StringFilter;
 use Sonata\AdminSearchBundle\ProxyQuery\ElasticaProxyQuery;
-use FOS\ElasticaBundle\Finder\TransformedFinder;
 
 class StringFilterTest extends TestCase
 {
