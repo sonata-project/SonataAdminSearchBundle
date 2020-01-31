@@ -14,13 +14,14 @@ declare(strict_types=1);
 namespace Sonata\AdminSearchBundle\Tests\ProxyQuery;
 
 use FOS\ElasticaBundle\Finder\TransformedFinder;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sonata\AdminSearchBundle\ProxyQuery\ElasticaProxyQuery;
 
 class ElasticaProxyQueryTest extends TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject|TransformedFinder
+     * @var MockObject|TransformedFinder
      */
     protected $finder;
 
@@ -35,23 +36,21 @@ class ElasticaProxyQueryTest extends TestCase
         'columnName' => 'name',
     ];
 
-    public function setup()
+    protected function setUp(): void
     {
-        $this->finder = $this->getMockBuilder('FOS\ElasticaBundle\Finder\TransformedFinder')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->finder = $this->createMock(TransformedFinder::class);
 
         $this->proxyQuery = new ElasticaProxyQuery($this->finder);
     }
 
-    public function testSortByNoParent()
+    public function testSortByNoParent(): void
     {
         $this->proxyQuery->setSortBy(null, $this->fieldMapping);
 
         $this->assertSame('name', $this->proxyQuery->getSortBy());
     }
 
-    public function testSortByWithParent()
+    public function testSortByWithParent(): void
     {
         $parentMapping = [
             [
@@ -64,7 +63,7 @@ class ElasticaProxyQueryTest extends TestCase
         $this->assertSame('category.name', $this->proxyQuery->getSortBy());
     }
 
-    public function testSortOrder()
+    public function testSortOrder(): void
     {
         $this->proxyQuery->setSortOrder('ASC');
 
@@ -74,7 +73,7 @@ class ElasticaProxyQueryTest extends TestCase
     /**
      * Test if "setSort" method of Elastica query has been called.
      */
-    public function testExecuteWithSort()
+    public function testExecuteWithSort(): void
     {
         $this->finder->expects($this->once())
             ->method('createPaginatorAdapter');

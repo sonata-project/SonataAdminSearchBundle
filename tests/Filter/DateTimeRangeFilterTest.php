@@ -22,7 +22,7 @@ use Sonata\AdminSearchBundle\Filter\DateTimeRangeFilter;
  */
 class DateTimeRangeFilterTest extends TestCase
 {
-    public function testGetFilterTypeClass()
+    public function testGetFilterTypeClass(): void
     {
         $filter = new DateTimeRangeFilter();
 

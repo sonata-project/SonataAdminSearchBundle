@@ -14,13 +14,14 @@ declare(strict_types=1);
 namespace Sonata\AdminSearchBundle\Tests\DependencyInjection;
 
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
+use PHPUnit\Framework\TestCase;
 use Sonata\AdminSearchBundle\DependencyInjection\Configuration;
 
-class ConfigurationTest
+class ConfigurationTest extends TestCase
 {
     use ConfigurationTestCaseTrait;
 
-    public function testValidation()
+    public function testValidation(): void
     {
         $this->assertConfigurationIsInvalid(
             [
@@ -33,7 +34,7 @@ class ConfigurationTest
         );
     }
 
-    public function testProcessing()
+    public function testProcessing(): void
     {
         $this->assertProcessedConfigurationEquals(
             [
@@ -53,7 +54,7 @@ class ConfigurationTest
         );
     }
 
-    protected function getConfiguration()
+    protected function getConfiguration(): Configuration
     {
         return new Configuration();
     }
