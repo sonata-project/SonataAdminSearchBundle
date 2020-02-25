@@ -13,8 +13,11 @@ declare(strict_types=1);
 
 namespace Sonata\AdminSearchBundle\Filter;
 
+use Elastica\Query\MatchPhrase;
+use Elastica\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Sonata\AdminBundle\Form\Type\Filter\ChoiceType;
+use Sonata\AdminBundle\Form\Type\Operator\ContainsOperatorType;
 
 class StringFilter extends Filter
 {
@@ -33,24 +36,31 @@ class StringFilter extends Filter
             return;
         }
 
-        $data['type'] = !isset($data['type']) ? ChoiceType::TYPE_CONTAINS : $data['type'];
+        $data['type'] = !isset($data['type']) ? ContainsOperatorType::TYPE_CONTAINS : $data['type'];
 
         list($firstOperator, $secondOperator) = $this->getOperators((int) $data['type']);
 
         // Create a query that match terms (indepedent of terms order) or a phrase
-        $queryBuilder = new \Elastica\Query\Builder();
-        $queryBuilder
-            ->fieldOpen($secondOperator)
-                ->fieldOpen($field)
-                    ->field('query', str_replace(['\\', '"'], ['\\\\', '\"'], $data['value']))
-                    ->field('operator', 'and')
-                ->fieldClose()
-            ->fieldClose();
+        $queryBuilder = new QueryBuilder();
+
+        if ('match_phrase' === $secondOperator) {
+            $innerQuery = new MatchPhrase($field, [
+                'query' => str_replace(['\\', '"'], ['\\\\', '\"'], $data['value']),
+                'operator' => 'and',
+            ]);
+        } else {
+            $innerQuery = $queryBuilder
+                ->query()
+                ->match($field, [
+                    'query' => str_replace(['\\', '"'], ['\\\\', '\"'], $data['value']),
+                    'operator' => 'and',
+                ]);
+        }
 
         if ('must' === $firstOperator) {
-            $query->addMust($queryBuilder);
+            $query->addMust($innerQuery);
         } else {
-            $query->addMustNot($queryBuilder);
+            $query->addMustNot($innerQuery);
         }
     }
 
@@ -82,9 +92,9 @@ class StringFilter extends Filter
     private function getOperators($type)
     {
         $choices = [
-            ChoiceType::TYPE_CONTAINS => ['must', 'match'],
-            ChoiceType::TYPE_NOT_CONTAINS => ['must_not', 'match'],
-            ChoiceType::TYPE_EQUAL => ['must', 'match_phrase'],
+            ContainsOperatorType::TYPE_CONTAINS => ['must', 'match'],
+            ContainsOperatorType::TYPE_NOT_CONTAINS => ['must_not', 'match'],
+            ContainsOperatorType::TYPE_EQUAL => ['must', 'match_phrase'],
         ];
 
         return $choices[$type] ?? false;

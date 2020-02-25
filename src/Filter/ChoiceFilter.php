@@ -13,10 +13,12 @@ declare(strict_types=1);
 
 namespace Sonata\AdminSearchBundle\Filter;
 
+use Elastica\QueryBuilder;
 use Elastica\Util;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
-use Sonata\AdminBundle\Form\Type\Filter\ChoiceType;
 use Sonata\AdminBundle\Form\Type\Filter\DefaultType;
+use Sonata\AdminBundle\Form\Type\Operator\ContainsOperatorType;
+use Sonata\Form\Type\EqualType;
 
 class ChoiceFilter extends Filter
 {
@@ -29,7 +31,7 @@ class ChoiceFilter extends Filter
             return;
         }
 
-        $data['type'] = !isset($data['type']) ? ChoiceType::TYPE_CONTAINS : $data['type'];
+        $data['type'] = !isset($data['type']) ? ContainsOperatorType::TYPE_CONTAINS : $data['type'];
         list($firstOperator, $secondOperator) = $this->getOperators((int) $data['type']);
 
         if (\is_array($data['value'])) {
@@ -41,32 +43,30 @@ class ChoiceFilter extends Filter
                 return;
             }
 
-            $queryBuilder = new \Elastica\Query\Builder();
-            $queryBuilder
-            ->fieldOpen($secondOperator)
-                ->field($field, Util::escapeTerm($data['value']))
-            ->fieldClose();
+            $queryBuilder = new QueryBuilder();
+            $innerQuery = $queryBuilder
+                ->query()
+                ->terms([$field => Util::escapeTerm($data['value'])]);
 
             if ('must' === $firstOperator) {
-                $query->addMust($queryBuilder);
+                $query->addMust($innerQuery);
             } else {
-                $query->addMustNot($queryBuilder);
+                $query->addMustNot($innerQuery);
             }
         } else {
             if ('' === $data['value'] || null === $data['value'] || false === $data['value'] || 'all' === $data['value']) {
                 return;
             }
 
-            $queryBuilder = new \Elastica\Query\Builder();
-            $queryBuilder
-            ->fieldOpen($secondOperator)
-                ->field($field, Util::escapeTerm([$data['value']]))
-            ->fieldClose();
+            $queryBuilder = new QueryBuilder();
+            $innerQuery = $queryBuilder
+                ->query()
+                ->terms([$field => Util::escapeTerm($data['value'])]);
 
             if ('must' === $firstOperator) {
-                $query->addMust($queryBuilder);
+                $query->addMust($innerQuery);
             } else {
-                $query->addMustNot($queryBuilder);
+                $query->addMustNot($innerQuery);
             }
         }
     }
@@ -85,7 +85,7 @@ class ChoiceFilter extends Filter
     public function getRenderSettings()
     {
         return [DefaultType::class, [
-            'operator_type' => 'sonata_type_equal',
+            'operator_type' => EqualType::class,
             'field_type' => $this->getFieldType(),
             'field_options' => $this->getFieldOptions(),
             'label' => $this->getLabel(),
@@ -100,8 +100,8 @@ class ChoiceFilter extends Filter
     private function getOperators($type)
     {
         $choices = [
-            ChoiceType::TYPE_CONTAINS => ['must', 'terms'],
-            ChoiceType::TYPE_NOT_CONTAINS => ['must_not', 'terms'],
+            ContainsOperatorType::TYPE_CONTAINS => ['must', 'terms'],
+            ContainsOperatorType::TYPE_NOT_CONTAINS => ['must_not', 'terms'],
         ];
 
         return $choices[$type] ?? false;

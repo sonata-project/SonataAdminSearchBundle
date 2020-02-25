@@ -24,6 +24,7 @@ use Sonata\AdminSearchBundle\Datagrid\Datagrid;
 use Sonata\AdminSearchBundle\Datagrid\Pager;
 use Sonata\AdminSearchBundle\Model\FinderProviderInterface;
 use Sonata\AdminSearchBundle\ProxyQuery\ElasticaProxyQuery;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormFactoryInterface;
 
 class ElasticaDatagridBuilder implements DatagridBuilderInterface
@@ -107,7 +108,7 @@ class ElasticaDatagridBuilder implements DatagridBuilderInterface
 
         $formBuilder = $this->formFactory->createNamedBuilder(
             'filter',
-            'form',
+            FormType::class,
             [],
             $defaultOptions
         );
