@@ -20,24 +20,21 @@ Callback
 To create a custom callback filter, you just need to set the "callback" filter option
 to a valid callback function. First argument of this function will be
 ``Sonata\AdminSearchBundle\ProxyQuery\ElasticaProxyQuery`` instance which could be
-modified according to your needs.
+modified according to your needs::
 
-.. code-block:: php
-
-    <?php
     namespace Sonata\NewsBundle\Admin;
 
-    use Sonata\AdminBundle\Admin\Admin;
+    Sonata\AdminBundle\Admin\AbstractAdmin;
     use Sonata\AdminBundle\Datagrid\DatagridMapper;
     use Sonata\AdminSearchBundle\ProxyQuery\ElasticaProxyQuery;
 
-    class PostAdmin extends Admin
+    final class PostAdmin extends AbstractAdmin
     {
         protected function configureDatagridFilters(DatagridMapper $datagridMapper)
         {
             $datagridMapper
                 ->add('title')
-                ->add('name', Sonata\AdminSearchBundle\Filter\CallbackFilter::class, array(
+                ->add('name', Sonata\AdminSearchBundle\Filter\CallbackFilter::class, [
                     'callback' => function (ElasticaProxyQuery $query, $alias, $field, $data) {
                         if (!$data || !is_array($data) || !array_key_exists('value', $data)) {
                             return;
@@ -54,29 +51,28 @@ modified according to your needs.
 
                         $query->addMust($queryBuilder);
                     }
-                ))
+                ])
             ;
         }
     }
 
-
 Date
 ^^^^
 
-To make query on date/datetime type, you can use one of the `sonata_search_elastica_date` filter types.
-For example if you have a date in the ISO 8601 date format :
+To make query on date/datetime type, you can use one of the `sonata_search_elastica_date`
+filter types. For example if you have a date in the ISO 8601 date format::
 
-.. code-block:: php
-        
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('date', Sonata\AdminSearchBundle\Filter\DateTimeFilter::class, null, 'datetime', array(
-                'format' => 'c'
-            ))        
+            ->add('date', Sonata\AdminSearchBundle\Filter\DateTimeFilter::class, null, 'datetime', [
+                'format' => 'c',
+            ])
         ;
     }
 
-The format must be a string formatted according to the `php format date`_ and be the one used to map the data in elasticsearch. If it is not the same, ElasticSearch will raise an exception ``failed to parse date field [15/05/28] Invalid format``
+The format must be a string formatted according to the `php format date`_ and be the one used
+to map the data in elasticsearch. If it is not the same, ElasticSearch will raise an exception
+``failed to parse date field [15/05/28] Invalid format``.
 
 .. _php format date: http://php.net/manual/en/function.date.php
