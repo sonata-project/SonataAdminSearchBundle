@@ -18,14 +18,14 @@ use Sonata\AdminSearchBundle\DependencyInjection\SonataAdminSearchExtension;
 
 class SonataAdminSearchExtensionTest extends AbstractExtensionTestCase
 {
-    public function getContainerExtensions()
+    public function getContainerExtensions(): array
     {
         return [
             new SonataAdminSearchExtension(),
         ];
     }
 
-    public function testLoad()
+    public function testLoad(): void
     {
         $this->load([
             'admin_finder_services' => $expectedParameterValue = [

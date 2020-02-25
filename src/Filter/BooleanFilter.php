@@ -13,9 +13,11 @@ declare(strict_types=1);
 
 namespace Sonata\AdminSearchBundle\Filter;
 
+use Elastica\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Sonata\AdminBundle\Form\Type\Filter\DefaultType;
-use Sonata\CoreBundle\Form\Type\BooleanType;
+use Sonata\Form\Type\BooleanType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class BooleanFilter extends Filter
 {
@@ -42,25 +44,25 @@ class BooleanFilter extends Filter
                 return;
             }
 
-            $queryBuilder = new \Elastica\Query\Builder();
-            $queryBuilder
-                ->fieldOpen('terms')
-                    ->field($field, $values)
-                ->fieldClose();
+            $queryBuilder = new QueryBuilder();
+            $innerQuery = $queryBuilder
+                ->query()
+                ->terms($field, $values);
 
-            $query->addMust($queryBuilder);
+            $query->addMust($innerQuery);
         } else {
             if (!\in_array($data['value'], [BooleanType::TYPE_NO, BooleanType::TYPE_YES], true)) {
                 return;
             }
 
-            $queryBuilder = new \Elastica\Query\Builder();
-            $queryBuilder
-                ->fieldOpen('term')
-                    ->field($field, (BooleanType::TYPE_YES === $data['value']))
-                ->fieldClose();
+            $queryBuilder = new QueryBuilder();
+            $innerQuery = $queryBuilder
+                ->query()
+                ->term([
+                    $field => (BooleanType::TYPE_YES === $data['value']),
+                ]);
 
-            $query->addMust($queryBuilder);
+            $query->addMust($innerQuery);
         }
     }
 
@@ -80,7 +82,7 @@ class BooleanFilter extends Filter
         return [DefaultType::class, [
             'field_type' => $this->getFieldType(),
             'field_options' => $this->getFieldOptions(),
-            'operator_type' => 'hidden',
+            'operator_type' => HiddenType::class,
             'operator_options' => [],
             'label' => $this->getLabel(),
         ]];
