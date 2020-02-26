@@ -15,8 +15,9 @@ namespace Sonata\AdminSearchBundle\Filter;
 
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Sonata\AdminBundle\Form\Type\Filter\DefaultType;
-use Sonata\CoreBundle\Form\Type\EqualType;
-use Symfony\Component\Form\Extension\Core\ChoiceList\ChoiceList;
+use Sonata\Form\Type\EqualType;
+use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class ClassFilter extends Filter
 {
@@ -57,7 +58,7 @@ class ClassFilter extends Filter
      */
     public function getFieldType()
     {
-        return $this->getOption('field_type', 'choice');
+        return $this->getOption('field_type', ChoiceType::class);
     }
 
     /**
@@ -67,7 +68,7 @@ class ClassFilter extends Filter
     {
         return $this->getOption('choices', [
             'required' => false,
-            'choice_list' => new ChoiceList(
+            'choice_list' => new ArrayChoiceList(
                 array_values($this->getOption('sub_classes')),
                 array_keys($this->getOption('sub_classes'))
             ),
@@ -80,7 +81,7 @@ class ClassFilter extends Filter
     public function getRenderSettings()
     {
         return [DefaultType::class, [
-            'operator_type' => 'sonata_type_equal',
+            'operator_type' => EqualType::class,
             'field_type' => $this->getFieldType(),
             'field_options' => $this->getFieldOptions(),
             'label' => $this->getLabel(),

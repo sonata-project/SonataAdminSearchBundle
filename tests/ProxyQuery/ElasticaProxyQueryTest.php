@@ -14,13 +14,14 @@ declare(strict_types=1);
 namespace Sonata\AdminSearchBundle\Tests\ProxyQuery;
 
 use FOS\ElasticaBundle\Finder\TransformedFinder;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sonata\AdminSearchBundle\ProxyQuery\ElasticaProxyQuery;
 
 class ElasticaProxyQueryTest extends TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject|TransformedFinder
+     * @var MockObject|TransformedFinder
      */
     protected $finder;
 
@@ -35,11 +36,9 @@ class ElasticaProxyQueryTest extends TestCase
         'columnName' => 'name',
     ];
 
-    public function setup(): void
+    protected function setUp(): void
     {
-        $this->finder = $this->getMockBuilder('FOS\ElasticaBundle\Finder\TransformedFinder')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->finder = $this->createMock(TransformedFinder::class);
 
         $this->proxyQuery = new ElasticaProxyQuery($this->finder);
     }

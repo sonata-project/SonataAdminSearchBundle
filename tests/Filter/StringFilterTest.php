@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\AdminSearchBundle\Tests\Filter;
 
+use FOS\ElasticaBundle\Finder\TransformedFinder;
 use PHPUnit\Framework\TestCase;
 use Sonata\AdminSearchBundle\Filter\StringFilter;
 use Sonata\AdminSearchBundle\ProxyQuery\ElasticaProxyQuery;
@@ -24,11 +25,9 @@ class StringFilterTest extends TestCase
      */
     protected $proxyQuery;
 
-    public function setup(): void
+    protected function setUp(): void
     {
-        $finder = $this->getMockBuilder('FOS\ElasticaBundle\Finder\TransformedFinder')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $finder = $this->createMock(TransformedFinder::class);
 
         $this->proxyQuery = new ElasticaProxyQuery($finder);
     }
@@ -67,6 +66,6 @@ class StringFilterTest extends TestCase
 
         $queryArray = $queryProperty->getValue($this->proxyQuery)->toArray();
 
-        $this->assertSame($value, $queryArray['query']['bool']['must'][0]['match']['foo']['query']);
+        $this->assertSame(str_replace(['\\', '"'], ['\\\\', '\"'], $value), $queryArray['query']['bool']['must'][0]['match']['foo']['query']);
     }
 }

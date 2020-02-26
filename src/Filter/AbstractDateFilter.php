@@ -13,10 +13,13 @@ declare(strict_types=1);
 
 namespace Sonata\AdminSearchBundle\Filter;
 
+use Elastica\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Sonata\AdminBundle\Form\Type\Filter\DateRangeType;
 use Sonata\AdminBundle\Form\Type\Filter\DateTimeType;
-use Sonata\AdminBundle\Form\Type\Filter\DateType;
+use Sonata\AdminBundle\Form\Type\Operator\DateOperatorType;
+use Sonata\AdminBundle\Form\Type\Operator\DateRangeOperatorType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType as SymfonyDateTimeType;
 
 abstract class AbstractDateFilter extends Filter
 {
@@ -53,7 +56,7 @@ abstract class AbstractDateFilter extends Filter
         }
 
         $format = \array_key_exists('format', $this->getFieldOptions()) ? $this->getFieldOptions()['format'] : 'c';
-        $queryBuilder = new \Elastica\Query\Builder();
+        $queryBuilder = new QueryBuilder();
 
         /*
          * NEXT_MAJOR: Use ($this instanceof RangeFilterInterface) for if statement, remove deprecated range.
@@ -90,18 +93,18 @@ abstract class AbstractDateFilter extends Filter
             // default type for range filter
             $data['type'] = !isset($data['type']) || !is_numeric($data['type']) ? DateRangeType::TYPE_BETWEEN : $data['type'];
 
-            $queryBuilder
-                ->fieldOpen('range')
-                    ->fieldOpen($field)
-                        ->field('gte', $data['value']['start']->format($format))
-                        ->field('lte', $data['value']['end']->format($format))
-                    ->fieldClose()
-                ->fieldClose();
+            $innerQuery = $queryBuilder
+                ->query()
+                ->range($field, [
+                    'gte' => $data['value']['start']->format($format),
+                    'lte' => $data['value']['end']->format($format),
+                ])
+            ;
 
-            if (DateRangeType::TYPE_NOT_BETWEEN === $data['type']) {
-                $query->addMustNot($queryBuilder);
+            if (DateRangeOperatorType::TYPE_NOT_BETWEEN === $data['type']) {
+                $query->addMustNot($innerQuery);
             } else {
-                $query->addMust($queryBuilder);
+                $query->addMust($innerQuery);
             }
         } else {
             if (!$data['value']) {
@@ -109,7 +112,7 @@ abstract class AbstractDateFilter extends Filter
             }
 
             // default type for simple filter
-            $data['type'] = !isset($data['type']) || !is_numeric($data['type']) ? DateType::TYPE_GREATER_EQUAL : $data['type'];
+            $data['type'] = !isset($data['type']) || !is_numeric($data['type']) ? DateOperatorType::TYPE_GREATER_EQUAL : $data['type'];
             // just find an operator and apply query
             $operator = $this->getOperator($data['type']);
 
@@ -120,27 +123,31 @@ abstract class AbstractDateFilter extends Filter
 
             // null / not null only check for col
             if (\in_array($operator, ['missing', 'exists'], true)) {
-                $queryBuilder
-                    ->fieldOpen($operator)
-                        ->field('field', $field)
-                    ->fieldClose();
+                $innerQuery = $queryBuilder
+                    ->query()
+                    ->exists($field);
             } elseif ('=' === $operator) {
-                $queryBuilder
-                    ->fieldOpen('range')
-                        ->fieldOpen($field)
-                          ->field('gte', $data['value']->format($format))
-                          ->field('lte', $data['value']->format($format))
-                      ->fieldClose()
-                  ->fieldClose();
+                $innerQuery = $queryBuilder
+                    ->query()
+                    ->range($field, [
+                        'gte' => $data['value']->format($format),
+                        'lte' => $data['value']->format($format),
+                    ])
+                ;
             } else {
-                $queryBuilder
-                    ->fieldOpen('range')
-                        ->fieldOpen($field)
-                            ->field($operator, $data['value']->format($format))
-                        ->fieldClose()
-                    ->fieldClose();
+                $innerQuery = $queryBuilder
+                    ->query()
+                    ->range($field, [
+                        $operator => $data['value']->format($format),
+                    ])
+                ;
             }
-            $query->addMust($queryBuilder);
+
+            if ('missing' === $operator) {
+                $query->addMustNot($innerQuery);
+            } else {
+                $query->addMust($innerQuery);
+            }
         }
     }
 
@@ -150,7 +157,7 @@ abstract class AbstractDateFilter extends Filter
     public function getDefaultOptions()
     {
         return [
-            'input_type' => 'datetime',
+            'input_type' => SymfonyDateTimeType::class,
         ];
     }
 
@@ -196,13 +203,13 @@ abstract class AbstractDateFilter extends Filter
         $type = (int) $type;
 
         $choices = [
-            DateType::TYPE_EQUAL => '=',
-            DateType::TYPE_GREATER_EQUAL => 'gte',
-            DateType::TYPE_GREATER_THAN => 'gt',
-            DateType::TYPE_LESS_EQUAL => 'lte',
-            DateType::TYPE_LESS_THAN => 'lt',
-            DateType::TYPE_NULL => 'missing',
-            DateType::TYPE_NOT_NULL => 'exists',
+            DateOperatorType::TYPE_EQUAL => '=',
+            DateOperatorType::TYPE_GREATER_EQUAL => 'gte',
+            DateOperatorType::TYPE_GREATER_THAN => 'gt',
+            DateOperatorType::TYPE_LESS_EQUAL => 'lte',
+            DateOperatorType::TYPE_LESS_THAN => 'lt',
+            DateOperatorType::TYPE_NULL => 'missing',
+            DateOperatorType::TYPE_NOT_NULL => 'exists',
         ];
 
         return $choices[$type] ?? '=';

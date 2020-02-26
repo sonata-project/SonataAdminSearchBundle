@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sonata\AdminSearchBundle\Tests\DependencyInjection\Compiler;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
+use Sonata\AdminSearchBundle\Builder\DatagridBuilder;
 use Sonata\AdminSearchBundle\DependencyInjection\Compiler\DatagridBuilderInjectionCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -32,7 +33,7 @@ class DatagridBuilderInjectionCompilerPassTest extends AbstractCompilerPassTestC
         $this->setDefinition(
             'sonata.admin.search.datagrid_builder',
             new Definition(
-                'Sonata\AdminSearchBundle\Builder\DatagridBuilder',
+                DatagridBuilder::class,
                 [
                     new Reference('sonata.admin.search.elastica_datagrid_builder'),
                     null,

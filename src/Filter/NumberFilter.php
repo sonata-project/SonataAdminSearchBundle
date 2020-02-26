@@ -13,8 +13,10 @@ declare(strict_types=1);
 
 namespace Sonata\AdminSearchBundle\Filter;
 
+use Elastica\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Sonata\AdminBundle\Form\Type\Filter\NumberType;
+use Sonata\AdminBundle\Form\Type\Operator\NumberOperatorType;
 
 class NumberFilter extends Filter
 {
@@ -30,25 +32,23 @@ class NumberFilter extends Filter
         $type = $data['type'] ?? false;
         $operator = $this->getOperator($type);
 
-        $queryBuilder = new \Elastica\Query\Builder();
+        $queryBuilder = new QueryBuilder();
 
         if (false === $operator) {
             // Match query to get equality
-            $queryBuilder
-                ->fieldOpen('match')
-                    ->field($field, $data['value'])
-                ->fieldClose();
+            $innerQuery = $queryBuilder
+                ->query()
+                ->match($field, $data['value']);
         } else {
             // Range query
-            $queryBuilder
-                ->range()
-                    ->fieldOpen($field)
-                        ->field($operator, $data['value'])
-                    ->fieldClose()
-                ->rangeClose();
+            $innerQuery = $queryBuilder
+                ->query()
+                ->range($field, [
+                    $operator => $data['value'],
+                ]);
         }
 
-        $query->addMust($queryBuilder);
+        $query->addMust($innerQuery);
     }
 
     /**
@@ -79,11 +79,11 @@ class NumberFilter extends Filter
     private function getOperator($type)
     {
         $choices = [
-            NumberType::TYPE_EQUAL => false,
-            NumberType::TYPE_GREATER_EQUAL => 'gte',
-            NumberType::TYPE_GREATER_THAN => 'gt',
-            NumberType::TYPE_LESS_EQUAL => 'lte',
-            NumberType::TYPE_LESS_THAN => 'lt',
+            NumberOperatorType::TYPE_EQUAL => false,
+            NumberOperatorType::TYPE_GREATER_EQUAL => 'gte',
+            NumberOperatorType::TYPE_GREATER_THAN => 'gt',
+            NumberOperatorType::TYPE_LESS_EQUAL => 'lte',
+            NumberOperatorType::TYPE_LESS_THAN => 'lt',
         ];
 
         return $choices[$type] ?? false;

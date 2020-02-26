@@ -1,12 +1,7 @@
 Customizing the query used to generate the list
 ===============================================
 
-
-You can customize the list query thanks to the ``createQuery`` method.
-
-.. code-block:: php
-
-    <?php
+You can customize the list query thanks to the ``createQuery`` method::
 
     public function createQuery($context = 'list')
     {
