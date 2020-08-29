@@ -16,10 +16,10 @@ Implement Search Engine (ElasticSearch) inside Sonata Admin
 [![Monthly Downloads](https://poser.pugx.org/sonata-project/admin-search-bundle/d/monthly)](https://packagist.org/packages/sonata-project/admin-search-bundle)
 [![Daily Downloads](https://poser.pugx.org/sonata-project/admin-search-bundle/d/daily)](https://packagist.org/packages/sonata-project/admin-search-bundle)
 
-Branch | Travis | Coveralls |
------- | ------ | --------- |
-1.x   | [![Build Status][travis_stable_badge]][travis_stable_link]     | [![Coverage Status][coveralls_stable_badge]][coveralls_stable_link]     |
-master | [![Build Status][travis_unstable_badge]][travis_unstable_link] | [![Coverage Status][coveralls_unstable_badge]][coveralls_unstable_link] |
+Branch | Github Actions | Coverage |
+------ | -------------- | -------- |
+1.x    | [![Test][test_stable_badge]][test_stable_link]     | [![Coverage Status][coverage_stable_badge]][coverage_stable_link]     |
+master | [![Test][test_unstable_badge]][test_unstable_link] | [![Coverage Status][coverage_unstable_badge]][coverage_unstable_link] |
 
 ## Documentation
 
@@ -36,12 +36,12 @@ If you think you found a bug or you have a feature idea to propose, feel free to
 
 This package is available under the [MIT license](LICENSE).
 
-[travis_stable_badge]: https://travis-ci.org/sonata-project/SonataAdminSearchBundle.svg?branch=1.x
-[travis_stable_link]: https://travis-ci.org/sonata-project/SonataAdminSearchBundle
-[travis_unstable_badge]: https://travis-ci.org/sonata-project/SonataAdminSearchBundle.svg?branch=master
-[travis_unstable_link]: https://travis-ci.org/sonata-project/SonataAdminSearchBundle
+[test_stable_badge]: https://github.com/sonata-project/SonataAdminSearchBundle/workflows/Test/badge.svg?branch=1.x
+[test_stable_link]: https://github.com/sonata-project/SonataAdminSearchBundle/actions?query=workflow:test+branch:1.x
+[test_unstable_badge]: https://github.com/sonata-project/SonataAdminSearchBundle/workflows/Test/badge.svg?branch=master
+[test_unstable_link]: https://github.com/sonata-project/SonataAdminSearchBundle/actions?query=workflow:test+branch:master
 
-[coveralls_stable_badge]: https://coveralls.io/repos/github/sonata-project/SonataAdminSearchBundle/badge.svg?branch=1.x
-[coveralls_stable_link]: https://coveralls.io/github/sonata-project/SonataAdminSearchBundle?branch=1.x
-[coveralls_unstable_badge]: https://coveralls.io/repos/github/sonata-project/SonataAdminSearchBundle/badge.svg?branch=master
-[coveralls_unstable_link]: https://coveralls.io/github/sonata-project/SonataAdminSearchBundle?branch=master
+[coverage_stable_badge]: https://codecov.io/gh/sonata-project/SonataAdminSearchBundle/branch/1.x/graph/badge.svg
+[coverage_stable_link]: https://codecov.io/gh/sonata-project/SonataAdminSearchBundle/branch/1.x
+[coverage_unstable_badge]: https://codecov.io/gh/sonata-project/SonataAdminSearchBundle/branch/master/graph/badge.svg
+[coverage_unstable_link]: https://codecov.io/gh/sonata-project/SonataAdminSearchBundle/branch/master
