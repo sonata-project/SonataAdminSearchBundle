@@ -53,5 +53,6 @@
         "psr-4": {
             "Sonata\\AdminSearchBundle\\Tests\\": "tests/"
         }
-    }
+    },
+    "abandoned": true
 }
