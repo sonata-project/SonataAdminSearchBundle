@@ -151,7 +151,7 @@ class ElasticaDatagridBuilder implements DatagridBuilderInterface
         $finderId = $this->finderProvider->getFinderIdByAdmin($admin);
 
         // Assume that finder id is composed like this 'fos_elastica.finder.<index name>.<type name>
-        list($indexName, $typeName) = \array_slice(explode('.', $finderId), 2);
+        [$indexName, $typeName] = \array_slice(explode('.', $finderId), 2);
         $typeConfiguration = $this->configManager->getTypeConfiguration($indexName, $typeName);
         $mapping = $typeConfiguration->getMapping();
         $mappedFieldNames = array_keys($mapping['properties']);
@@ -183,7 +183,7 @@ class ElasticaDatagridBuilder implements DatagridBuilderInterface
                     $admin->getModelManager()
                 );
 
-                list($metadata, $propertyName, $parentAssociationMappings) = $ret;
+                [$metadata, $propertyName, $parentAssociationMappings] = $ret;
                 //Case if a filter is used in the filter but not linked to the ModelManager ("mapped" = false ) case
                 if (!$metadata->hasField($key)) {
                     break;
