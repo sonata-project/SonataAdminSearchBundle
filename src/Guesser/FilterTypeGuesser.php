@@ -39,7 +39,7 @@ class FilterTypeGuesser implements TypeGuesserInterface
             'options' => [],
         ];
 
-        list($metadata, $propertyName, $parentAssociationMappings) = $ret;
+        [$metadata, $propertyName, $parentAssociationMappings] = $ret;
 
         $options['parent_association_mappings'] = $parentAssociationMappings;
 
