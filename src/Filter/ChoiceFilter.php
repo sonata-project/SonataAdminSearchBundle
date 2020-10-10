@@ -32,7 +32,7 @@ class ChoiceFilter extends Filter
         }
 
         $data['type'] = !isset($data['type']) ? ContainsOperatorType::TYPE_CONTAINS : $data['type'];
-        list($firstOperator, $secondOperator) = $this->getOperators((int) $data['type']);
+        [$firstOperator, $secondOperator] = $this->getOperators((int) $data['type']);
 
         if (\is_array($data['value'])) {
             if (0 === \count($data['value'])) {
