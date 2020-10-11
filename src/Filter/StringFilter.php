@@ -38,7 +38,7 @@ class StringFilter extends Filter
 
         $data['type'] = !isset($data['type']) ? ContainsOperatorType::TYPE_CONTAINS : $data['type'];
 
-        list($firstOperator, $secondOperator) = $this->getOperators((int) $data['type']);
+        [$firstOperator, $secondOperator] = $this->getOperators((int) $data['type']);
 
         // Create a query that match terms (indepedent of terms order) or a phrase
         $queryBuilder = new QueryBuilder();
