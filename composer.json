@@ -21,7 +21,7 @@
         }
     ],
     "require": {
-        "php": "^7.1",
+        "php": "^7.3",
         "friendsofsymfony/elastica-bundle": "^5.0",
         "pagerfanta/pagerfanta": "^1.0",
         "ruflin/elastica": "^5.0",
