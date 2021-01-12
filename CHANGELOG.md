@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.2.0](https://github.com/sonata-project/SonataAdminBundle/compare/1.0.0...1.1.0) - 2021-01-12
+### Added
+- Support for ElasticaBundle 5
+- Support for Symfony 4
+
 ## [1.1.0](https://github.com/sonata-project/SonataAdminBundle/compare/1.0.0...1.1.0) - 2017-11-27
 ### Changed
  - Changed internal folder structure to `src`, `tests` and `docs`
