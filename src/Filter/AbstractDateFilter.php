@@ -68,7 +68,7 @@ abstract class AbstractDateFilter extends Filter
                     ' Implement %s instead.',
                     RangeFilterInterface::class
                 ),
-                E_USER_DEPRECATED
+                \E_USER_DEPRECATED
             );
 
             $range = $this->range;
@@ -185,7 +185,7 @@ abstract class AbstractDateFilter extends Filter
     {
         @trigger_error(
             __METHOD__.' should be implemented. It will be abstract in 2.0.',
-            E_USER_DEPRECATED
+            \E_USER_DEPRECATED
         );
 
         return DateTimeType::class;
