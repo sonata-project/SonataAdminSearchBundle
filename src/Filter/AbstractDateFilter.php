@@ -98,8 +98,7 @@ abstract class AbstractDateFilter extends Filter
                 ->range($field, [
                     'gte' => $data['value']['start']->format($format),
                     'lte' => $data['value']['end']->format($format),
-                ])
-            ;
+                ]);
 
             if (DateRangeOperatorType::TYPE_NOT_BETWEEN === $data['type']) {
                 $query->addMustNot($innerQuery);
@@ -132,15 +131,13 @@ abstract class AbstractDateFilter extends Filter
                     ->range($field, [
                         'gte' => $data['value']->format($format),
                         'lte' => $data['value']->format($format),
-                    ])
-                ;
+                    ]);
             } else {
                 $innerQuery = $queryBuilder
                     ->query()
                     ->range($field, [
                         $operator => $data['value']->format($format),
-                    ])
-                ;
+                    ]);
             }
 
             if ('missing' === $operator) {
