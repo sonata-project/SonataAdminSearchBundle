@@ -16,10 +16,10 @@ Implement Search Engine (ElasticSearch) inside Sonata Admin
 [![Monthly Downloads](https://poser.pugx.org/sonata-project/admin-search-bundle/d/monthly)](https://packagist.org/packages/sonata-project/admin-search-bundle)
 [![Daily Downloads](https://poser.pugx.org/sonata-project/admin-search-bundle/d/daily)](https://packagist.org/packages/sonata-project/admin-search-bundle)
 
-Branch | Github Actions | Code Coverage |
------- | -------------- | ------------- |
-1.x    | [![Test][test_stable_badge]][test_stable_link]     | [![Coverage Status][coverage_stable_badge]][coverage_stable_link]     |
-master | [![Test][test_unstable_badge]][test_unstable_link] | [![Coverage Status][coverage_unstable_badge]][coverage_unstable_link] |
+Branch | Github Actions | Code Coverage | Documentation |
+------ | -------------- | ------------- | ------------- |
+1.x    | [![Test][test_stable_badge]][test_stable_link]     | [![Coverage Status][coverage_stable_badge]][coverage_stable_link]     | [![Documentation Status][documentation_stable_badge]][documentation_stable_link]     |
+master | [![Test][test_unstable_badge]][test_unstable_link] | [![Coverage Status][coverage_unstable_badge]][coverage_unstable_link] | [![Documentation Status][documentation_unstable_badge]][documentation_unstable_link] |
 
 ## WARNING: This repository is abandoned
 
@@ -29,7 +29,7 @@ Feel free to ask if you want to help to keep this project up to date.
 
 ## Documentation
 
-Check out the documentation on the [official website](https://sonata-project.org/bundles/admin-search).
+Check out the documentation on the [official website](https://docs.sonata-project.org/projects/SonataAdminSearchBundle).
 
 ## Support
 
@@ -51,3 +51,8 @@ This package is available under the [MIT license](LICENSE).
 [coverage_stable_link]: https://codecov.io/gh/sonata-project/SonataAdminSearchBundle/branch/1.x
 [coverage_unstable_badge]: https://codecov.io/gh/sonata-project/SonataAdminSearchBundle/branch/master/graph/badge.svg
 [coverage_unstable_link]: https://codecov.io/gh/sonata-project/SonataAdminSearchBundle/branch/master
+
+[documentation_stable_badge]: https://readthedocs.org/projects/sonataadminsearchbundle/badge/?version=1.x
+[documentation_stable_link]: https://docs.sonata-project.org/projects/SonataAdminSearchBundle/en/1.x/?badge=1.x
+[documentation_unstable_badge]: https://readthedocs.org/projects/sonataadminsearchbundle/badge/?version=master
+[documentation_unstable_link]: https://docs.readthedocs.org/projects/SonataAdminSearchBundle/en/master/?badge=master
