@@ -14,7 +14,7 @@ it when it breaks.
 There is no main developer for it at the moment,
 but we do review and merge PRs pretty quickly.
 
-.. _SonataAdminBundle: http://sonata-project.org/bundles/admin
+.. _SonataAdminBundle: https://docs.sonata-project.org/projects/SonataAdminBundle/en/3.x/
 .. _elasticsearch: http://www.elasticsearch.org/
 .. _FOSElasticaBundle: https://github.com/FriendsOfSymfony/FOSElasticaBundle
 
