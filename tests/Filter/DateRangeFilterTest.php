@@ -28,6 +28,6 @@ class DateRangeFilterTest extends TestCase
 
         $renderSettings = $filter->getRenderSettings();
 
-        $this->assertSame(DateRangeType::class, $renderSettings[0]);
+        static::assertSame(DateRangeType::class, $renderSettings[0]);
     }
 }
