@@ -46,7 +46,7 @@ class StringFilterTest extends TestCase
 
         $queryArray = $queryProperty->getValue($this->proxyQuery)->toArray();
 
-        $this->assertSame($value, $queryArray['query']['bool']['must'][0]['match']['foo']['query']);
+        static::assertSame($value, $queryArray['query']['bool']['must'][0]['match']['foo']['query']);
     }
 
     /**
@@ -66,6 +66,6 @@ class StringFilterTest extends TestCase
 
         $queryArray = $queryProperty->getValue($this->proxyQuery)->toArray();
 
-        $this->assertSame(str_replace(['\\', '"'], ['\\\\', '\"'], $value), $queryArray['query']['bool']['must'][0]['match']['foo']['query']);
+        static::assertSame(str_replace(['\\', '"'], ['\\\\', '\"'], $value), $queryArray['query']['bool']['must'][0]['match']['foo']['query']);
     }
 }
