@@ -34,16 +34,16 @@ class FinderProviderTest extends TestCase
         );
         $finder = new \StdClass();
 
-        $container->expects($this->once())
+        $container->expects(static::once())
             ->method('get')
             ->with($finderId)
             ->willReturn($finder);
 
-        $admin->expects($this->once())
+        $admin->expects(static::once())
             ->method('getCode')
             ->willReturn($adminId);
 
-        $this->assertSame(
+        static::assertSame(
             $finder,
             $provider->getFinderByAdmin($admin)
         );

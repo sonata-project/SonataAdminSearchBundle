@@ -47,7 +47,7 @@ class ElasticaProxyQueryTest extends TestCase
     {
         $this->proxyQuery->setSortBy(null, $this->fieldMapping);
 
-        $this->assertSame('name', $this->proxyQuery->getSortBy());
+        static::assertSame('name', $this->proxyQuery->getSortBy());
     }
 
     public function testSortByWithParent(): void
@@ -60,14 +60,14 @@ class ElasticaProxyQueryTest extends TestCase
 
         $this->proxyQuery->setSortBy($parentMapping, $this->fieldMapping);
 
-        $this->assertSame('category.name', $this->proxyQuery->getSortBy());
+        static::assertSame('category.name', $this->proxyQuery->getSortBy());
     }
 
     public function testSortOrder(): void
     {
         $this->proxyQuery->setSortOrder('ASC');
 
-        $this->assertSame('ASC', $this->proxyQuery->getSortOrder());
+        static::assertSame('ASC', $this->proxyQuery->getSortOrder());
     }
 
     /**
@@ -75,7 +75,7 @@ class ElasticaProxyQueryTest extends TestCase
      */
     public function testExecuteWithSort(): void
     {
-        $this->finder->expects($this->once())
+        $this->finder->expects(static::once())
             ->method('createPaginatorAdapter');
 
         $this->proxyQuery
@@ -89,7 +89,7 @@ class ElasticaProxyQueryTest extends TestCase
 
         $queryProperty->setAccessible(true);
 
-        $this->assertSame(
+        static::assertSame(
             ['name' => ['order' => 'desc']],
             $queryProperty->getValue($this->proxyQuery)->getParam('sort')
         );
