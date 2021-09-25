@@ -46,12 +46,10 @@ This package is available under the [MIT license](LICENSE).
 [test_stable_link]: https://github.com/sonata-project/SonataAdminSearchBundle/actions?query=workflow:test+branch:1.x
 [test_unstable_badge]: https://github.com/sonata-project/SonataAdminSearchBundle/workflows/Test/badge.svg?branch=2.x
 [test_unstable_link]: https://github.com/sonata-project/SonataAdminSearchBundle/actions?query=workflow:test+branch:2.x
-
 [coverage_stable_badge]: https://codecov.io/gh/sonata-project/SonataAdminSearchBundle/branch/1.x/graph/badge.svg
 [coverage_stable_link]: https://codecov.io/gh/sonata-project/SonataAdminSearchBundle/branch/1.x
 [coverage_unstable_badge]: https://codecov.io/gh/sonata-project/SonataAdminSearchBundle/branch/2.x/graph/badge.svg
 [coverage_unstable_link]: https://codecov.io/gh/sonata-project/SonataAdminSearchBundle/branch/2.x
-
 [documentation_stable_badge]: https://readthedocs.org/projects/sonataadminsearchbundle/badge/?version=1.x
 [documentation_stable_link]: https://docs.sonata-project.org/projects/SonataAdminSearchBundle/en/1.x/?badge=1.x
 [documentation_unstable_badge]: https://readthedocs.org/projects/sonataadminsearchbundle/badge/?version=2.x
